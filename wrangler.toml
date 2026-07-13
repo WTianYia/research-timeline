@@ -8,3 +8,7 @@ binding = "PAPERS_BUCKET"
 bucket_name = "tang-research-papers"
 
 [env.production]
+
+[[env.production.r2_buckets]]
+binding = "PAPERS_BUCKET"
+bucket_name = "tang-research-papers"
