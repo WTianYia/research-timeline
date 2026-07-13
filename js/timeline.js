@@ -7,6 +7,7 @@ import {
   fitLaneScaleToHeight,
   filterPapers,
   getConnectedIds,
+  getPaperTitle,
   horizontalEdgeOpacity,
   normalizePaper,
   paperNodeHitRadius,
@@ -55,6 +56,7 @@ const state = {
   showRelations: true,
   drag: null,
   chatHistory: new Map(),
+  titleLanguage: "en",
 };
 
 const elements = {};
@@ -65,7 +67,7 @@ async function init() {
   cacheElements();
   bindStaticEvents();
   try {
-    const [directionsResponse, papersResponse, insights, pdfManifest, markdownManifest] = await Promise.all([
+    const [directionsResponse, papersResponse, insights, pdfManifest, markdownManifest, titleTranslations] = await Promise.all([
       fetch("data/directions.json?v=20260713-relations"),
       fetch("data/papers.csv?v=20260713-relations"),
       fetch("data/paper-insights.json?v=20260713-grok45")
@@ -77,6 +79,9 @@ async function init() {
       fetch("data/markdown-manifest.json?v=20260713-md1")
         .then((response) => response.ok ? response.json() : { available: [] })
         .catch(() => ({ available: [] })),
+      fetch("data/paper-titles-zh.json?v=20260713-grok45")
+        .then((response) => response.ok ? response.json() : { titles: {} })
+        .catch(() => ({ titles: {} })),
     ]);
     if (!directionsResponse.ok || !papersResponse.ok) throw new Error("数据文件无法读取");
     state.directions = await directionsResponse.json();
@@ -86,6 +91,7 @@ async function init() {
     state.papers = parseCSV(await papersResponse.text())
       .map((paper) => normalizePaper({
         ...paper,
+        titleZh: titleTranslations?.titles?.[paper.id] || "",
         innovationClass: state.insights[paper.id]?.innovation?.classification || "证据不足",
         pdfAvailable: pdfAvailableIds.has(paper.id),
         markdownAvailable: markdownAvailableIds.has(paper.id),
@@ -100,6 +106,7 @@ async function init() {
     state.yearEnd = summary.maxYear;
     state.viewStart = summary.minYear - 0.5;
     state.viewEnd = summary.maxYear + 0.5;
+    state.titleLanguage = readStoredTitleLanguage();
     configureYearControls(summary);
     buildFilterControls(summary);
     state.verticalScale = getFittedLaneScale(state.papers);
@@ -143,6 +150,7 @@ function cacheElements() {
     viewportWindow: document.querySelector("#viewport-window"),
     exportButton: document.querySelector("#export-button"),
     exportMenu: document.querySelector("#export-menu"),
+    titleLanguageButton: document.querySelector("#toggle-title-language"),
   });
 }
 
@@ -242,6 +250,7 @@ function bindStaticEvents() {
   document.querySelector("#zoom-in").addEventListener("click", () => zoomAt(0.78, 0.5, 0.5));
   document.querySelector("#zoom-out").addEventListener("click", () => zoomAt(1.25, 0.5, 0.5));
   document.querySelector("#toggle-relations").addEventListener("click", toggleRelations);
+  elements.titleLanguageButton.addEventListener("click", toggleTitleLanguage);
   document.querySelector("#fullscreen").addEventListener("click", toggleFullscreen);
   document.querySelector("#close-detail").addEventListener("click", closeDetail);
   document.querySelector("#toggle-sidebar").addEventListener("click", () => openOverlay("sidebar"));
@@ -341,6 +350,41 @@ function render() {
   drawTimeline(papers);
   renderDensity(papers);
   renderSummary(papers);
+  syncTitleLanguageButton();
+}
+
+function paperTitle(paper) {
+  return getPaperTitle(paper, state.titleLanguage);
+}
+
+function readStoredTitleLanguage() {
+  try {
+    return localStorage.getItem("paper-title-language") === "zh" ? "zh" : "en";
+  } catch {
+    return "en";
+  }
+}
+
+function toggleTitleLanguage() {
+  state.titleLanguage = state.titleLanguage === "en" ? "zh" : "en";
+  try {
+    localStorage.setItem("paper-title-language", state.titleLanguage);
+  } catch {
+    // The switch still works for this session when storage is unavailable.
+  }
+  render();
+  const selectedPaper = state.papers.find((paper) => paper.id === state.selectedId);
+  if (selectedPaper && elements.detailPanel.classList.contains("open")) renderDetail(selectedPaper);
+}
+
+function syncTitleLanguageButton() {
+  const showingChinese = state.titleLanguage === "zh";
+  const targetLanguage = showingChinese ? "英文" : "中文";
+  elements.titleLanguageButton.classList.toggle("active", showingChinese);
+  elements.titleLanguageButton.setAttribute("aria-pressed", String(showingChinese));
+  elements.titleLanguageButton.setAttribute("aria-label", `切换为${targetLanguage}标题`);
+  elements.titleLanguageButton.title = `切换为${targetLanguage}标题`;
+  elements.titleLanguageButton.querySelector("span").textContent = showingChinese ? "EN" : "中";
 }
 
 function drawTimeline(papers) {
@@ -460,7 +504,7 @@ function drawPaperNode(position, paper, width, margin, connected, showCard) {
     class: `paper-node ${paper.id === state.selectedId ? "selected" : ""} ${state.selectionActive && !connected.has(paper.id) ? "dimmed" : ""}`,
     tabindex: 0,
     role: "button",
-    "aria-label": `${paper.year} 年，${paper.title}`,
+    "aria-label": `${paper.year} 年，${paperTitle(paper)}`,
     style: `--edge-opacity:${edgeOpacity}`,
   });
   group.dataset.id = paper.id;
@@ -526,7 +570,7 @@ function createNodeCard(position, paper, radius, width) {
   const group = svg("g", { class: `node-card ${paper.representative ? "representative" : ""}` });
   group.append(svg("rect", { x: cardX, y: cardY, width: cardWidth, height: cardHeight, rx: 4, class: "node-card-bg" }));
   const title = svg("text", { x: cardX + 8, y: cardY + 13, class: "node-card-title" });
-  title.textContent = truncate(paper.title, cardWidth > 160 ? 25 : 21);
+  title.textContent = truncate(paperTitle(paper), cardWidth > 160 ? 25 : 21);
   const meta = svg("text", { x: cardX + 8, y: cardY + 26, class: "node-card-meta" });
   meta.textContent = `${paper.year} · ${TYPE_LABELS[paper.type] || paper.type}${paper.representative ? " · 代表作" : ""}`;
   group.append(title, meta);
@@ -660,7 +704,7 @@ function renderDetail(paper) {
       <span class="detail-tag">${TYPE_LABELS[paper.type] || escapeHTML(paper.type)}</span>
       ${paper.representative ? '<span class="detail-tag representative">代表作</span>' : ""}
     </div>
-    <h3>${escapeHTML(paper.title)}</h3>
+    <h3>${escapeHTML(paperTitle(paper))}</h3>
     <dl class="detail-meta">
       <dt>作者</dt><dd>${escapeHTML(paper.authors || "—")}</dd>
       <dt>期刊</dt><dd>${escapeHTML(paper.journal || "—")}</dd>
@@ -671,7 +715,7 @@ function renderDetail(paper) {
     <section class="detail-section"><h4>关键词</h4><div class="keyword-list">${(paper.keywords || "暂无关键词").split(/[,，]/).map((keyword) => `<span>${escapeHTML(keyword.trim())}</span>`).join("")}</div></section>
     <section class="detail-section"><h4>演化关系 · ${relations.length}</h4><div class="relation-list">${relations.length ? relations.map((relation) => `
       <button class="relation-item" type="button" data-paper-id="${relation.paper.id}">
-        <span class="material-symbols-rounded" aria-hidden="true">${relation.icon}</span><span><b>${relation.label}</b> · ${relation.paper.year}<br>${escapeHTML(relation.paper.title)}</span>
+        <span class="material-symbols-rounded" aria-hidden="true">${relation.icon}</span><span><b>${relation.label}</b> · ${relation.paper.year}<br>${escapeHTML(paperTitle(relation.paper))}</span>
       </button>`).join("") : "<p>当前数据中未标注直接关联论文。</p>"}</div></section>
     <div class="detail-actions ${pdfUrl ? "has-pdf" : ""}">
       ${pdfUrl ? `<a class="primary-link full-width" href="${pdfUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">menu_book</span>阅读 PDF</a>` : ""}
@@ -802,13 +846,13 @@ function renderSummary(papers) {
     const years = directionPapers.map((paper) => paper.year);
     const representative = [...directionPapers].sort((a, b) => Number(b.representative) - Number(a.representative) || b.importance - a.importance)[0];
     const relationCount = state.allRelations.filter((relation) => visibleIds.has(relation.source) && visibleIds.has(relation.target) && (directionPapers.some((paper) => paper.id === relation.source) || directionPapers.some((paper) => paper.id === relation.target))).length;
-    return `<tr><td><span class="summary-direction"><i style="background:${direction.color}"></i>${escapeHTML(direction.label)}</span></td><td>${Math.min(...years)}–${Math.max(...years)}</td><td>${directionPapers.length}</td><td>${escapeHTML(truncate(representative.title, 34))}</td><td>${relationCount}</td></tr>`;
+    return `<tr><td><span class="summary-direction"><i style="background:${direction.color}"></i>${escapeHTML(direction.label)}</span></td><td>${Math.min(...years)}–${Math.max(...years)}</td><td>${directionPapers.length}</td><td>${escapeHTML(truncate(paperTitle(representative), 34))}</td><td>${relationCount}</td></tr>`;
   }).join("") || '<tr><td colspan="5">当前筛选条件下没有可汇总的数据。</td></tr>';
 }
 
 function showTooltip(event, paper, groupExtra = 0) {
   const groupNote = groupExtra > 0 ? ` · 同年同方向另有 ${groupExtra} 篇（均已显示）` : "";
-  elements.tooltip.innerHTML = `<strong>${escapeHTML(paper.title)}</strong><span>${paper.year} · ${escapeHTML(paper.journal || "期刊未标注")} · ${TYPE_LABELS[paper.type] || paper.type}${groupNote}</span>`;
+  elements.tooltip.innerHTML = `<strong>${escapeHTML(paperTitle(paper))}</strong><span>${paper.year} · ${escapeHTML(paper.journal || "期刊未标注")} · ${TYPE_LABELS[paper.type] || paper.type}${groupNote}</span>`;
   elements.tooltip.hidden = false;
   moveTooltip(event);
 }

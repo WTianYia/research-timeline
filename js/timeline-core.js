@@ -45,6 +45,11 @@ export function normalizePaper(paper) {
   };
 }
 
+export function getPaperTitle(paper, language = "en") {
+  if (language === "zh" && paper?.titleZh?.trim()) return paper.titleZh.trim();
+  return paper?.title?.trim() || "";
+}
+
 export function annotateSameYearGroups(papers) {
   const groups = new Map();
   papers.forEach((paper) => {
@@ -74,7 +79,7 @@ export function filterPapers(papers, filters) {
     if (Number.isFinite(filters.yearEnd) && paper.year > filters.yearEnd) return false;
     if (filters.representativeOnly && !paper.representative) return false;
     if (!search) return true;
-    const haystack = [paper.title, paper.authors, paper.journal, paper.keywords, paper.summary, paper.doi]
+    const haystack = [paper.title, paper.titleZh, paper.authors, paper.journal, paper.keywords, paper.summary, paper.doi]
       .filter(Boolean)
       .join(" ")
       .toLocaleLowerCase("zh-CN");

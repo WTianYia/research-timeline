@@ -9,6 +9,7 @@ import {
   exceedsDragThreshold,
   fitLaneScaleToHeight,
   filterPapers,
+  getPaperTitle,
   horizontalEdgeOpacity,
   normalizePaper,
   paperNodeHitRadius,
@@ -18,6 +19,29 @@ import {
   togglePaperSelection,
   zoomViewport2D,
 } from "../js/timeline-core.js";
+
+test("getPaperTitle switches between English and Chinese with a safe fallback", () => {
+  const paper = { title: "A splitting method", titleZh: "一种分裂方法" };
+  assert.equal(getPaperTitle(paper, "en"), "A splitting method");
+  assert.equal(getPaperTitle(paper, "zh"), "一种分裂方法");
+  assert.equal(getPaperTitle({ title: "English only" }, "zh"), "English only");
+});
+
+test("timeline exposes a title-language switch inside the canvas tools", async () => {
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  assert.match(html, /class="canvas-tools"[\s\S]*id="toggle-title-language"/);
+  assert.match(html, /aria-label="切换为中文标题"/);
+});
+
+test("Grok Chinese title data covers every paper exactly once", async () => {
+  const csv = await readFile(new URL("../data/papers.csv", import.meta.url), "utf8");
+  const translated = JSON.parse(await readFile(new URL("../data/paper-titles-zh.json", import.meta.url), "utf8"));
+  const paperIds = parseCSV(csv).map((paper) => paper.id).sort();
+  const translatedIds = Object.keys(translated.titles).sort();
+  assert.equal(translated.model, "grok-4.5");
+  assert.deepEqual(translatedIds, paperIds);
+  Object.values(translated.titles).forEach((title) => assert.ok(title.trim().length >= 4));
+});
 
 test("alignViewportToPixel preserves span and places the target year at the requested pixel", () => {
   const viewport = alignViewportToPixel({
@@ -108,6 +132,17 @@ test("filterPapers combines direction, year, type, representative and search", (
     search: "banach",
   });
   assert.deepEqual(result.map((paper) => paper.id), ["A1"]);
+});
+
+test("filterPapers matches both English and Chinese paper titles", () => {
+  const papers = [normalizePaper({
+    id: "A1",
+    year: "2024",
+    title: "Forward-backward splitting",
+    titleZh: "前向-后向分裂",
+  })];
+  assert.deepEqual(filterPapers(papers, { search: "前向" }).map((paper) => paper.id), ["A1"]);
+  assert.deepEqual(filterPapers(papers, { search: "forward" }).map((paper) => paper.id), ["A1"]);
 });
 
 test("filterPapers combines Grok innovation classifications with existing filters", () => {

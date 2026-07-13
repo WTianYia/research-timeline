@@ -162,6 +162,7 @@ button { border: 0; }
 .canvas-tools { width: max-content; position: absolute; z-index: 12; right: 16px; bottom: 51px; display: flex; align-items: center; padding: 4px; background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 7px; box-shadow: 0 5px 16px rgba(25,44,72,.14); }
 .canvas-tools button { width: 34px; height: 32px; display: grid; place-items: center; color: #32475f; background: transparent; border-radius: 4px; cursor: pointer; }
 .canvas-tools button:hover, .canvas-tools button.active { color: var(--blue); background: var(--blue-soft); }
+.canvas-tools .title-language-toggle { width: 38px; font-size: 10px; font-weight: 700; letter-spacing: .02em; }
 .tool-divider { width: 1px; height: 24px; margin: 0 3px; background: var(--line); }
 .density-navigator { min-width: 0; position: relative; display: grid; grid-template-columns: 38px 1fr 38px; align-items: center; gap: 8px; padding: 0 20px; color: #61748e; background: #fff; border-top: 1px solid var(--line); font-size: 9px; }
 .density-navigator > span:last-of-type { text-align: right; }
