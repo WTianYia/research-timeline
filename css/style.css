@@ -160,13 +160,15 @@ button { border: 0; }
 .cluster-badge { fill: #fff7f2; stroke: #c55e35; stroke-width: 1.2; }
 .cluster-text { fill: #a44827; font-size: 9px; font-weight: 700; pointer-events: none; }
 .canvas-tools { width: max-content; position: absolute; z-index: 12; right: 16px; bottom: 51px; display: flex; align-items: center; padding: 4px; background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 7px; box-shadow: 0 5px 16px rgba(25,44,72,.14); }
+.canvas-tool-actions { display: flex; align-items: center; }
 .canvas-tools button { width: 34px; height: 32px; display: grid; place-items: center; color: #32475f; background: transparent; border-radius: 4px; cursor: pointer; }
 .canvas-tools button:hover, .canvas-tools button.active { color: var(--blue); background: var(--blue-soft); }
 .canvas-tools .title-language-toggle { width: 38px; font-size: 10px; font-weight: 700; letter-spacing: .02em; }
 .tool-divider { width: 1px; height: 24px; margin: 0 3px; background: var(--line); }
 .density-navigator { min-width: 0; position: relative; display: grid; grid-template-columns: 38px 1fr 38px; align-items: center; gap: 8px; padding: 0 20px; color: #61748e; background: #fff; border-top: 1px solid var(--line); font-size: 9px; }
 .density-navigator > span:last-of-type { text-align: right; }
-.density-strip { height: 24px; display: flex; align-items: end; gap: 2px; cursor: crosshair; }
+.density-strip { height: 24px; display: flex; align-items: end; gap: 2px; cursor: ew-resize; touch-action: none; }
+.density-strip.dragging { cursor: grabbing; }
 .density-strip i { min-width: 3px; flex: 1; display: block; background: #9cabbf; opacity: .62; border-radius: 1px 1px 0 0; }
 #viewport-window { height: 30px; position: absolute; z-index: 2; top: 6px; left: 66px; background: rgba(7,86,201,.08); border: 1px solid rgba(7,86,201,.55); border-radius: 2px; pointer-events: none; }
 .tooltip { width: min(330px, calc(100vw - 28px)); position: fixed; z-index: 90; padding: 11px 12px; color: #eaf1fa; background: rgba(17,31,51,.97); border: 1px solid #334963; border-top: 2px solid #5d9cef; border-radius: 5px; box-shadow: 0 10px 28px rgba(15,28,48,.25); pointer-events: none; font-size: 10px; line-height: 1.55; }
@@ -332,15 +334,26 @@ td:first-child { min-width: 130px; font-weight: 600; }
 }
 
 @media (max-width: 560px) {
-  .brand h1 { max-width: 128px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .search-field { width: 38px; padding: 0 9px; }
+  .topbar { padding: 0 6px; }
+  .brand { flex: 1 1 auto; gap: 4px; }
+  .brand h1 { max-width: none; overflow: visible; text-overflow: clip; white-space: nowrap; font-size: clamp(11px, 3.6vw, 14px); }
+  .brand .mobile-only { width: 30px; height: 30px; }
+  .top-actions { flex: 0 0 auto; gap: 3px; }
+  .top-actions .toolbar-button, .top-actions .icon-button { width: 30px; height: 30px; }
+  .search-field { width: 30px; height: 30px; padding: 0 6px; }
   .search-field input { width: 0; opacity: 0; }
   .search-field:focus-within { width: calc(100vw - 164px); position: absolute; z-index: 70; right: 92px; background: #fff; }
   .search-field:focus-within input { width: auto; opacity: 1; }
   #reset-all { display: none; }
   .detail-panel { width: 100vw; }
   .timeline-meta h2 { font-size: 14px; }
-  .timeline-meta p { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .timeline-meta { padding-inline: 8px; }
+  .timeline-meta > div:first-child { min-width: 0; width: 100%; }
+  .timeline-meta p { max-width: none; overflow: visible; text-overflow: clip; white-space: nowrap; font-size: clamp(7.5px, 2.1vw, 8.5px); letter-spacing: -.025em; }
+  .canvas-tools { right: 10px; bottom: 48px; padding: 3px; }
+  .canvas-tool-actions { position: absolute; right: 0; bottom: calc(100% + 6px); display: none; align-items: center; padding: 4px; background: rgba(255,255,255,.98); border: 1px solid var(--line); border-radius: 7px; box-shadow: 0 5px 16px rgba(25,44,72,.16); }
+  .canvas-tools.expanded .canvas-tool-actions { display: flex; }
+  .canvas-tools .canvas-tool-toggle { display: grid !important; }
   .density-navigator { padding: 0 10px; }
   .summary-heading { align-items: start; flex-direction: column; gap: 7px; }
   .stage-cards { grid-template-columns: 1fr; }

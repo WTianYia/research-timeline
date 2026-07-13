@@ -6,6 +6,7 @@ import {
   annotateSameYearGroups,
   buildRelations,
   computeLaneHeights,
+  densityPointerToCenter,
   exceedsDragThreshold,
   fitLaneScaleToHeight,
   filterPapers,
@@ -15,6 +16,7 @@ import {
   paperNodeHitRadius,
   parseCSV,
   relationEdgeOpacity,
+  resolveTitleLanguage,
   summarizePapers,
   togglePaperSelection,
   zoomViewport2D,
@@ -31,6 +33,41 @@ test("timeline exposes a title-language switch inside the canvas tools", async (
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /class="canvas-tools"[\s\S]*id="toggle-title-language"/);
   assert.match(html, /aria-label="切换为中文标题"/);
+});
+
+test("mobile canvas tools collapse behind one disclosure button", async () => {
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  const css = await readFile(new URL("../css/style.css", import.meta.url), "utf8");
+  assert.match(html, /id="toggle-canvas-tools"[^>]*aria-expanded="false"/);
+  assert.match(html, /class="canvas-tool-actions"/);
+  assert.match(css, /\.canvas-tools\.expanded \.canvas-tool-actions/);
+});
+
+test("mobile header and timeline guidance stay readable on one complete line", async () => {
+  const css = await readFile(new URL("../css/style.css", import.meta.url), "utf8");
+  assert.match(css, /\.brand h1 \{ max-width: none; overflow: visible; text-overflow: clip; white-space: nowrap;/);
+  assert.match(css, /\.timeline-meta > div:first-child \{ min-width: 0; width: 100%; \}/);
+  assert.match(css, /\.timeline-meta p \{[^}]*font-size: clamp\(7\.5px,/);
+});
+
+test("title language defaults to Chinese on mobile without overriding a saved choice", () => {
+  assert.equal(resolveTitleLanguage(null, true), "zh");
+  assert.equal(resolveTitleLanguage(null, false), "en");
+  assert.equal(resolveTitleLanguage("en", true), "en");
+  assert.equal(resolveTitleLanguage("zh", false), "zh");
+});
+
+test("density navigator maps pointer dragging to a bounded timeline center", () => {
+  assert.equal(densityPointerToCenter(150, 100, 200, 2006, 2026), 2011);
+  assert.equal(densityPointerToCenter(40, 100, 200, 2006, 2026), 2006);
+  assert.equal(densityPointerToCenter(400, 100, 200, 2006, 2026), 2026);
+});
+
+test("density navigator binds pointer dragging in addition to clicking", async () => {
+  const script = await readFile(new URL("../js/timeline.js", import.meta.url), "utf8");
+  assert.match(script, /densityStrip\.addEventListener\("pointerdown", onDensityPointerDown\)/);
+  assert.match(script, /window\.addEventListener\("pointermove", onDensityPointerMove\)/);
+  assert.match(script, /window\.addEventListener\("pointerup", onDensityPointerUp\)/);
 });
 
 test("Grok Chinese title data covers every paper exactly once", async () => {

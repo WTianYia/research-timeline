@@ -3,6 +3,7 @@ import {
   annotateSameYearGroups,
   buildRelations,
   computeLaneHeights,
+  densityPointerToCenter,
   exceedsDragThreshold,
   fitLaneScaleToHeight,
   filterPapers,
@@ -13,6 +14,7 @@ import {
   paperNodeHitRadius,
   parseCSV,
   relationEdgeOpacity,
+  resolveTitleLanguage,
   summarizePapers,
   togglePaperSelection,
   zoomViewport2D,
@@ -55,6 +57,7 @@ const state = {
   selectionActive: false,
   showRelations: true,
   drag: null,
+  densityDrag: null,
   chatHistory: new Map(),
   titleLanguage: "en",
 };
@@ -132,6 +135,8 @@ function cacheElements() {
     timeline: document.querySelector("#timeline"),
     timelineScroll: document.querySelector("#timeline-scroll"),
     canvasTools: document.querySelector(".canvas-tools"),
+    canvasToolActions: document.querySelector(".canvas-tool-actions"),
+    canvasToolToggle: document.querySelector("#toggle-canvas-tools"),
     timelineStatus: document.querySelector("#timeline-status"),
     empty: document.querySelector("#empty-state"),
     tooltip: document.querySelector("#tooltip"),
@@ -251,6 +256,10 @@ function bindStaticEvents() {
   document.querySelector("#zoom-out").addEventListener("click", () => zoomAt(1.25, 0.5, 0.5));
   document.querySelector("#toggle-relations").addEventListener("click", toggleRelations);
   elements.titleLanguageButton.addEventListener("click", toggleTitleLanguage);
+  elements.canvasToolToggle.addEventListener("click", toggleCanvasTools);
+  elements.canvasToolActions.addEventListener("click", () => {
+    if (window.innerWidth <= 840) setCanvasToolsExpanded(false);
+  });
   document.querySelector("#fullscreen").addEventListener("click", toggleFullscreen);
   document.querySelector("#close-detail").addEventListener("click", closeDetail);
   document.querySelector("#toggle-sidebar").addEventListener("click", () => openOverlay("sidebar"));
@@ -283,6 +292,10 @@ function bindStaticEvents() {
     }
   });
   elements.densityStrip.addEventListener("click", onDensityClick);
+  elements.densityStrip.addEventListener("pointerdown", onDensityPointerDown);
+  window.addEventListener("pointermove", onDensityPointerMove);
+  window.addEventListener("pointerup", onDensityPointerUp);
+  window.addEventListener("pointercancel", onDensityPointerUp);
 }
 
 function updateYearRange(event) {
@@ -358,11 +371,23 @@ function paperTitle(paper) {
 }
 
 function readStoredTitleLanguage() {
+  const isMobile = window.matchMedia?.("(max-width: 840px)").matches ?? window.innerWidth <= 840;
   try {
-    return localStorage.getItem("paper-title-language") === "zh" ? "zh" : "en";
+    return resolveTitleLanguage(localStorage.getItem("paper-title-language"), isMobile);
   } catch {
-    return "en";
+    return resolveTitleLanguage(null, isMobile);
   }
+}
+
+function setCanvasToolsExpanded(expanded) {
+  elements.canvasTools.classList.toggle("expanded", expanded);
+  elements.canvasToolToggle.setAttribute("aria-expanded", String(expanded));
+  elements.canvasToolToggle.setAttribute("aria-label", expanded ? "收起画布工具" : "展开画布工具");
+  elements.canvasToolToggle.title = expanded ? "收起画布工具" : "展开画布工具";
+}
+
+function toggleCanvasTools() {
+  setCanvasToolsExpanded(!elements.canvasTools.classList.contains("expanded"));
 }
 
 function toggleTitleLanguage() {
@@ -921,13 +946,35 @@ function onPointerUp(event) {
 }
 
 function onDensityClick(event) {
+  setDensityViewportCenter(event.clientX);
+}
+
+function setDensityViewportCenter(clientX) {
   const rect = elements.densityStrip.getBoundingClientRect();
-  const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
-  const center = state.fullMin + ratio * (state.fullMax - state.fullMin);
+  const center = densityPointerToCenter(clientX, rect.left, rect.width, state.fullMin, state.fullMax);
   const span = state.viewEnd - state.viewStart;
   state.viewStart = center - span / 2;
   state.viewEnd = center + span / 2;
   render();
+}
+
+function onDensityPointerDown(event) {
+  state.densityDrag = { pointerId: event.pointerId };
+  elements.densityStrip.setPointerCapture?.(event.pointerId);
+  elements.densityStrip.classList.add("dragging");
+  setDensityViewportCenter(event.clientX);
+}
+
+function onDensityPointerMove(event) {
+  if (!state.densityDrag || event.pointerId !== state.densityDrag.pointerId) return;
+  setDensityViewportCenter(event.clientX);
+}
+
+function onDensityPointerUp(event) {
+  if (!state.densityDrag || (event?.pointerId != null && event.pointerId !== state.densityDrag.pointerId)) return;
+  elements.densityStrip.releasePointerCapture?.(state.densityDrag.pointerId);
+  state.densityDrag = null;
+  elements.densityStrip.classList.remove("dragging");
 }
 
 function fitView() {

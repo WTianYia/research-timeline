@@ -172,6 +172,19 @@ export function zoomViewport2D(viewport, factor, anchorRatio = 0.5) {
   return { viewStart, viewEnd: viewStart + nextSpan, verticalScale };
 }
 
+export function resolveTitleLanguage(storedLanguage, isMobile = false) {
+  if (storedLanguage === "zh" || storedLanguage === "en") return storedLanguage;
+  return isMobile ? "zh" : "en";
+}
+
+export function densityPointerToCenter(clientX, rectLeft, rectWidth, fullMin, fullMax) {
+  if (![clientX, rectLeft, rectWidth, fullMin, fullMax].every(Number.isFinite) || rectWidth <= 0 || fullMax < fullMin) {
+    return fullMin;
+  }
+  const ratio = Math.max(0, Math.min(1, (clientX - rectLeft) / rectWidth));
+  return fullMin + ratio * (fullMax - fullMin);
+}
+
 export function togglePaperSelection(currentId, clickedId) {
   if (currentId === clickedId) return { selectedId: null, open: false };
   return { selectedId: clickedId, open: true };
