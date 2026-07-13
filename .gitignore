@@ -3,4 +3,5 @@ node_modules/
 .dev.vars*
 .env*
 upload-progress.json
+upload-markdown-progress.json
 data/paper-insights/_errors/

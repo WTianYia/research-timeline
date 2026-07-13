@@ -57,6 +57,17 @@ test("paper details load the PDF manifest and expose the same-origin reader endp
   assert.deepEqual(manifest.missing, ["A3", "A12", "A26", "A37", "A43"]);
 });
 
+test("paper details load the Markdown manifest and expose AI context access", async () => {
+  const script = await readFile(new URL("../js/timeline.js", import.meta.url), "utf8");
+  const manifest = JSON.parse(await readFile(new URL("../data/markdown-manifest.json", import.meta.url), "utf8"));
+  assert.match(script, /data\/markdown-manifest\.json/);
+  assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/markdown/);
+  assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/context/);
+  assert.match(script, /copyMarkdownContext/);
+  assert.equal(manifest.available.length, 81);
+  assert.deepEqual(manifest.missing, ["A3", "A12", "A26", "A37", "A43"]);
+});
+
 test("sidebar exposes innovation filters and timeline explains same-year badges", async () => {
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
   const script = await readFile(new URL("../js/timeline.js", import.meta.url), "utf8");

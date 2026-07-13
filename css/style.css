@@ -252,6 +252,8 @@ button { border: 0; }
 .primary-link { color: #fff; background: var(--blue); }
 .primary-link:hover { background: var(--blue-dark); }
 .secondary-link { color: #35516f; background: #fff; border: 1px solid var(--line); }
+.secondary-link.context-copy-action { font-family: inherit; cursor: pointer; }
+.secondary-link.context-copy-action:disabled { cursor: wait; opacity: .72; }
 .secondary-link:hover { color: var(--blue); border-color: #b8cde8; background: var(--blue-soft); }
 .secondary-action { width: 40px; color: #536a85; background: #fff; border: 1px solid var(--line); }
 

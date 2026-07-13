@@ -64,7 +64,7 @@ async function init() {
   cacheElements();
   bindStaticEvents();
   try {
-    const [directionsResponse, papersResponse, insights, pdfManifest] = await Promise.all([
+    const [directionsResponse, papersResponse, insights, pdfManifest, markdownManifest] = await Promise.all([
       fetch("data/directions.json?v=20260713-relations"),
       fetch("data/papers.csv?v=20260713-relations"),
       fetch("data/paper-insights.json?v=20260713-grok45")
@@ -73,16 +73,21 @@ async function init() {
       fetch("data/pdf-manifest.json?v=20260713-pdf1")
         .then((response) => response.ok ? response.json() : { available: [] })
         .catch(() => ({ available: [] })),
+      fetch("data/markdown-manifest.json?v=20260713-md1")
+        .then((response) => response.ok ? response.json() : { available: [] })
+        .catch(() => ({ available: [] })),
     ]);
     if (!directionsResponse.ok || !papersResponse.ok) throw new Error("数据文件无法读取");
     state.directions = await directionsResponse.json();
     state.insights = insights || {};
     const pdfAvailableIds = new Set(pdfManifest?.available || []);
+    const markdownAvailableIds = new Set(markdownManifest?.available || []);
     state.papers = parseCSV(await papersResponse.text())
       .map((paper) => normalizePaper({
         ...paper,
         innovationClass: state.insights[paper.id]?.innovation?.classification || "证据不足",
         pdfAvailable: pdfAvailableIds.has(paper.id),
+        markdownAvailable: markdownAvailableIds.has(paper.id),
       }))
       .filter((paper) => paper.id && paper.year);
     state.allRelations = buildRelations(state.papers);
@@ -643,6 +648,8 @@ function renderDetail(paper) {
   ];
   const doiUrl = paper.doi ? `https://doi.org/${encodeURIComponent(paper.doi)}` : "";
   const pdfUrl = paper.pdfAvailable ? `/api/papers/${paper.id}/pdf` : "";
+  const markdownUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/markdown` : "";
+  const contextUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/context` : "";
   elements.detailEmpty.hidden = true;
   elements.detailContent.hidden = false;
   elements.detailContent.innerHTML = `
@@ -667,10 +674,43 @@ function renderDetail(paper) {
       </button>`).join("") : "<p>当前数据中未标注直接关联论文。</p>"}</div></section>
     <div class="detail-actions ${pdfUrl ? "has-pdf" : ""}">
       ${pdfUrl ? `<a class="primary-link full-width" href="${pdfUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">menu_book</span>阅读 PDF</a>` : ""}
+      ${markdownUrl ? `<a class="secondary-link" href="${markdownUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">article</span>查看 MD</a>` : ""}
+      ${contextUrl ? `<button class="secondary-link context-copy-action" type="button" data-context-url="${contextUrl}"><span class="material-symbols-rounded">smart_toy</span>复制 AI 上下文</button>` : ""}
       ${doiUrl ? `<a class="${pdfUrl ? "secondary-link" : "primary-link"}" href="${doiUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">open_in_new</span>访问论文 DOI</a>` : `<span class="${pdfUrl ? "secondary-link" : "primary-link"}" aria-disabled="true">暂无 DOI 链接</span>`}
       <a class="secondary-action" href="data/papers.csv" download title="下载数据"><span class="material-symbols-rounded">bookmark_add</span></a>
     </div>`;
   elements.detailContent.querySelectorAll("[data-paper-id]").forEach((button) => button.addEventListener("click", () => selectPaper(button.dataset.paperId)));
+  elements.detailContent.querySelectorAll("[data-context-url]").forEach((button) => button.addEventListener("click", () => copyMarkdownContext(button, paper)));
+}
+
+async function copyMarkdownContext(button, paper) {
+  const originalHTML = button.innerHTML;
+  try {
+    button.disabled = true;
+    button.innerHTML = '<span class="material-symbols-rounded">hourglass_top</span>读取中';
+    const response = await fetch(button.dataset.contextUrl);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const payload = await response.json();
+    const markdown = payload.markdown?.content || "";
+    const prompt = [
+      `论文编号：${paper.id}`,
+      `标题：${paper.title}`,
+      `年份：${paper.year}`,
+      `作者：${paper.authors || "未记录"}`,
+      `期刊：${paper.journal || "未记录"}`,
+      `DOI：${paper.doi || "未记录"}`,
+      "",
+      "请基于下面的 MinerU Markdown 原文，回答该论文的研究问题、方法、创新性、相对前序工作的增量或核心创新，并明确证据边界。",
+      "",
+      markdown,
+    ].join("\n");
+    await navigator.clipboard.writeText(prompt);
+    button.innerHTML = '<span class="material-symbols-rounded">done</span>已复制';
+    window.setTimeout(() => { button.innerHTML = originalHTML; button.disabled = false; }, 1400);
+  } catch (error) {
+    button.innerHTML = '<span class="material-symbols-rounded">error</span>复制失败';
+    window.setTimeout(() => { button.innerHTML = originalHTML; button.disabled = false; }, 1800);
+  }
 }
 
 function closeDetail() {
