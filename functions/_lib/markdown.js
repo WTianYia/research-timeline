@@ -58,7 +58,7 @@ export async function servePaperContext({ bucket, paperId }) {
     paperId: id,
     markdown: {
       available: true,
-      url: `/api/papers/${id}/markdown`,
+      url: `/api/papers/${id}/md`,
       size: object.size ?? new TextEncoder().encode(content).length,
       content: bounded,
       truncated: content.length > bounded.length,

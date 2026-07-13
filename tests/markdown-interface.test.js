@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { onRequest as onMarkdownRequest } from "../functions/api/papers/[id]/markdown.js";
+import { onRequest as onMdRequest } from "../functions/api/papers/[id]/md.js";
 import { onRequest as onContextRequest } from "../functions/api/papers/[id]/context.js";
 import { servePaperContext, servePaperMarkdown } from "../functions/_lib/markdown.js";
 
@@ -65,7 +66,7 @@ test("servePaperContext exposes bounded Markdown content for browser-side AI usa
   const payload = await response.json();
   assert.equal(payload.paperId, "A31");
   assert.equal(payload.markdown.available, true);
-  assert.equal(payload.markdown.url, "/api/papers/A31/markdown");
+  assert.equal(payload.markdown.url, "/api/papers/A31/md");
   assert.equal(payload.markdown.content.length, 12000);
   assert.equal(payload.markdown.truncated, true);
 });
@@ -77,6 +78,13 @@ test("Pages routes delegate only supported methods", async () => {
     params: { id: "A31" },
   });
   assert.equal(markdown.status, 200);
+
+  const mdAlias = await onMdRequest({
+    request: new Request("https://example.test/api/papers/A31/md"),
+    env: { PAPERS_BUCKET: createBucket() },
+    params: { id: "A31" },
+  });
+  assert.equal(mdAlias.status, 200);
 
   const markdownRejected = await onMarkdownRequest({
     request: new Request("https://example.test/api/papers/A31/markdown", { method: "POST" }),

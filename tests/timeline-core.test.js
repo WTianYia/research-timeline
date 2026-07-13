@@ -61,7 +61,7 @@ test("paper details load the Markdown manifest and expose AI context access", as
   const script = await readFile(new URL("../js/timeline.js", import.meta.url), "utf8");
   const manifest = JSON.parse(await readFile(new URL("../data/markdown-manifest.json", import.meta.url), "utf8"));
   assert.match(script, /data\/markdown-manifest\.json/);
-  assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/markdown/);
+  assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/md/);
   assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/context/);
   assert.match(script, /copyMarkdownContext/);
   assert.equal(manifest.available.length, 81);

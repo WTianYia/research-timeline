@@ -648,7 +648,7 @@ function renderDetail(paper) {
   ];
   const doiUrl = paper.doi ? `https://doi.org/${encodeURIComponent(paper.doi)}` : "";
   const pdfUrl = paper.pdfAvailable ? `/api/papers/${paper.id}/pdf` : "";
-  const markdownUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/markdown` : "";
+  const markdownUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/md` : "";
   const contextUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/context` : "";
   elements.detailEmpty.hidden = true;
   elements.detailContent.hidden = false;
