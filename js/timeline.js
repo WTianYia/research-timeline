@@ -54,6 +54,7 @@ const state = {
   selectionActive: false,
   showRelations: true,
   drag: null,
+  chatHistory: new Map(),
 };
 
 const elements = {};
@@ -649,7 +650,7 @@ function renderDetail(paper) {
   const doiUrl = paper.doi ? `https://doi.org/${encodeURIComponent(paper.doi)}` : "";
   const pdfUrl = paper.pdfAvailable ? `/api/papers/${paper.id}/pdf` : "";
   const markdownUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/md` : "";
-  const contextUrl = paper.markdownAvailable ? `/api/papers/${paper.id}/context` : "";
+  const chatHistory = state.chatHistory.get(paper.id) || [];
   elements.detailEmpty.hidden = true;
   elements.detailContent.hidden = false;
   elements.detailContent.innerHTML = `
@@ -675,42 +676,79 @@ function renderDetail(paper) {
     <div class="detail-actions ${pdfUrl ? "has-pdf" : ""}">
       ${pdfUrl ? `<a class="primary-link full-width" href="${pdfUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">menu_book</span>阅读 PDF</a>` : ""}
       ${markdownUrl ? `<a class="secondary-link" href="${markdownUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">article</span>查看 MD</a>` : ""}
-      ${contextUrl ? `<button class="secondary-link context-copy-action" type="button" data-context-url="${contextUrl}"><span class="material-symbols-rounded">smart_toy</span>复制 AI 上下文</button>` : ""}
       ${doiUrl ? `<a class="${pdfUrl ? "secondary-link" : "primary-link"}" href="${doiUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">open_in_new</span>访问论文 DOI</a>` : `<span class="${pdfUrl ? "secondary-link" : "primary-link"}" aria-disabled="true">暂无 DOI 链接</span>`}
-      <a class="secondary-action" href="data/papers.csv" download title="下载数据"><span class="material-symbols-rounded">bookmark_add</span></a>
-    </div>`;
+    </div>
+    <section class="paper-chat" data-paper-chat="${paper.id}">
+      <div class="paper-chat-heading">
+        <div><span class="eyebrow">GLM-4.7-FLASH</span><h4>围绕当前论文提问</h4></div>
+        <small>${paper.markdownAvailable ? "自动引用当前文章 MD 与本轮对话" : "当前论文暂无 MD，暂不可对话"}</small>
+      </div>
+      <div class="paper-chat-messages" aria-live="polite">${renderChatMessages(chatHistory)}</div>
+      <form class="paper-chat-form" data-chat-form="${paper.id}">
+        <textarea name="message" rows="3" ${paper.markdownAvailable ? "" : "disabled"} placeholder="例如：这篇文章相对前序工作的增量在哪里？"></textarea>
+        <button type="submit" ${paper.markdownAvailable ? "" : "disabled"}><span class="material-symbols-rounded">send</span>发送</button>
+      </form>
+    </section>`;
   elements.detailContent.querySelectorAll("[data-paper-id]").forEach((button) => button.addEventListener("click", () => selectPaper(button.dataset.paperId)));
-  elements.detailContent.querySelectorAll("[data-context-url]").forEach((button) => button.addEventListener("click", () => copyMarkdownContext(button, paper)));
+  elements.detailContent.querySelectorAll("[data-chat-form]").forEach((form) => form.addEventListener("submit", (event) => sendPaperChatMessage(event, paper)));
 }
 
-async function copyMarkdownContext(button, paper) {
-  const originalHTML = button.innerHTML;
+function renderChatMessages(messages) {
+  if (!messages.length) return '<p class="paper-chat-empty">问题会自动带上当前论文信息、MinerU Markdown 摘录和本轮对话上下文。</p>';
+  return messages.map((message) => `
+    <div class="paper-chat-message ${message.role}">
+      <b>${message.role === "user" ? "你" : "GLM"}</b>
+      <p>${escapeHTML(message.content)}</p>
+    </div>`).join("");
+}
+
+function paperChatPayload(paper, message, history) {
+  return {
+    message,
+    history,
+    paper: {
+      id: paper.id,
+      title: paper.title,
+      year: paper.year,
+      authors: paper.authors,
+      journal: paper.journal,
+      doi: paper.doi,
+      summary: paper.summary,
+    },
+  };
+}
+
+async function sendPaperChatMessage(event, paper) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const textarea = form.elements.message;
+  const button = form.querySelector("button");
+  const message = textarea.value.trim();
+  if (!message) return;
+
+  const history = [...(state.chatHistory.get(paper.id) || []), { role: "user", content: message }];
+  state.chatHistory.set(paper.id, history);
+  renderDetail(paper);
+
   try {
-    button.disabled = true;
-    button.innerHTML = '<span class="material-symbols-rounded">hourglass_top</span>读取中';
-    const response = await fetch(button.dataset.contextUrl);
+    const activeForm = elements.detailContent.querySelector(`[data-chat-form="${paper.id}"]`);
+    const activeButton = activeForm?.querySelector("button");
+    if (activeButton) {
+      activeButton.disabled = true;
+      activeButton.innerHTML = '<span class="material-symbols-rounded">hourglass_top</span>思考中';
+    }
+    const response = await fetch(`/api/papers/${paper.id}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(paperChatPayload(paper, message, history.slice(0, -1))),
+    });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const payload = await response.json();
-    const markdown = payload.markdown?.content || "";
-    const prompt = [
-      `论文编号：${paper.id}`,
-      `标题：${paper.title}`,
-      `年份：${paper.year}`,
-      `作者：${paper.authors || "未记录"}`,
-      `期刊：${paper.journal || "未记录"}`,
-      `DOI：${paper.doi || "未记录"}`,
-      "",
-      "请基于下面的 MinerU Markdown 原文，回答该论文的研究问题、方法、创新性、相对前序工作的增量或核心创新，并明确证据边界。",
-      "",
-      markdown,
-    ].join("\n");
-    await navigator.clipboard.writeText(prompt);
-    button.innerHTML = '<span class="material-symbols-rounded">done</span>已复制';
-    window.setTimeout(() => { button.innerHTML = originalHTML; button.disabled = false; }, 1400);
+    state.chatHistory.set(paper.id, [...history, { role: "assistant", content: payload.reply || "GLM 未返回内容。" }]);
   } catch (error) {
-    button.innerHTML = '<span class="material-symbols-rounded">error</span>复制失败';
-    window.setTimeout(() => { button.innerHTML = originalHTML; button.disabled = false; }, 1800);
+    state.chatHistory.set(paper.id, [...history, { role: "assistant", content: `请求失败：${error.message}` }]);
   }
+  renderDetail(paper);
 }
 
 function closeDetail() {

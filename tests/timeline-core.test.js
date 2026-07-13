@@ -62,8 +62,10 @@ test("paper details load the Markdown manifest and expose AI context access", as
   const manifest = JSON.parse(await readFile(new URL("../data/markdown-manifest.json", import.meta.url), "utf8"));
   assert.match(script, /data\/markdown-manifest\.json/);
   assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/md/);
-  assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/context/);
-  assert.match(script, /copyMarkdownContext/);
+  assert.match(script, /\/api\/papers\/\$\{paper\.id\}\/chat/);
+  assert.match(script, /sendPaperChatMessage/);
+  assert.doesNotMatch(script, /copyMarkdownContext/);
+  assert.doesNotMatch(script, /download title="下载数据"/);
   assert.equal(manifest.available.length, 81);
   assert.deepEqual(manifest.missing, ["A3", "A12", "A26", "A37", "A43"]);
 });
