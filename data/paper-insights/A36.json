@@ -1,0 +1,63 @@
+{
+  "id": "A36",
+  "title": "Primal-Dual Splitting Algorithms for Solving Structured Monotone Inclusion with Applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对含cocoercive项与极大单调算子平行和的结构化单调包含，改进前向–后向型原始对偶算法参数条件，并提出基于forward–backward–half-forward的新分裂格式。",
+    "research_problem": "如何求解Boț–Hendrich型原始–对偶单调包含：含极大单调算子、cocoercive单值算子及线性复合平行和结构，使集值算子仅经预解/邻近算子处理、单值算子经显式前向步骤处理，并可用于含infimal convolution的复合凸最小化与约束图像去噪。",
+    "core_method": "在乘积Hilbert空间将问题等价为M+S+Q三算子零点；对预条件前向–后向格式（FB_BH）给出更松的步长与松弛参数条件；将forward–backward–half-forward分裂实例化为新的FBHF原始–对偶迭代（cocoercive算子每步仅前向计算一次）。",
+    "main_findings": [
+      "对既有FB型原始–对偶迭代给出放宽的参数条件，松弛参数可由(0,1]扩至至多[0,2−1/(2β)]，并证明弱收敛到原始–对偶解",
+      "提出FBHF型原始–对偶算法，相对FBF_BH减少cocoercive算子求值次数并扩大步长可选范围",
+      "将两算法专化为含infimal convolution的复合凸最小化，得到邻近算子形式的Algorithm 1/2",
+      "在ℓ2-IC与ℓ2-MIC约束去噪上，FB与FBHF在相近PSNR/SSIM下迭代次数通常少于FB_BH与FBF_BH"
+    ],
+    "theoretical_guarantee": "在解集非空（值域条件）及步长/松弛条件（如2β>1、ᾱ相关正定性、λ_n满足发散型条件；FBHF的γ_n∈[η,χ−η]）下，证明迭代序列弱收敛到Problem 2的原始–对偶解；凸优化情形（∂f、∇h、∂g_i、∂l_i）由Baillon–Haddad与单调算子标准结果直接继承。",
+    "experiments_or_examples": "Castle、Building图像加高斯噪声（σ_g=15/25/50），求解ℓ2-IC与ℓ2-MIC（一二阶全变分infimal convolution+箱约束）；以PSNR、SSIM与相对误差停机准则比较FB、FBHF与Boț–Hendrich的FB_BH、FBF_BH。",
+    "limitations": "理论以弱收敛为主，未给出强凸或线性收敛速率；实验仅约束图像去噪且基线基本限于[4]中两算法；未系统讨论非精确预解、随机化或大规模分布式实现。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "问题类与FB迭代骨架继承Boț–Hendrich，真正增量主要是FB参数条件收紧/放宽与将Briceño-Arias–Davis的FBHF框架落到该平行和结构上，属扎实但非范式级的增量改进。",
+    "inherited_foundations": [
+      "Boț–Hendrich结构化单调包含及FB_BH/FBF_BH迭代骨架",
+      "乘积空间嵌入、预条件前向–后向与Tseng型FBF分析",
+      "Briceño-Arias–Davis的forward–backward–half-forward三算子分裂",
+      "邻近/预解算子与Moreau分解用于凸优化专化"
+    ],
+    "incremental_advances": [
+      "同一FB格式下放宽步长条件并扩大松弛参数可选区间的收敛定理",
+      "面向该平行和+cocoercive结构的FBHF原始–对偶格式及相对FBF的计算与步长优势说明",
+      "含infimal convolution复合凸问题的邻近算子算法表述"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "约束图像去噪（ℓ2-IC/ℓ2-MIC）参数标定与相对FB_BH、FBF_BH的迭代/PSNR/SSIM对比"
+    ],
+    "comparison_basis": [
+      "A41_2019：A First-Order Splitting Method for Solving a Large-Scale Composite Convex Optimization Problem",
+      "Boț & Hendrich (2016) 平行和线性复合单调包含及FB/FBF原始–对偶算法",
+      "Briceño-Arias & Davis (2018) forward–backward–half-forward",
+      "目标文引言中的Vũ、Combettes、Becker–Combettes、Tseng等原始–对偶/分裂脉络"
+    ],
+    "evidence_boundary": "overview、定理、实验与局限均仅依据A36全文；A41仅用于innovation与lineage相对定位，其PICCS/CT实验与多块定理未写入目标内容。本地前序对照仅有A41，相对更广文献的“首创性”判断受覆盖限制；作者自述优势已与定理条件及实验表格交叉核对。",
+    "confidence": 0.9
+  },
+  "lineage_position": "处在结构化单调包含原始–对偶分裂主线上：上承Boț–Hendrich平行和模型与经典FB/FBF，旁接Briceño-Arias–Davis的FBHF；与A41同属原始–对偶/前向–后向族且同方向组工作，但A41面向多块复合凸优化min f+g+Σh_i(B_i x)，A36面向含平行和与cocoercive项的单调包含及infimal convolution去噪，二者为并行分支而非直接算法继承。",
+  "keywords": [
+    "原始对偶",
+    "单调包含",
+    "cocoercive算子",
+    "平行和",
+    "前向后向分裂",
+    "forward-backward-half-forward",
+    "infimal convolution",
+    "图像去噪"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.602Z",
+  "comparison_ids": [
+    "A41"
+  ]
+}

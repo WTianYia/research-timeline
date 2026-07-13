@@ -1,0 +1,63 @@
+{
+  "id": "A41",
+  "title": "A First-Order Splitting Method for Solving a Large-Scale Composite Convex Optimization Problem",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对含 Lipschitz 梯度光滑项、可近端非光滑项与有限个近端函数∘有界线性算子的多块复合凸问题，经积空间改写为三凸函数和，并给出对偶/原–对偶前向–后向型、无矩阵求逆的完全分裂一阶算法及其收敛结果。",
+    "research_problem": "求解 Hilbert 空间上大规模多块复合凸优化 min f(x)+g(x)+∑_{i=1}^m h_i(B_i x)，其中 f 可微且梯度 L-Lipschitz，g 与各 h_i 可近端（可能非光滑），B_i 为有界线性算子。",
+    "core_method": "在笛卡尔积空间 G 上引入加权/非加权内积，将 ∑ h_i(B_i x) 并入 h(Bx)，化为 f+g+h(Bx)；再把三函数对偶前向–后向与原–对偶前向–后向分裂推广为 Algorithm 4.1–4.4，步子仅含 ∇f 与相关邻近算子。",
+    "main_findings": [
+      "给出加权与非加权两套对偶 FB（4.1/4.2）及原–对偶 FB（4.3/4.4）完全分裂迭代，且无矩阵求逆。",
+      "步长中 Lipschitz 常数与算子范数可分开选取，较 Condat–Vu 型耦合不等式更易调参；权向量相同时加权与非加权算法等价。",
+      "在正则化广义 PICCS 的 CT 稀疏投影重建中，Alg.4.2 达相同精度迭代更少，且所提算法 SNR 随迭代更稳健，优于 ADMM、SPDP 与 Pre-SPDP。"
+    ],
+    "theoretical_guarantee": "在 γ∈(0,2/L) 及 λ 或 στ 受 ∑ w_i‖B_i‖²（或 ∑‖B_i‖²）控制的条件下，Theorem 4.1–4.8 证明 {x^k} 收敛（有限维）或弱收敛到 (1.1) 的解；内层迭代取 1 时分别退化为 PDFP 与 Condat–Vu 型格式。",
+    "experiments_or_examples": "正则化广义 PICCS 模型 (5.3)/(5.4)：½‖Ax−b‖₂²+λ₁φ₁(D₁(x−x_p))+λ₂φ₂(D₂x)+δ_C(x)；256×256 Shepp-Logan、扇束 20 视角、噪声方差 e∈{0.01,0.05,0.1}；对比 Alg.4.2/4.4 与 ADMM、SPDP、Pre-SPDP，报告 SNR、NMSD 与迭代数。",
+    "limitations": "依赖 g、h_i 邻近算子可闭式（或高效）计算及 ∇f 的 Lipschitz 性；部分定理仅保证有限维收敛；数值仅限合成体模 PICCS/CT，未覆盖真实临床数据与更广应用场景。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "相对 A57 的「G+∑F_i∘K_i」分裂原–对偶邻近算法，A41 将模型提升为显式光滑项 f 加可近端 g 与多块 h_i∘B_i，并以积空间把 Tang–Wu 三函数对偶/原–对偶 FB 框架系统推广为多算法族；f=0 时可收回 A57，属同一谱系上的显著结构扩展而非全新范式。",
+    "inherited_foundations": [
+      "前向–后向与对偶/原–对偶前向–后向分裂、邻近算子与 Moreau 恒等式",
+      "三函数和 f+g+h(Bx) 的对偶 FB 与原–对偶 FB 框架（Tang–Wu 等）",
+      "积空间改写有限复合项的标准技巧；A57 的 SPDP/Pre-SPDP（文中 [7]）及其 CT 邻近分裂应用脉络"
+    ],
+    "incremental_advances": [
+      "将 ∑ h_i(B_i x) 纳入加权/非加权积空间并给出 prox 与伴随算子分解（Lemma 4.1–4.2）",
+      "同步给出对偶 FB 与原–对偶 FB 两族、内外层迭代及内层=1 的 PDFP/Condat–Vu 特例",
+      "声称相对 Condat–Vu 将 L 与算子范数解耦以便调参；f=0 时原–对偶格式收回 A57 等算法"
+    ],
+    "core_innovations": [
+      "面向多块复合结构 (1.1) 的矩阵求逆自由、完全分裂一阶算法族（Alg.4.1–4.4）及其在积空间下的收敛定理体系"
+    ],
+    "implementation_or_experimental_changes": [
+      "提出并实现正则化广义 PICCS 模型及 Shepp-Logan 稀疏投影 CT 实验",
+      "与 ADMM、A57 的 SPDP/Pre-SPDP 在 SNR/NMSD/迭代与稳健性上对比"
+    ],
+    "comparison_basis": [
+      "A57（2017）《A splitting primal-dual proximity algorithm for solving composite optimization problems》（目标文参考文献 [7]，实验中的 SPDP/Pre-SPDP）",
+      "目标文综述与特例关系：Condat–Vu、PDFP、PD3O 及 Tang–Wu 三函数框架 [5]"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均仅来自 A41 全文（Abstract 与摘要锚点一致；Theorem 4.1–4.8、§5 Table 1、§6）；创新性判断以本地 A57 全文及 A41 对 [5][7] 的显式引用为对照，未系统覆盖 Condat–Vu/Combettes 等更广文献，故不作「核心创新」。",
+    "confidence": 0.9
+  },
+  "lineage_position": "处于前向–后向与原–对偶邻近分裂谱系：上承 A57 的多复合项 SPDP 与 Tang–Wu 三函数 FB 框架，将「无显式光滑梯度项的多复合邻近分裂」扩展为「f+g+∑h_i∘B_i」的多块完全分裂一阶算法，并以正则化广义 PICCS 的 CT 重建作为应用验证节点。",
+  "keywords": [
+    "算子分裂",
+    "凸优化",
+    "前向–后向分裂",
+    "原–对偶算法",
+    "对偶前向–后向",
+    "邻近算子",
+    "多块复合凸优化",
+    "PICCS",
+    "CT 图像重建"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.615Z",
+  "comparison_ids": [
+    "A57"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "A55",
+  "title": "A new approach to solving the prior image constrained compressed sensing (PICCS) with applications in CT image reconstruction",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出含一般凸稀疏函数与凸约束的广义PICCS模型，并用分裂原始对偶邻近法及其预条件形式求解少视角CT重建。",
+    "research_problem": "少视角CT下常规重建易产生条状伪影；原始PICCS多依赖ART-POCS类框架且缺乏收敛证明，需可分析、可计算的凸优化求解路径。",
+    "core_method": "将广义PICCS经变量分裂改写为两凸函数之和的无约束问题，用Chambolle–Pock原始对偶邻近迭代（Algorithm 1）及对角预条件加速（Algorithm 2）求解。",
+    "main_findings": [
+      "在扇束20视角、总测量约2000（约图像尺寸3%）的Shepp-Logan仿真中，α≠0的PICCS显著优于α=0的TV最小化",
+      "先验噪声较小时（xp1）重建更好，α=0.4时SNR/NMSD最优",
+      "预条件Algorithm 2在相近精度下明显快于Algorithm 1",
+      "含噪投影下算法呈半收敛，宜早停以避免过拟合噪声"
+    ],
+    "theoretical_guarantee": "算法步长取自Chambolle–Pock条件τσ≤1/‖Ã‖²；Lemma 3.1给出预条件矩阵使‖Σ^{1/2}ÃT^{1/2}‖≤1。本文未给出独立于该框架的新收敛定理。",
+    "experiments_or_examples": "256×256 Shepp-Logan；AIRtools扇束20视角×100射线；先验为原图加高斯噪声（方差0.01/0.05）；各向异性TV、非负约束；无噪与含噪（e=0.1,0.3）下比较α∈{0,0.2,0.4,0.6}及两算法的SNR、NMSD与时间。",
+    "limitations": "实验仅为仿真体模、先验非真实FBP/动态序列；等式约束在噪声下导致半收敛；正则取ℓ1、非凸扩展留作未来；预条件需A、D1、D2显式结构。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A63的约束一阶原始对偶不动点路线及既有PICCS/Chambolle–Pock文献，本文贡献主要是广义PICCS建模与面向该结构的分裂/预条件求解实现，属方法与应用层面的增量改进，而非新优化范式。",
+    "inherited_foundations": [
+      "Chen等PICCS及少视角TV/压缩感知CT重建",
+      "Chambolle–Pock原始对偶邻近与Pock–Chambolle对角预条件",
+      "邻近算子、指示函数投影与非负约束重建",
+      "A63同属的一阶原始对偶/邻近算法CT重建谱系"
+    ],
+    "incremental_advances": [
+      "用一般凸φ1、φ2与闭凸集C推广原始ℓ1-PICCS",
+      "针对D1(x−xp)、D2x的变量分裂与两凸函数无约束改写",
+      "给出PICCS专用Algorithm 1/2及少视角仿真验证"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "Shepp-Logan极少视角与含噪先验的具体数值协议",
+      "α扫描、相对误差停机及与α=0（TV）的对比设置"
+    ],
+    "comparison_basis": [
+      "A63（2015）《A primal dual fixed point algorithm for constrained optimization problems with applications to image reconstruction》",
+      "目标论文中的Chen等PICCS、Sidky–Pan TV、ART-POCS/ASD-POCS及Chambolle–Pock相关工作"
+    ],
+    "evidence_boundary": "overview、理论与实验均仅依据A55全文/摘要；创新性比较仅相对本地A63与A55自引相关工作，未系统覆盖全部PICCS求解文献，故不将“新分裂技术”抬升为核心理论创新。",
+    "confidence": 0.88
+  },
+  "lineage_position": "A63面向约束TV型目标发展PDFP²O类原始对偶不动点算法；A55转向广义PICCS，采用Chambolle–Pock分裂邻近与预条件求解少视角CT，是同一作者谱系中原始对偶方法的并行问题分支，而非A63定理的直接推广。",
+  "keywords": [
+    "PICCS",
+    "广义PICCS",
+    "压缩感知",
+    "CT图像重建",
+    "少视角重建",
+    "总变差",
+    "原始对偶邻近算法",
+    "预条件加速",
+    "先验图像",
+    "图像重建"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.651Z",
+  "comparison_ids": [
+    "A63"
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "A57",
+  "title": "A splitting primal-dual proximity algorithm for solving composite optimization problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对非光滑凸函数与有限个复合凸函数之和的优化问题，提出分裂原始-对偶邻近算法及无需事先知道算子范数的预条件化方法，并给出收敛理论与CT重建数值验证。",
+    "research_problem": "研究形如 min_x { f(x) + Σ g_i(B_i x) } 的复合凸优化问题，其中 f 与 g_i 为非光滑凸函数，B_i 为有界线性算子；该类问题在图像复原与重建中常见，但直接处理多复合项与算子范数依赖困难。",
+    "core_method": "将问题写成包含指示函数的鞍点/原始-对偶形式，设计分裂原始-对偶邻近迭代（SPDPA），再引入预条件矩阵得到预条件分裂原始-对偶邻近算法（PSPDPA），使步长参数无需事先估计特定算子范数。",
+    "main_findings": [
+      "在适当步长条件下证明了 SPDPA 与 PSPDPA 的收敛性",
+      "预条件化策略可避免预先计算相关算子范数",
+      "将方法用于 L2 与 L1 数据误差项叠加的全变分正则化模型",
+      "CT 稀疏投影重建实验表明算法能在投影较少时保持重建质量"
+    ],
+    "theoretical_guarantee": "给出 SPDPA/PSPDPA 的收敛定理：在步长满足与算子相关的充分条件下，迭代序列收敛到原问题的解（或鞍点）；预条件版本在预条件矩阵选取满足给定条件时保证收敛。",
+    "experiments_or_examples": "将算法应用于含 L2 与 L1 数据保真项的 TV 正则化 CT 图像重建；在稀疏投影视角下进行数值实验，验证重建能力与图像质量。",
+    "limitations": "模型与收敛分析主要针对凸、可能非光滑的复合结构；算子范数相关条件在非预条件形式中仍需满足；实验聚焦 CT 重建场景，对其它应用的系统性比较有限。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在已有原始-对偶邻近/分裂框架上，针对有限多个复合项给出分裂迭代与预条件参数选取，并扩展到 L1+L2 保真 TV 模型；相对 A63 的约束原始-对偶不动点思路，属于问题形式与算法结构上的有针对性扩展，但核心仍属邻近原始-对偶分裂范式内的增量推进。",
+    "inherited_foundations": [
+      "凸复合优化的原始-对偶/邻近算子分裂思想",
+      "鞍点表述与邻近映射可计算性假设",
+      "预条件/自适应步长以规避算子范数估计的常见思路",
+      "图像重建中 TV 正则与数据保真建模"
+    ],
+    "incremental_advances": [
+      "将目标写成非光滑项加有限个 g_i∘B_i 的和，并设计对应的分裂原始-对偶邻近迭代",
+      "提出预条件化 SPDPA，使迭代参数无需事先知道某些算子范数",
+      "把方法用于 L2 与 L1 数据误差同时出现的 TV 模型，并做 CT 稀疏重建验证"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "CT 图像重建的数值设置与稀疏投影实验",
+      "L1+L2 混合数据误差 TV 模型的具体离散实现"
+    ],
+    "comparison_basis": [
+      "A63（2015）《A primal dual fixed point algorithm for constrained optimization problems with applications to image reconstruction》",
+      "目标论文摘要与引言中对原始-对偶邻近算法及复合优化相关工作的定位"
+    ],
+    "evidence_boundary": "overview 与理论/实验描述均依据 A57 全文 Abstract、方法与收敛、数值实验部分；创新性相对判断主要对照本地 A63 全文与 A57 自述的相关工作，未覆盖更广的 Chambolle–Pock、Condat、Vu 等经典原始-对偶文献原文，故“增量改进”相对 A63 与该范式有据，是否相对更广文献构成独立核心创新无法由本地两篇全文单独断定。",
+    "confidence": 0.82
+  },
+  "lineage_position": "A57 与 A63 同属图像重建导向的原始-对偶型算法线：A63 侧重带约束优化的原始-对偶不动点算法；A57 转向有限个复合凸项之和的无约束（或指示函数嵌入）分裂原始-对偶邻近迭代，并强调预条件步长与 L1+L2 混合保真 TV 应用，是同一研究脉络上由约束 PDFP 向多复合项 SPDPA/PSPDPA 的延伸。",
+  "keywords": [
+    "原始对偶",
+    "分裂邻近算法",
+    "预条件",
+    "复合凸优化",
+    "全变分",
+    "CT图像重建",
+    "L1+L2数据保真"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.657Z",
+  "comparison_ids": [
+    "A63"
+  ]
+}

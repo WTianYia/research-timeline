@@ -1,0 +1,70 @@
+{
+  "id": "A31",
+  "title": "Preconditioned Three-Operator Splitting Algorithm with Applications to Image Restoration",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将预条件三算子分裂作用于乘积空间上的原–对偶最优性条件，得到可完全分裂的两类原–对偶算法，并用于含核范数与全变分的约束图像复原。",
+    "research_problem": "求解含 Lipschitz 梯度光滑项、有限个可近端非光滑项以及线性复合（含下确界卷积）项的凸极小化问题(1.3)及其对偶(1.4)，并给出相应单调包含(1.1)–(1.2)的可实现分裂迭代。",
+    "core_method": "用乘积空间把(1.1)改写为四算子和；构造强正自伴预条件子 U，在诱导内积下将问题化为预条件 Davis–Yin 三算子分裂；因 TOS 非对称，交换算子顺序得到两套迭代(3.2)/(3.21)，再具体化为凸极小化算法 PFDR1(3.31)与 PFDR2(3.35)。",
+    "main_findings": [
+      "在参数条件 λ_k∈(0,2−ε) 与 2β(1/σ−τ‖L‖²/4)ε>1 下，原变量与对偶变量序列弱收敛到(1.1)–(1.2)或(1.3)–(1.4)的解（定理3.1–3.4）",
+      "算法完全分裂：梯度、各近端算子与线性算子及其伴随分别显式计算，无需子问题或矩阵求逆",
+      "特殊情形可退化为广义前向–后向分裂、Yang 等预条件 Douglas–Rachford，并将 Davis–Yin 型格式从两个极大单调算子推广到有限和",
+      "提出约束核范数+全变分图像复原模型(4.5)；去模糊实验中 PFDR 与 PD³O 复原质量相当且迭代更少，整体耗时低于若干基于图像块的对比方法"
+    ],
+    "theoretical_guarantee": "定理3.1–3.2：单调包含情形下，适当 σ、τ、λ_k 时 p、q 序列弱收敛到(1.1)与(1.2)的解；定理3.3–3.4：在最优集非空与正则条件(ii)下，凸极小化算法(3.31)(3.35)的原–对偶序列同样弱收敛。证明核心是预条件后 U⁻¹S 的 cocoercive 性，从而直接调用 Davis–Yin 定理2.1。全文主结果未给出一般收敛速率。",
+    "experiments_or_examples": "对模型(4.5)做加性高斯噪声去模糊：9×9 均匀/高斯模糊，σ_g=10,20；测试图 Building、Barbara、Goldhill。算法对比 PD³O（表2–3）；模型对比 PnP_BM3D、WNNM_TV、BM3DDEB（表4与图2–4），指标为 PSNR、SSIM、迭代数与 CPU 时间。",
+    "limitations": "主定理仅为弱收敛，未建立一般速率；复原质量多数情形低于块匹配类方法；正则参数 λ、μ 与步长需调参；应用局限于凸模型与加性高斯噪声设定；全文结论节亦未讨论强凸/强单调加速。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "相对 A45 的标准三算子+惯性与 A38 的对偶–不精确三算子（内外层嵌套），A31 以乘积空间+专用预条件实现更广问题类(1.3)的完全分裂原–对偶算法，并附带新的约束核范数–TV 复原模型，属显著方法扩展而非全新范式。",
+    "inherited_foundations": [
+      "Davis–Yin 三算子分裂及其平均算子收敛框架（文中定理2.1）",
+      "乘积空间处理有限个极大单调算子求和（广义前向–后向/对角嵌入）",
+      "原–对偶最优性条件与预条件思想（Condat–Vu、预条件 DR、PD³O 等脉络；文中明确区分与 Condat 由 TOS 导出 PD³O 时所用预条件矩阵不同）",
+      "A45/A38 同属的三算子分裂–图像应用研究传统"
+    ],
+    "incremental_advances": [
+      "因 TOS 非对称给出第二套交换顺序算法，参数条件相同",
+      "系统列出(1.3)对(1.5)–(1.11)等既有问题类的包含关系与特殊情形退化",
+      "实验上与 PD³O 及多种复原模型对比，验证迭代与耗时优势"
+    ],
+    "core_innovations": [
+      "对含 cocoercive 项、有限和 A_i 与复合平行和 L^*(B□D)L 的单调包含，构造预条件子 U，使预条件 TOS 的预解可闭式实现，从而得到无内层求解的完全分裂算法",
+      "将上述框架落到多 g_i、多线性复合与下确界卷积的凸极小化(1.3)，给出 PFDR1/PFDR2 两套原–对偶迭代",
+      "提出约束盒上的核范数+全变分联合正则复原模型(4.5)，作为(1.3)的可直接套用特例"
+    ],
+    "implementation_or_experimental_changes": [
+      "算法命名实现为 PFDR1/PFDR2，固定 ω_i=0.5、ε=0.9、λ_k=1、σ=0.5 等参数组合",
+      "去模糊设定、停机准则 10⁻³ 及与 PnP/WNNM/BM3D 的耗时对比属实验层面变化"
+    ],
+    "comparison_basis": [
+      "A38（2021）《Dual three-operator splitting algorithms for solving composite monotone inclusion with applications to convex minimization》",
+      "A45（2019）《An inertial three-operator splitting algorithm with applications to image inpainting》",
+      "目标论文引言与 §3.1 中对 Combettes–Pesquet、Condat–Vu、Chambolle–Pock、Yang 等预条件 DR、Davis–Yin、Yan 的 PD³O 及 Condat 预条件解释的相关工作论述"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均仅依据 A31 全文（摘要、§1 贡献、定理3.1–3.4、§4 模型、§5 实验、§6 结论）。innovation 与 lineage_position 仅相对本地 A38、A45 及 A31 自述相关工作作比较；未覆盖文中引用的全部前序文献原件，故对“是否首创某预条件形式”的绝对优先权不作断言；作者“novel model/new algorithms”自述已降格为可核对事实后的相对判断。",
+    "confidence": 0.86
+  },
+  "lineage_position": "位于 Davis–Yin 三算子分裂向原–对偶、多算子与图像复原延伸的谱系：A45 在标准三算子和上加惯性并用于约束核范数修复；A38 对含平行和与线性复合的包含采用对偶求预解+不精确 TOS（嵌套迭代）并用于约束 TV 去模糊；A31 则用乘积空间与另一类预条件 TOS 处理更一般的有限和+复合结构，得到无内层的完全分裂原–对偶算法，并扩展到约束核范数–TV 复原。",
+  "keywords": [
+    "三算子分裂",
+    "预条件三算子分裂",
+    "原-对偶分裂",
+    "凸极小化",
+    "单调包含",
+    "全变分",
+    "核范数",
+    "图像复原",
+    "乘积空间",
+    "完全分裂算法"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.590Z",
+  "comparison_ids": [
+    "A38",
+    "A45"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "A91",
+  "title": "The Penalty Method for a New System of Generalized Variational Inequalities",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出一类含双变量映射与非齐次项的广义变分不等式系统（SGVI），用惩罚算子将其化为非线性变分方程组，并在强单调、Lipschitz 与强制条件下证明 Hilbert 空间中解的存在性。",
+    "research_problem": "在实 Hilbert 空间闭凸集 K 上，对非线性映射 T1,T2:H×H→H 与给定 ω1,ω2，求解耦合系统 ⟨rT1(x,y)−ω1,u−x⟩≥0 与 ⟨sT2(x,y)−ω2,u−y⟩≥0（∀u∈K），并建立该系统解的存在性。",
+    "core_method": "引入惩罚算子 P=I−PK，将 SGVI 转化为惩罚方程组 ω1=rT1(x,y)+(1/ε)Px、ω2=sT2(x,y)+(1/δ)Py；先用 resolvent 形式与 Picard 迭代在 γ1,γ2<1 时证明惩罚方程有解，再令 ε,δ→0，结合强制有界性、弱极限与广义伪单调性得到原 SGVI 的解。",
+    "main_findings": [
+      "在 T1 对第一变元 α1-强单调且 (ξ1,η1)-Lipschitz、T2 对第二变元 α2-强单调且 (ξ2,η2)-Lipschitz，且 γ1=√(1−2α1r+ξ1²r²)+sξ2<1、γ2=√(1−2α2s+η2²s²)+rη1<1 时，任意 ε,δ>0 的惩罚方程组有解（Lemma 3.1）。",
+      "若再设 T1 对第一变元强制、T2 对第二变元强制且 θ∈K，则对任意 ω1,ω2∈H，SGVI 至少存在一解（Theorem 3.3）。",
+      "当 T1(x,y)=Tx 等退化时，得到经典变分不等式在强单调、Lipschitz 与强制条件下的存在性特例（Theorem 3.4）。",
+      "SGVI 可退化为 Browder 变分不等式、Verma 系统及 Chang 等的非线性变分不等式系统。"
+    ],
+    "theoretical_guarantee": "Lemma 3.1 给出惩罚方程组解的存在性（Picard 序列为压缩 Cauchy 列）；Theorem 3.3 在强单调—Lipschitz—强制及 0∈K 下保证 SGVI 解存在；证明依赖惩罚算子的极大单调性、有界性与广义伪单调性质。全文为存在性理论，不给出求解算法的收敛速率。",
+    "experiments_or_examples": "无数值实验与计算算例；仅通过选取 T1,T2 的特殊形式给出与 Browder、Verma、Chang 等模型的理论特例对照。",
+    "limitations": "框架限于实 Hilbert 空间与 0∈K；映射需满足分变量强单调、双变量 Lipschitz 及强制，且收缩条件 γ1,γ2<1 较苛刻；未讨论解的唯一性、算法实现与数值验证；亦未给出 Banach 空间推广。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 2,
+    "verdict": "在已有变分不等式系统与惩罚法存在性路线上，将问题推广为更一般的双映射耦合 SGVI 并完成 Hilbert 空间存在性证明，属对已知框架的系统化扩展，而非新的核心方法。",
+    "inherited_foundations": [
+      "惩罚算子 P=I−PK 及其极大单调性、投影刻画（Pascali–Sburlan；Lemma 2.4–2.5）",
+      "惩罚法处理变分不等式存在性的经典思想（文中引 Alber、Liu–Wu 等）",
+      "伪单调/广义伪单调与极大单调算子的基本性质",
+      "Browder 变分不等式及 Verma、Chang 等变分不等式系统作为可退化特例"
+    ],
+    "incremental_advances": [
+      "引入含双变量映射 T1,T2、步长参数 r,s 与非齐次项 ω1,ω2 的更一般 SGVI 形式，统一涵盖若干已知系统",
+      "对耦合惩罚方程组建立联合收缩条件 γ1,γ2 并证明其可解",
+      "在强制与弱收敛论证下将惩罚解极限为原 SGVI 解，并写出经典 VI 的退化定理"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现、算例或实验设定上的变化；全文纯理论"
+    ],
+    "comparison_basis": [
+      "Browder 经典变分不等式 [1,2]",
+      "Verma 变分不等式系统 [8]",
+      "Chang–Lee–Chan 松弛 cocoercive 广义系统 [9]",
+      "Alber 惩罚法用于变分不等式 [6]",
+      "Liu–Wu 广义多值非线性变分不等式的惩罚法 [3]",
+      "Agarwal–Huang–Tan 广义非线性混合拟变分包含系统 [10]",
+      "目标论文 Abstract/Remark 1.1/§1 对上述工作的陈述（本地无前序全文）"
+    ],
+    "evidence_boundary": "overview、定理与“无实验”等事实均来自 A91 全文 Abstract、§1–§3 与参考文献列表，可原文定位。创新性比较仅依据目标论文对 Browder、Verma、Chang、Alber、Liu–Wu 等的引用与自述“extend and improve”，本地无这些前序全文，故无法独立核验其相对新颖度；作者自述未直接采信为新颖性证据。摘要锚点中“分裂算法与收敛分析”与本文不符，本文实际为惩罚法存在性，未设计分裂迭代算法。",
+    "confidence": 0.58
+  },
+  "lineage_position": "处于“经典 VI（Browder）→ VI 系统（Verma/Chang 等）→ 惩罚法存在性（Alber、Liu–Wu）”这一谱系的中游：以更一般的双映射耦合 SGVI 为对象，把惩罚存在性论证从单方程/已知系统 ind 推进到该系统形式，方法上仍属惩罚—正则化—极限路线的增量延伸。",
+  "keywords": [
+    "广义变分不等式系统",
+    "惩罚方法",
+    "强单调映射",
+    "Lipschitz 连续",
+    "强制条件",
+    "存在性",
+    "Hilbert 空间",
+    "伪单调",
+    "变分不等式"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.731Z",
+  "comparison_ids": []
+}

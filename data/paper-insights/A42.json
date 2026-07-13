@@ -1,0 +1,68 @@
+{
+  "id": "A42",
+  "title": "一种内外迭代方法求解三凸函数和优化问题",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三凸函数和问题 f+g+h∘B，在向前向后与三算子分裂框架下构造四类对偶/原始对偶内外迭代算法，并证明有限维收敛且统一联系 PDFP、Condat-Vu 与 PD3O。",
+    "research_problem": "如何充分利用光滑项 f 的可微结构，高效求解 min f(x)+g(x)+h(Bx)（g、h 简单凸、B 有界线性），并在邻近算子无闭式时给出可实现的内外迭代与收敛保证。",
+    "core_method": "外层用向前向后分裂或三算子分裂更新；内层分别以对偶法与原始对偶邻近点法近似计算 prox(g+h∘B) 与 prox(h∘B)，形成算法 3.1–3.2 与 4.1–4.2。",
+    "main_findings": [
+      "给出四类内外迭代格式，并在有限维 Hilbert 空间证明 {x^k}（及相应辅助序列）收敛到问题(1.3)的解",
+      "当内迭代取 1 时，算法 3.1/3.2/4.1 分别退化为 PDFP、Condat-Vu、PD3O；算法 4.2 的单内迭代形式(4.18)被表述为不同于上述三者的第四种格式",
+      "对偶类算法允许比 PDFP/PD3O 更宽的 λ 步长范围，并给出 Condat-Vu 参数的一种可分解选取规则",
+      "在融合 Lasso、约束 TV-CT 重建与低秩 TV 超分辨率算例上验证有效性，且较小内迭代步数即可保证外层收敛"
+    ],
+    "theoretical_guarantee": "定理3.2–3.3、4.2–4.3：在 γ∈(0,2/L) 及相应内层步长条件下，内层足够精确使误差可和时，外层序列在有限维空间收敛到(1.3)的解；外层框架分别依托带误差的向前向后分裂（定理3.1）与三算子分裂（定理4.1）。",
+    "experiments_or_examples": "三类数值实验：融合 Lasso（m=100,n=200）、20 角度平行束 Shepp-Logan 约束 TV 重建、Brainweb T1 的 LRTV 超分辨率；指标为 SNR/NMSD（及 SSIM），比较内迭代步数与参数类型 I/II。",
+    "limitations": "收敛证明主要在有限维设定；需估计 ∇f 的 Lipschitz 常数与 ‖B‖（或谱半径）；未给出收敛速率；LRTV 中因算子范数未知靠调节 γ；作者展望需用线搜索等摆脱常数估计。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对 A57 的多复合项产品空间原始对偶分裂，A42 转向三函数和 f+g+h∘B 的内外迭代统一框架，属同一原始对偶邻近谱系上的显著方法扩展与联系澄清，而非全新问题范式。",
+    "inherited_foundations": [
+      "向前向后分裂与带误差收敛（Combettes 等）",
+      "Davis–Yin 三算子分裂及 Yan 的 PD3O",
+      "Chambolle–Pock 原始对偶邻近点与 Condat–Vu 三函数分裂",
+      "复合邻近子问题的对偶表述（Combettes 等）及 PDFP 不动点思想",
+      "A57 同属作者组的原始对偶邻近/鞍点分裂传统与成像应用语境"
+    ],
+    "incremental_advances": [
+      "将 PDFP、Condat-Vu、PD3O 统一为内外迭代的特殊情形，并澄清参数条件",
+      "对偶内层给出较 PDFP/PD3O 更宽的 λ 允许范围",
+      "提出 Condat-Vu 参数的分解选取规则，使 γ 与 (σ,τ) 条件更易操作",
+      "数值上系统考察内迭代步数与参数类型对融合 Lasso、约束 TV、LRTV 的影响"
+    ],
+    "core_innovations": [
+      "在 FBS/三算子外层上，系统构造对偶与原始对偶两类内层，分别逼近 prox(g+h∘B) 与 prox(h∘B) 的四类可实现内外算法",
+      "在可和误差条件下给出四类算法的有限维收敛证明，使非精确邻近计算与外层分裂严格衔接",
+      "算法 4.2 取内迭代为 1 时的格式(4.18)被论证为不同于 PDFP/Condat-Vu/PD3O 的求解(1.3)的第四种迭代形式（作者自述“据我们所知”，比较范围限于文中所引算法）"
+    ],
+    "implementation_or_experimental_changes": [
+      "实验从 A57 的 L1+L2+TV CT 模型扩展到融合 Lasso 与 LRTV 超分辨率",
+      "显式调节内迭代步数（1/2/10/20）并报告 NMSD/SNR/SSIM 与迭代次数"
+    ],
+    "comparison_basis": [
+      "A57（2017）《A splitting primal-dual proximity algorithm for solving composite optimization problems》",
+      "目标文中相关工作：Condat–Vu、Chen 等 PDFP、Yan PD3O、Davis–Yin 三算子、Chambolle–Pock"
+    ],
+    "evidence_boundary": "overview/理论/实验/局限均来自 A42 全文摘要、第1/3/4/5/6 节及定理3.1–3.3、4.1–4.3与算法3.1–4.2；创新性比较仅相对本地 A57 全文及 A42 自引算法族，未覆盖更广文献；算法(4.18)“无等价已有算法”为作者自述，本地无法外部穷尽核实。",
+    "confidence": 0.88
+  },
+  "lineage_position": "A57 用产品空间将多复合项 ∑F_i(K_i x)+G 纳入 Chambolle–Pock 型分裂并强调无内迭代与预条件；A42 则针对含光滑项的三函数和，以外层 FBS/三算子、内层对偶/原始对偶非精确邻近，统一并扩展 Condat-Vu/PDFP/PD3O，构成作者组原始对偶复合优化路线上的后续分支。",
+  "keywords": [
+    "原始对偶",
+    "内外迭代",
+    "三凸函数和",
+    "向前向后分裂",
+    "三算子分裂",
+    "邻近算子",
+    "全变分",
+    "融合 Lasso"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.618Z",
+  "comparison_ids": [
+    "A57"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "A82",
+  "title": "Approximation of Common Fixed Points for a Finite Family of Uniformly Quasi-Lipschitzian Mappings in Banach Spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "给出 Banach 空间中有限族一致拟 Lipschitz 映射在带误差多步迭代下强收敛到公共不动点的充要条件。",
+    "research_problem": "在一般 Banach 空间中，如何刻画有限族一致拟 Lipschitz 映射的带误差多步迭代序列强收敛到公共不动点的充分必要条件，并由此覆盖渐近（拟）非扩张等更窄映射类。",
+    "core_method": "采用含误差项的多步迭代格式（1.1），在步长误差满足可和条件 ∑(b_in+c_in)<∞ 下，先建立到公共不动点集 F 的误差递推与 m 步估计（Lemma 2.1），再以 liminf d(x_n,F)=0 为充要条件证明强收敛（Theorem 2.2）。",
+    "main_findings": [
+      "Lemma 2.1：在 F=∩F(T_i)≠∅ 与 ∑(b_in+c_in)<∞ 下，得到 ||x_{n+1}-p|| 与 ||x_{n+m}-p|| 的可控误差估计。",
+      "Theorem 2.2：{x_n} 强收敛到公共不动点当且仅当 liminf_{n→∞} d(x_n,F)=0。",
+      "由 Remark 1.2，同一充要条件自动适用于有限族渐近拟非扩张与渐近非扩张映射（Corollary 2.4、2.5）。",
+      "多步带误差格式包含修正 Mann/Ishikawa、三步及多步迭代等特例。"
+    ],
+    "theoretical_guarantee": "在 K 为 Banach 空间非空闭凸子集、有限族一致拟 Lipschitz、F≠∅ 且 ∑(b_in+c_in)<∞ 时，强收敛等价于 liminf d(x_n,F)=0；证明经由 d(x_n,F)→0、Cauchy 性与极限点属于 F 完成。文中无弱收敛定理与收敛速率。",
+    "experiments_or_examples": "全文为纯理论证明，无数值算例、仿真或应用实例。",
+    "limitations": "需预先假设公共不动点集非空；参数条件 ∑(b_in+c_in)<∞ 较苛刻；仅给出强收敛充要条件，无收敛速度、弱收敛或计算验证；主要比较对象为文献中的渐近拟非扩张多步结果，未系统讨论与伪压缩映射线的关系。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对作者前期伪压缩映射上的充要条件框架及文献中渐近拟非扩张多步结果，本文将映射类放宽为一致拟 Lipschitz 并统一到带误差多步格式，属方法模板延续下的映射类与迭代格式增量扩展，而非全新范式。",
+    "inherited_foundations": [
+      "以 liminf d(x_n,F)=0 刻画强收敛的充要条件思路（与 A86、A87 及 Quan/Khan/Shahzad 等同类）",
+      "非负序列引理（Lemma 1.5，Osilike–Aniagbosor 型）与 1+x≤e^x 的 Cauchy 估计模板",
+      "多步/修正 Mann–Ishikawa/三步迭代谱系及渐近（拟）非扩张公共不动点逼近框架",
+      "一致拟 Lipschitz 与渐近拟非扩张/渐近非扩张的包含关系（Remark 1.2）"
+    ],
+    "incremental_advances": [
+      "将强收敛充要条件从渐近拟非扩张有限族推进到更宽的一致拟 Lipschitz 有限族（Theorem 2.2 及 Remark 2.3）",
+      "在统一带误差多步格式（1.1）下给出公共不动点误差递推（Lemma 2.1），并覆盖多类经典迭代特例",
+      "作为推论回收渐近拟非扩张与渐近非扩张情形（Corollary 2.4–2.5）"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现或实验设计变化，全文仅为理论证明与推论"
+    ],
+    "comparison_basis": [
+      "A87（2011）《Strong Convergence Theorems of the Ishikawa Process with Errors for Strictly Pseudocontractive Mapping of Browder-Petryshyn Type in Banach Spaces》",
+      "A86（2011）《A necessary and sufficient condition for the strong convergence of Lipschitzian pseudocontractive mapping in Banach spaces》",
+      "目标全文自引比较：Quan et al. [1]、Khan et al. [5]、Shahzad–Udomene [20]、Chang et al. [17]、Wang–Liu [28]"
+    ],
+    "evidence_boundary": "overview、定理与局限均严格依据 A82 全文 Abstract、§1–§2 与 Corollary；创新性判断仅相对本地可读的 A86、A87 及目标文自引相关工作，未核验 Quan/Khan/Shahzad 等原文细节，亦未覆盖更早一致拟 Lipschitz 文献的全谱比较。作者“extend and improve”自述未直接采信为新颖性证据。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于 Banach 空间公共不动点迭代逼近谱系：A86/A87 处理单映射（严格）伪压缩的 Ishikawa/Mann 带误差强收敛充要条件；A82 沿同一“误差估计+liminf 距离”技术路线，转向有限族一致拟 Lipschitz 映射的带误差多步公共不动点问题，并向上兼容渐近（拟）非扩张子类。",
+  "keywords": [
+    "不动点",
+    "Banach空间",
+    "一致拟Lipschitz映射",
+    "公共不动点",
+    "多步迭代",
+    "带误差迭代",
+    "强收敛",
+    "充要条件",
+    "渐近拟非扩张映射",
+    "渐近非扩张映射"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.715Z",
+  "comparison_ids": [
+    "A87",
+    "A86"
+  ]
+}

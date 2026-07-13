@@ -1,0 +1,69 @@
+{
+  "id": "A11",
+  "title": "Variable selection of partially functional linear spatial autoregressive model with a diverging number of parameters",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对参数维数发散的部分函数型线性空间自回归模型，结合 FPCA 级数逼近、两阶段最小二乘与 SCAD/MCP 等非凸惩罚，提出同时选择参数分量显著变量并估计空间滞后参数的方法，并证明收敛速率与 oracle 性质。",
+    "research_problem": "当响应含空间滞后、解释变量同时包含无限维函数型预测子与维数随样本发散的标量协变量时，如何在模型（1.1）下对参数分量做变量选择，并一致估计空间依赖系数 ρ 与非零 β。",
+    "core_method": "先用 FPCA 将斜率函数 α(t) 截断为级数，把原模型化为近似线性空间自回归；再以工具变量两阶段最小二乘估计 θ=(ρ,βᵀ)ᵀ，并对 θ 施加 SCAD/MCP 等非凸罚；截断维 m 由 CPTV（阈值 0.95）选取，正则参数由 BIC 与自适应 λⱼ 选取，用坐标下降（ncvreg）求解。",
+    "main_findings": [
+      "罚估计满足 ||θ̂−θ₀||=O_p(√(pₙ/n)+√(m/n))，斜率函数满足 ||α̂−α||²=O_P(pₙ/n+m/n+n^{−(2b−1)/(a+2b)})",
+      "在合适正则条件下，方法具有稀疏一致性与非零分量 √n 渐近正态性，即 oracle 性质",
+      "模拟中 SCAD/MCP 随 n 增大逼近 oracle；噪声升高时表现变差；正态误差略优于 t 误差；参数分量相关较弱时选择效果好",
+      "非洲 45 国增长数据应用中，含空间滞后的部分函数型模型 ARSS 明显优于无空间或纯线性设定，ρ̂≈0.90 且 α(t) 在约 1973 年附近达峰"
+    ],
+    "theoretical_guarantee": "Theorem 1 给出 θ̂ 的收敛速率；Theorem 2 证明稀疏性 lim P(θ̂ⱼ=0)=1（零分量）及 √n(θ̂*−θ₀*)→N(0,σ₀²Σ₁⁻¹Σ₂Σ₁⁻¹)；Theorem 3 给出 γ̂ 收敛速率；Theorem 4 给出 α̂(t) 的 L² 收敛速率。条件含空间权矩阵有界、|ρ|<1、pₙ→∞ 且 pₙ/n→0、FPCA 特征值与截断阶数正则性、λ 调节等。",
+    "experiments_or_examples": "Monte Carlo：n=100/200/400 对应 pₙ=10/15/20，ρ∈{0.2,0.5,0.7}，σ²∈{0.2,0.4}，Z 相关为 0.2^{|k−l|}，误差为正态与缩放 t(3)，SCAD/MCP 对比 oracle，500 次重复，报告 TC/FC/T_f、MSE_θ、RASE_α 及 α 的 90% 点态带。实例：gmm 包 Summers–Heston 数据中 45 个非洲国家，y 为 1960–1985 年均 ln(GDP)，函数协变量为 SavRate(t)，标量协变量 OPEC 与 Pop；Moran I≈0.242（p=0.008），三模型 ARSS 比较显示含空间结构的部分函数型设定最优。",
+    "limitations": "结论指出误差正态假定在异常值下选择可能敏感，需稳健方法；可进一步研究参数分量是否为零的假设检验；工具变量最优构造仍待研究；模拟主要在参数分量低相关设定下表现良好，高相关情形未充分验证。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "在 Hu 等已有部分函数型线性空间自回归估计框架上，引入发散维参数下的非凸罚变量选择，并完成 θ、γ、α 的收敛率与 oracle 理论；相对仅针对 SAR 或变系数 SAR 的变量选择工作，属于模型与理论设定上的显著扩展，而非全新估计机制。",
+    "inherited_foundations": [
+      "部分函数型线性回归与 FPCA/级数逼近（Shin 2009；Hall–Horowitz 等）",
+      "部分线性/部分函数型空间自回归估计与空间权矩阵条件（Su–Jin 2010；Hu et al. 2020）",
+      "空间自回归两阶段最小二乘与工具变量（Kelejian–Prucha 1998）",
+      "SCAD/MCP 非凸罚及其 oracle 分析范式（Fan–Li 2001）",
+      "发散维空间自回归变量选择思路（Xie–Cao–Du 2020；Luo–Wu 2020/2021）"
+    ],
+    "incremental_advances": [
+      "将变量选择推广到“部分函数型线性 + 空间滞后 + 参数维数发散”的统一模型",
+      "同时选择参数分量显著变量并估计空间滞后参数 ρ",
+      "在该复合模型下给出 θ̂、γ̂ 与 α̂ 的收敛速率及罚估计 oracle 性质",
+      "给出 CPTV+BIC 的实用调参流程与坐标下降算法实现"
+    ],
+    "core_innovations": [
+      "本地无前序全文可对照，尚不能确认是否首创该模型族上的变量选择；就目标文自述与引用脉络，核心增量是把发散维罚选择嵌入 PFLSARM 并完成相应渐近理论，而非提出全新惩罚或全新内生性处理原理"
+    ],
+    "implementation_or_experimental_changes": [
+      "SCAD 与 MCP 双惩罚、正态/t 误差、不同 ρ 与噪声水平的有限样本比较",
+      "增长数据实例及含/不含空间滞后、函数型/纯线性设定的 ARSS 对比"
+    ],
+    "comparison_basis": [
+      "Hu et al. (2020) Estimation in partial functional linear spatial autoregressive model",
+      "Xie, Cao, and Du (2020) Variable selection for spatial autoregressive models with a diverging number of parameters",
+      "Luo and Wu (2020/2021) Variable selection for semiparametric varying-coefficient spatial autoregressive models with a diverging number of parameters",
+      "Su and Jin (2010) partially linear spatial autoregressive models",
+      "目标论文 Introduction 与 main contributions 中的相关工作陈述（本地无前序全文）"
+    ],
+    "evidence_boundary": "overview、定理表述、模拟设计与实例结果均直接来自 A11_2025/full.md 全文（Abstract、§2–§6、Theorem 1–4、Tables 1–3）。创新性相对定位仅依据目标文对 Hu/Xie/Luo–Wu 等工作的引用与自述；本地无前序全文，无法逐条核对“首次/更优”声称，故分类取显著扩展且置信度下调。",
+    "confidence": 0.72
+  },
+  "lineage_position": "承接部分函数型线性回归与空间自回归估计文献，在 Hu 等 PFLSARM 估计基础上，沿 Xie、Luo–Wu 等发散维 SAR 变量选择方向推进：用 FPCA+TSLS+非凸罚完成参数分量选择与空间滞后估计，并建立 oracle 理论与有限样本/实证验证。",
+  "keywords": [
+    "部分函数型线性空间自回归",
+    "变量选择",
+    "参数维数发散",
+    "函数主成分分析",
+    "两阶段最小二乘",
+    "非凸惩罚",
+    "oracle 性质",
+    "工具变量",
+    "斜率函数估计",
+    "空间依赖"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.539Z",
+  "comparison_ids": []
+}

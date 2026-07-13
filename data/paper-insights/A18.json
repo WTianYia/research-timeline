@@ -1,0 +1,71 @@
+{
+  "id": "A18",
+  "title": "Optimizing ADMM and Over-Relaxed ADMM Parameters for Linear Quadratic Problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对线性二次问题（LQP）上的 ADMM 与超松弛 ADMM，给出惩罚参数的一般优化流程及松弛参数的闭式最优公式，并在随机实例与成像任务中验证。",
+    "research_problem": "ADMM/超松弛 ADMM 的惩罚参数 θ 与松弛参数 α 常靠经验选取，选参不当会显著拖慢收敛；既有谱分析方法多限于可显式写出特征值的特定二次问题，且缺乏迭代前闭式/可计算的预选参方案。",
+    "core_method": "将 ADMM 与超松弛 ADMM 化为关于 u 的不动点迭代，以迭代矩阵谱半径为收敛因子；用数值梯度下降最小化 λₙ(Q)（或约化后的单变量目标）求最优 θ，并对任意给定 θ 用闭式 α*=−2/(λ₁(Q)+λₙ(Q)) 求最优松弛参数；在去模糊与 MRI 等可对角化情形进一步给出 θ 的闭式。",
+    "main_findings": [
+      "对 LQP，ADMM 迭代矩阵满足 ρ(I+Q)≤1，故对任意惩罚参数均无条件收敛（ζ=ρ≤1）。",
+      "惩罚参数可通过最小化谱半径（数值梯度或特例闭式）系统选取；超松弛参数存在与 θ 对应的闭式最优，使 (θ,α) 联合优化约化为仅关于 θ 的一维问题。",
+      "最优 α 并不总落在经验区间 [1.5,1.8]；在随机矩阵与配准/去模糊/MRI 上，优化后的 ADMM/oADMM 收敛明显快于次优参数及 GD/GD-N/GD-NR 等一阶法，去模糊特例中 oADMM 甚至可一步收敛。",
+      "去模糊与 MRI 在算子可对角化时，ADMM 的 θ* 可解析给出；配准因 AᵀA 结构需用数值梯度搜索 θ*。"
+    ],
+    "theoretical_guarantee": "定理1：ADMM 化为 u^{k+1}=(I+Q)u^k−…，且 ρ(I+Q)≤1（与 θ 无关）。定理2：超松弛 ADMM 迭代矩阵为 I+αQ，最优 α*=−2/(λ₁(Q(θ))+λₙ(Q(θ)))，代入后联合问题化为 min_θ (λ₁−λₙ)/(λ₁+λₙ)。定理3（去模糊 L=I）：ADMM 的 θ*=√μ（μ≤1）或 1（否则）；oADMM 取 θ*=1、α*=2。定理4（MRI）：ADMM 的 θ* 依 μ 与采样/梯度谱量 a,b,c 分情形闭式给出。部分证明细节在 arXiv 附录。",
+    "experiments_or_examples": "（1）50 组随机 A∈R^{200×50}、L∈R^{200×50} 检验泛化；（2）微分同胚图像配准（LQP 速度场模型，数值梯度求 θ*）；（3）高斯模糊去模糊（μ=10³，解析 θ*/α*，对比 GD/GD-N/GD-NR/CG）；（4）心脏 MRI 笛卡尔 50% 欠采样重建。指标主要为迭代误差 log∥u^k−u*∥ 与谱半径—θ 曲线。",
+    "limitations": "理论与选参主要针对光滑线性二次结构，非光滑 L₁ 等仅作展望；特征值不可显式时依赖数值梯度与谱半径估计，大规模代价未系统量化；完整证明依赖 arXiv 附录；未在 nonsmooth TV 等设定上与 A27/A35 类算法做同模型对照。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "在 Ghadimi 等谱半径选参框架与超松弛 ADMM 传统上，面向一般成像 LQP 给出“可无显式特征值的 θ 优化 + 任意 θ 下 α 闭式最优 + 特例闭式”，相对 A27 惯性原始对偶新算法、A35 扩大松弛可行域的 Or-PDFP²O，技术路线不同且增量扎实，属显著扩展而非全新范式。",
+    "inherited_foundations": [
+      "ADMM 与超松弛 ADMM 的增广拉格朗日分裂迭代结构（含 α 替换 w 更新）",
+      "将 ADMM 化为不动点迭代并以迭代矩阵谱半径刻画收敛因子的分析框架（Ghadimi et al. 2014 等，目标文 Related Works 明确承接）",
+      "成像中 AᵀA、LᵀL 可对角化/低秩时的快速子问题求解（Fourier、Sherman–Morrison 等）",
+      "与 A35 共享“超松弛可加速”的思想背景，但 A35 对象为 PDFP²O 而非 ADMM 谱最优选参；与 A27 同属成像中的加速分裂方法谱系"
+    ],
+    "incremental_advances": [
+      "当 λₙ(Q) 无法显式写出时，用中心差分数值梯度下降最小化谱半径求 θ*，突破“必须解析写出特征值”的适用瓶颈",
+      "将 (θ,α) 联合谱半径最小化严格约化为仅关于 θ 的一维问题，且非最优 θ 下由闭式 α 仍可加速",
+      "在去模糊、MRI 上给出 ADMM（及部分 oADMM）惩罚参数闭式，并在配准外环中说明 θ* 对数据项微扰不敏感",
+      "用 50 次随机实例与三类真实成像验证，而非仅模拟二次规划"
+    ],
+    "core_innovations": [
+      "对超松弛 ADMM，首次给出由 Q(θ) 最大/最小特征值决定的松弛参数闭式 α*=−2/(λ₁+λₙ)，并配以谱半径分段几何解释",
+      "在一般 LQP（含 L 非单位、A 非平凡）上系统建立 ADMM 不动点矩阵 Q、无条件收敛与可计算选参流程，显著拓宽既往仅限 L=I 等特例的谱选参理论"
+    ],
+    "implementation_or_experimental_changes": [
+      "算法1/2 的 ADMM 与 oADMM 实现及中心差分步长 η∈[10^{-5},10^{-3}]",
+      "配准、去模糊、MRI 三个应用场景的算子构造与和 GD/Nesterov/重启/CG 的收敛曲线对比",
+      "指出最优 α 可偏离 Eckstein 经验区间 [1.5,1.8]"
+    ],
+    "comparison_basis": [
+      "A27_2023《A fast inertial primal-dual algorithm to composite optimization models with application to image restoration problems》",
+      "A35_2022《一种超松弛原始对偶不动点算法及其应用》",
+      "目标论文 Related Works：Ghadimi et al. 2014；Boley 2013；Teixeira et al. 2015；França & Bento 2016；Boyd et al. 2011；Xu et al. 2017 等谱分析/残差自适应选参工作"
+    ],
+    "evidence_boundary": "overview、定理编号、实验设置与结论均来自 A18 full.md（摘要锚点已核对一致）；创新性相对判断仅对照本地 A27、A35 全文及 A18 自述相关工作，未覆盖 Ghadimi 等原文细节，故“首次闭式”等表述按 A18 主张并限定为相对本地前序与其引用脉络；A27/A35 的定理与实验未写入 overview。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于 ADMM 参数选择与超松弛加速交叉点：相对 Ghadimi 谱分析选参从特例二次规划扩展到一般成像 LQP 与可计算闭式 α；相对 A35（Or-PDFP²O 扩大松弛域与收敛率）与 A27（惯性原始对偶 + o(1/k²)）同属成像分裂加速，但 A18 不构造新原始对偶格式，而专攻 ADMM/oADMM 的 θ、α 最优选取。",
+  "keywords": [
+    "ADMM",
+    "超松弛 ADMM",
+    "惩罚参数",
+    "松弛参数",
+    "线性二次问题",
+    "谱半径",
+    "不动点迭代",
+    "图像去模糊",
+    "MRI 重建",
+    "微分同胚配准"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.556Z",
+  "comparison_ids": [
+    "A27",
+    "A35"
+  ]
+}

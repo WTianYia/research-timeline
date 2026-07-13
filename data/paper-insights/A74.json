@@ -1,0 +1,64 @@
+{
+  "id": "A74",
+  "title": "A primal dual proximal point method of Chambolle-Pock algorithms for l1-TV minimization problems in image reconstruction",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对CT图像重建中的ℓ1数据项加TV正则模型，给出Chambolle-Pock原对偶近端点算法及其对角预处理形式，并在稀疏视角仿真数据上验证重建效果。",
+    "research_problem": "在稀疏视角等不完全数据条件下，如何用一阶原对偶方法高效求解带脉冲噪声鲁棒性的ℓ1-TV型CT重建凸优化问题。",
+    "core_method": "将模型min‖Ax−b‖₁+λ‖x‖_TV写成原对偶鞍点形式，采用Chambolle-Pock近端点迭代；近端映射可显式计算，并引入Pock–Chambolle对角预处理以省去估计‖(A;D)‖₂。",
+    "main_findings": [
+      "给出求解ℓ1数据保真+各向异性TV的CP-ℓ1TV算法及Pre-CP-ℓ1TV预处理算法",
+      "预处理版本无需计算组合算子最大奇异值，仿真中相对误差下降更快且SNR更高",
+      "在Shepp-Logan稀疏视角与脉冲噪声设定下可获得可用重建，正则参数λ显著影响重建质量",
+      "相对ADMM等，该方法迭代仅需矩阵–向量乘，更便于大规模CT系统矩阵场景"
+    ],
+    "theoretical_guarantee": "未给出新收敛定理；沿用Chambolle-Pock标准条件L²στ<1下的收敛论述，并称σ=τ=1/L在实践中未失败（亦参见Sidky等）。",
+    "experiments_or_examples": "MATLAB仿真：256×256 Shepp-Logan，Siddon投影矩阵6056×65536，5%位置脉冲噪声；停机相对误差<1e-5或最多4×10⁴次迭代；λ=1.6时Alg1 SNR约18.89 dB、Alg2约26.61 dB，并比较不同λ与收敛曲线。",
+    "limitations": "仅计算机仿真、无真实扫描数据；算法推导与近端算子明确取自Sidky等，预处理取自Pock–Chambolle；λ需经验选取；文中未与ADMM等做系统数值对比。"
+  },
+  "innovation": {
+    "classification": "应用迁移",
+    "score": 2,
+    "verdict": "核心算法与近端映射明确采用Chambolle-Pock及Sidky等已有原型，预处理亦来自既有工作；本文主要贡献是面向稀疏视角CT与脉冲噪声设定的实现、预处理对照实验与参数观察，属方法向成像应用的迁移验证，而非新算法范式。",
+    "inherited_foundations": [
+      "Chambolle-Pock一阶原对偶算法框架及其收敛条件",
+      "Sidky等基于CP的CT凸优化原型（含ℓ1+TV实例）与近端映射",
+      "Pock–Chambolle对角预处理策略",
+      "ℓ1数据项+TV正则的图像重建/复原建模传统"
+    ],
+    "incremental_advances": [
+      "将CP-ℓ1TV与对角预处理形式具体落到稀疏视角CT实验流程",
+      "在同一脉冲噪声仿真设定下比较标准CP与预处理CP的SNR与相对误差下降",
+      "讨论相对ADMM的实现优势（仅需矩阵–向量乘）"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "Siddon系统矩阵、Shepp-Logan与脉冲噪声仿真协议",
+      "算法停机准则、λ取值扫描及SNR/RelErr评价",
+      "CP-ℓ1TV与Pre-CP-ℓ1TV的实现细节与参数设置"
+    ],
+    "comparison_basis": [
+      "Chambolle & Pock (2011) 一阶原对偶算法",
+      "Sidky, Jørgensen & Pan (2012) CT中的CP算法原型（目标文称推导与近端映射取自该文）",
+      "Pock & Chambolle (ICCV 2011) 对角预处理",
+      "目标文对ADMM、PDHG及Fu等内点法相关工作的陈述",
+      "无本地前序全文可直接对照"
+    ],
+    "evidence_boundary": "overview、理论保证与实验均仅依据A74全文；创新相对位次主要依据目标文对[3][4][26]等的自述（明确写adopted from [3]、proximal mappings obtained in [3]、预处理来自[26]），因本地无前序全文，不能核验其相对Sidky等的增量边界，置信度相应下调；未将他文定理或实验记作本文贡献。",
+    "confidence": 0.7
+  },
+  "lineage_position": "处于Chambolle-Pock原对偶一阶方法向CT重建应用延伸的环节：上承CP一般理论与Sidky等CT原型及Pock预处理，本文完成ℓ1-TV稀疏视角场景的算法落地与仿真对照，理论新意有限。",
+  "keywords": [
+    "图像重建",
+    "ℓ1-TV",
+    "Chambolle-Pock",
+    "原对偶近端点方法",
+    "全变差",
+    "稀疏视角CT",
+    "对角预处理",
+    "脉冲噪声"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.697Z",
+  "comparison_ids": []
+}

@@ -1,0 +1,70 @@
+{
+  "id": "A2",
+  "title": "A Reflected-Forward-Backward Splitting Method for Monotone Inclusions Involving Lipschitz Operators in Banach Spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在2-一致凸且一致光滑的实Banach空间中，将反射前向-后向分裂（RFBS）用于含Lipschitz算子的单调包含，并在适应性强单调性条件下给出强（R-线性）收敛。",
+    "research_problem": "求解Banach空间中单调包含0∈(A+B)x，其中A极大单调、B单调且L-Lipschitz；Hilbert空间RFBS已有弱收敛，但对偶映射非线性使向Banach空间推广困难，且此前未见RFBS在Banach空间的系统结果。",
+    "core_method": "构造迭代x_{n+1}=J^A_{λ_n} J^{-1}(J x_n−λ_n B(2x_n−x_{n−1}))；以Bregman型泛函φ为Lyapunov量，采用与对偶映射相容的α-单调性（Definition 2），并取依赖2-一致凸常数μ的步长区间。",
+    "main_findings": [
+      "当A、B按Definition 2分别为α、β单调且α+β>0时，RFBS序列强收敛到(A+B)^{-1}(0)中一点，且具R-线性速率（Theorem 2）。",
+      "对经典强单调A，可用δ-强单调扰动A_δ使RFBS任意逼近原问题解（Theorem 3）。",
+      "在L_2[0,1]算例上与前向-反射-后向（FRB）对比，迭代次数接近但CPU时间更低。",
+      "明确指出：仅单调假设下Banach空间RFBS的弱收敛仍为开放问题。"
+    ],
+    "theoretical_guarantee": "在2-一致凸（常数μ）、一致光滑Banach空间及α+β>0条件下，φ型Lyapunov序列以θ>1的压缩给出R-线性强收敛；步长需满足λ_n∈[ε,1/((2+ε)4mLμ)]且m>2Lμ/(α+β)。",
+    "experiments_or_examples": "Example 1在H=L_2([0,1])上取A=I、B为积分型单调L-Lipschitz算子（L=2），与Bello等FRB对比；Table 1给出λ_n∈{0.2,0.4,0.6}与Tol∈{10^{-2},10^{-4}}下的迭代次数与CPU时间，Figure 1给出误差随迭代的log-log曲线。",
+    "limitations": "强收敛依赖α+β>0，无法覆盖一般单调情形；一般单调下弱收敛未解决；步长上界偏保守；数值验证主要在L_2（Hilbert特例），对真正非Hilbert Banach几何的数值支撑有限。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "将Hilbert空间已有的RFBS首次系统移植到2-一致凸、一致光滑Banach空间，并在适应性强单调条件下给出R-线性强收敛，属方法谱系上的显著扩展；范式仍继承分裂迭代与Banach几何工具，不宜判为全新核心范式。",
+    "inherited_foundations": [
+      "Cevher–Vu的Hilbert空间RFBS格式与弱收敛思想",
+      "前向-后向/前向-反射-后向分裂及Tseng型放松cocoercivity的路线",
+      "Banach空间中归一化对偶映射J、Alber型φ泛函与2-一致凸不等式",
+      "Huang–Peng–Tang（2025）的α-单调性（Definition 2）及其预解/逼近性质",
+      "Bello等在同类Banach空间中对FRB的弱收敛框架"
+    ],
+    "incremental_advances": [
+      "将RFBS更新中的反射步B(2x_n−x_{n−1})嵌入含J、J^{-1}与预解J^A_λ的Banach实现",
+      "用φ与μ将混合范数估计统一为可收缩的Lyapunov递推，并导出含μ的步长条件",
+      "给出由经典强单调到Definition 2强单调扰动的逼近收敛路径（Theorem 3）"
+    ],
+    "core_innovations": [
+      "在2-一致凸且一致光滑Banach空间中建立RFBS的首个强（R-线性）收敛定理（依赖α+β>0）",
+      "针对RFBS（相对FRB）因预解中非线性J带来的额外困难完成完整收敛分析，并明确一般单调弱收敛缺口"
+    ],
+    "implementation_or_experimental_changes": [
+      "MATLAB实现RFBS并与FRB在L_2算例上比较迭代次数与CPU时间",
+      "数值实验属效率验证，不构成问题类或理论框架的独立创新"
+    ],
+    "comparison_basis": [
+      "A7_2025：A Bregman Projection Algorithm Combining Korpelevich's Extragradient Method With Tseng's Extragradient Method for Solving Variational Inequality Problems",
+      "A5_2025：The multi-parameter inertial subgradient extragradient method for variational inequalities with applications to image restoration problems",
+      "目标全文Introduction与References中的Cevher–Vu RFBS、Bello等FRB、Huang等α-单调性及相关FB/Banach分裂工作"
+    ],
+    "evidence_boundary": "overview、定理条件、数值与局限均直接对照A2全文Abstract、§1、Theorem 2–3、§4–5与Future work；创新性相对定位仅基于本地A7（自反Banach上Bregman外梯度型VI强收敛）与A5（Hilbert上次梯度外梯度+惯性+图像复原），以及A2自述相关工作。‘Banach空间首个RFBS强收敛’为作者表述，本地文献无法对全球空白作穷尽核验；A7/A5问题为变分不等式而非RFBS单调包含，比较限于空间设定、投影/分裂工具与收敛类型的谱系邻近性。",
+    "confidence": 0.9
+  },
+  "lineage_position": "A2处于“Hilbert分裂→Banach几何化”支线上：A5在Hilbert空间推进多参数惯性次梯度外梯度VI并走向图像应用，A7将Korpelevich–Tseng型外梯度与Bregman投影、惯性推进到自反Banach的VI强收敛；A2则不走外梯度投影主线，而把RFBS引入2-一致凸一致光滑Banach的单调包含，用适应性强单调与φ-Lyapunov换取R-线性强收敛，并与同几何设定下的FRB并列、互补。",
+  "keywords": [
+    "反射前向-后向分裂",
+    "前向-后向分裂",
+    "单调包含",
+    "Banach空间",
+    "强单调算子",
+    "Lipschitz算子",
+    "R-线性收敛",
+    "对偶映射",
+    "Bregman型泛函",
+    "2-一致凸"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.513Z",
+  "comparison_ids": [
+    "A7",
+    "A5"
+  ]
+}

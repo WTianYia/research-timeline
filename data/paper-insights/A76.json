@@ -1,0 +1,62 @@
+{
+  "id": "A76",
+  "title": "A cyclic algorithm for the split common fixed point problem of demicontractive mappings in Hilbert spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "对 Hilbert 空间中有限族 demicontractive 映射的分裂公共不动点问题，构造循环迭代算法并证明弱收敛到解集。",
+    "research_problem": "求 x* 属于 ∩Fix(U_i)，且 Ax* 属于 ∩Fix(T_j)，其中 U_i、T_j 为 demicontractive 映射，A 为有界线性算子；该问题统一并推广凸可行性、分裂可行性与多集分裂可行性问题。",
+    "core_method": "构造循环算法：u_n=x_n+γA*(T_{j(n)}−I)Ax_n，x_{n+1}=(1−α_n)u_n+α_n U_{i(n)}(u_n)，其中 i(n)、j(n) 分别对 p、r 取模循环；当 p=r=1 时退化为 Moudafi 的两集算法。",
+    "main_findings": [
+      "证明迭代序列对解集 Ω 的 Fejér 单调性（Lemma 4）",
+      "在 demiclosed、连续性及步长条件下证明序列弱收敛到 SCFP 解（Theorem 2）",
+      "将两集 demicontractive SCFP 算法推广到有限多算子的循环格式"
+    ],
+    "theoretical_guarantee": "若 Ω 非空，U_i、T_j 分别为 β_i、μ_j-demicontractive，I−U_i 与 I−T_j 在 0 处 demiclosed 且算子连续，γ∈(0,(1−μ)/λ)，α_n∈(δ,1−β−δ)，则 Algorithm 2 生成的序列弱收敛到 Ω 中一点；Fejér 单调性在略宽的闭区间步长条件下成立。",
+    "experiments_or_examples": "全文为理论证明，无数值实验、算例或仿真。",
+    "limitations": "仅得弱收敛而非强收敛；依赖 demiclosed、连续性与固定步长上界（与 A*A 谱半径相关）；未给出数值验证与误差估计。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对 A87/A86 的单空间伪压缩 Ishikawa 强收敛研究，问题设定转向两空间 demicontractive 分裂公共不动点，并以循环 Mann 型格式给出弱收敛；在 SCFP 谱系内主要是对 Moudafi 两集结果的多算子推广。",
+    "inherited_foundations": [
+      "不动点迭代与收敛分析的基本框架",
+      "demicontractive 与严格伪压缩、拟非扩张等映射类的包含关系",
+      "分裂可行性/CQ 型伴随修正与 Moudafi 两集 demicontractive SCFP 算法结构"
+    ],
+    "incremental_advances": [
+      "将两集 SCFP 推广为有限族 U_i、T_j 的多集情形",
+      "引入按模循环选取算子的迭代指标 i(n)、j(n)",
+      "在多算子设定下建立 Fejér 单调性与弱收敛定理"
+    ],
+    "core_innovations": [
+      "面向多集 demicontractive SCFP 的循环算法构造及其弱收敛证明"
+    ],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A87（2011）Strong Convergence Theorems of the Ishikawa Process with Errors for Strictly Pseudocontractive Mapping of Browder-Petryshyn Type in Banach Spaces",
+      "A86（2011）A necessary and sufficient condition for the strong convergence of Lipschitzian pseudocontractive mapping in Banach spaces",
+      "目标文直接依据：Moudafi[10]、Censor–Segal[7] 等 SCFP 相关工作"
+    ],
+    "evidence_boundary": "overview、理论保证与局限均来自 A76 全文 Abstract、Algorithm 2、Lemma 4、Theorem 2 与结论性 Remark 4；创新比较仅相对本地 A87、A86 及目标文引用，未系统覆盖更广 SCFP/CQ 文献，故“相对领域首创”不作断言。",
+    "confidence": 0.9
+  },
+  "lineage_position": "承接作者前期 Banach 空间伪压缩映射 Ishikawa/Mann 强收敛工作，转向 Hilbert 空间分裂公共不动点，在 Moudafi 两集 demicontractive 框架上给出多算子循环算法与弱收敛结果。",
+  "keywords": [
+    "分裂公共不动点",
+    "demicontractive 映射",
+    "循环算法",
+    "弱收敛",
+    "Hilbert 空间",
+    "分裂可行性问题",
+    "公共不动点",
+    "Fejér 单调",
+    "demiclosed"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.702Z",
+  "comparison_ids": [
+    "A87",
+    "A86"
+  ]
+}

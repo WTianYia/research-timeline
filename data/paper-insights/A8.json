@@ -1,0 +1,68 @@
+{
+  "id": "A8",
+  "title": "A stochastic primal-dual algorithm for composite optimization with a linear operator",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三项复合+线性算子模板 min f+g+h□l(Bx)，在PD3O上构造随机原始–对偶算法SPD3O，证明一般凸下期望原对偶间隙遍历界O(1/√K)及附加假设下线性收敛，并在融合/图引导正则逻辑回归上验证。",
+    "research_problem": "求解三项复合最小化 min_x f(x)+g(x)+h□l(Bx)，其中f为期望风险型光滑项、g与h可近端、l*可微Lipschitz、B为线性算子；既有随机次梯度/随机ADMM/三复合随机方法或需强有界假设，或不能直接覆盖含infimal convolution的(1.1)。",
+    "core_method": "SPD3O（基于Yan 2018的PD3O）：每步采样ξ^k得随机梯度w^k=∇_x F(x^k,ξ^k)，再执行x^k=prox_γg(z^k)、对偶近端更新y^{k+1}与外推式z^{k+1}=x^k−γw^k−γB^Ty^{k+1}，输出遍历平均。",
+    "main_findings": [
+      "一般凸情形下期望原–对偶间隙遍历收敛率为O(1/√K)（τ取1/√(K+1)）",
+      "在强凸模量与g梯度Lipschitz等附加假设下，SPD3O期望意义线性收敛",
+      "FLR与GGRLR任务上整体优于PD3O、STOCADMM、SADMMdiag与SADMMfull",
+      "μ1减小（条件更差）时相对确定性PD3O的加速更明显"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：在1/γ>1/β+1/τ与随机梯度无偏、方差有界下，E[L(x̄^K,y)−L(x,ȳ^{K+1})]受初始距离/(2(K+1)γ)与τσ²控制；Theorem 3.2：附加假设下E[‖z^+−z̄‖²+(1+2γζ_{h*})‖y^+−ȳ‖_M²]≤ρ·(同型初值)+噪声项，且可取ρ<1得线性收敛。",
+    "experiments_or_examples": "问题为融合逻辑回归(FLR)与图引导正则逻辑回归(GGRLR)；数据svmguide3、mushrooms、a9a；对比PD3O与三类随机ADMM；指标为目标值、测试损失、预测精度；5轮重复；并考察不同μ1。",
+    "limitations": "依赖随机梯度方差有界与理论步长条件；一般凸速率为O(1/√K)；结论指出可进一步引入方差缩减；实验限于分类正则模型，非图像复原主场景。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "在确定性三算子原始–对偶PD3O上系统引入随机梯度，形成覆盖h□l结构的SPD3O并给出期望间隙与线性收敛闭环；相对A27的惯性确定性原始–对偶与A18的ADMM参数优化，属同一广义分裂谱系上的随机化显著扩展，而非全新范式。",
+    "inherited_foundations": [
+      "Yan(2018) PD3O：三项函数+线性算子的原始–对偶分裂骨架与近端/外推更新",
+      "复合凸优化鞍点/原对偶间隙与cocoercivity型假设",
+      "随机近似标准假设：无偏随机梯度与二阶矩有界（Assumption 3.1）",
+      "三复合与随机ADMM相关工作脉络（文内Zhao–Cevher、Ouyang等）"
+    ],
+    "incremental_advances": [
+      "将PD3O光滑项梯度替换为随机梯度并适配期望风险模板",
+      "一般凸期望原–对偶间隙O(1/√K)遍历界",
+      "附加假设下期望线性收敛的算子型证明"
+    ],
+    "core_innovations": [
+      "面向含infimal convolution的三项复合+线性算子模板(1.1)的随机原始–对偶算法SPD3O构造，使既有随机方法未直接覆盖的结构可解"
+    ],
+    "implementation_or_experimental_changes": [
+      "FLR/GGRLR与三数据集上的对比实现与按理论取参",
+      "相对PD3O与多种随机ADMM的目标值/测试损失/精度曲线",
+      "不同μ1条件数情景的经验对照"
+    ],
+    "comparison_basis": [
+      "A18（2024）《Optimizing ADMM and Over-Relaxed ADMM Parameters for Linear Quadratic Problems》",
+      "A27（2023）《A fast inertial primal-dual algorithm to composite optimization models with application to image restoration problems》",
+      "目标全文相关工作：Yan(2018) PD3O；Zhao & Cevher(2018) 随机三复合；随机ADMM系列"
+    ],
+    "evidence_boundary": "overview、定理速率、实验设定与局限均来自A8全文Abstract、§1–§5与Theorem 3.1–3.2；创新性分类仅相对本地A18、A27及文内自述相关工作，未系统对照更广随机原始–对偶文献全集，故不作“领域首创”断言。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于三复合/原始–对偶分裂谱系的随机化分支：A27走惯性加速确定性FIPD并侧重图像复原，A18走ADMM/过松弛参数谱分析并侧重LQP成像；A8沿Yan的PD3O将随机梯度引入含线性算子与h□l的复合期望风险模型，与前二者互补并行。",
+  "keywords": [
+    "随机原始-对偶",
+    "SPD3O",
+    "三项复合优化",
+    "线性算子",
+    "三算子分裂",
+    "期望原对偶间隙",
+    "融合逻辑回归",
+    "图引导正则",
+    "原始对偶"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.531Z",
+  "comparison_ids": [
+    "A18",
+    "A27"
+  ]
+}

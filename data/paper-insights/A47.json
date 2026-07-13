@@ -1,0 +1,60 @@
+{
+  "id": "A47",
+  "title": "A Two-Step Inertial Primal-Dual Algorithm for Minimizing the Sum of Three Functions",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对光滑项加两个非光滑项（可含线性算子与下确界卷积）的三项和最小化，提出两步惯性原始对偶算法 TSIPD，并借不动点理论给出收敛保证。",
+    "research_problem": "求解 min F(x)+G(x)+H□L(Bx)（F 与 L* 可微且梯度 Lipschitz，G、H 等为正常下半连续凸函数），要求完全分裂地分别计算非光滑项邻近算子，并在不损失可处理性的前提下引入两步惯性以改善迭代表现。",
+    "core_method": "以 Yan 的 PD3O 迭代算子 T_PD3O 为基，对原始与对偶变量分别做 α_k、β_k 两步惯性外推，再经邻近步与松弛更新得到 TSIPD；将迭代改写为一般惯性 Mann 格式，并利用 T_PD3O 的平均非扩张性证明收敛。",
+    "main_findings": [
+      "在 τ<2β̃、Assumption 1 及惯性/松弛参数条件下，TSIPD 生成序列收敛到问题(1)的解",
+      "无惯性时退化为 PD3O，并在特殊情形下分别覆盖 Chambolle–Pock、前向–后向分裂与 Davis–Yin 三分算子分裂",
+      "约束全变分去噪实验中，TSIPD 在相近 SNR 下通常比 PD3O 迭代次数更少、CPU 时间更短"
+    ],
+    "theoretical_guarantee": "定理1：在 τ<2β̃、Assumption 1，以及 {α_k}⊂[0,α]、{β_k}⊂[0,β]（α,β∈[0,1)，α_1=β_1=0）与松弛参数 ρ_k 的上下界条件下，Algorithm 2 生成的序列收敛到问题(1)的解；证明将 TSIPD 视为对 θ-平均算子 T_PD3O（θ=2β̃/(4β̃−τ)）的一般惯性 Mann 迭代，并援引 Dong 等的弱收敛结果。",
+    "experiments_or_examples": "约束 TV 去噪 min_{x∈C} ½‖x−b‖²+μ‖x‖_TV，测试图 Lena（512×512），噪声标准差 0.01/0.05/0.1，参数 τ=2β̃、σ=1/(8τ)、α_k=0.4、β_k=0.5；与 PD3O 在 ε=10^{-3}、10^{-4} 下比较时间、迭代次数与 SNR。",
+    "limitations": "理论参数条件较严且依赖 cocoercivity 型 Assumption 1；收敛叙述建立在非扩张映射惯性 Mann 的弱收敛框架上；数值仅对比 PD3O 与单幅去噪任务，未系统考察多算子/大规模重建设定。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对 A57 的多复合项原始对偶邻近分裂，A47 并不沿其多线性算子与预条件主线推进，而是把 Dong 的两步惯性 Mann 嵌到 Yan 的 PD3O 上并给出参数条件下的收敛；问题仍属三项复合凸优化，方法组合与实例化清晰，但基础算子性质与惯性引理均直接继承既有结果，故判为增量改进。",
+    "inherited_foundations": [
+      "三项和/复合凸模型及邻近算子完全分裂思想（与 A57 同属原始对偶邻近谱系）",
+      "Yan 的 PD3O 迭代及其 θ-平均/非扩张性（Lemma 1）",
+      "Dong 等一般惯性 Mann 迭代与弱收敛条件（Lemma 2）",
+      "Chambolle–Pock、前向–后向与 Davis–Yin 三分算子等可退化特例框架"
+    ],
+    "incremental_advances": [
+      "对原始/对偶变量同时引入 α_k、β_k 两路惯性外推，并与 PD3O 邻近步、松弛步耦合为 TSIPD",
+      "将惯性参数与 PD3O 步长条件对齐，写成可检验的收敛条件组 (i)–(iv)",
+      "在特殊参数下统一解释 PD3O 及若干经典分裂格式"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "约束 TV 去噪上与 PD3O 的迭代次数、CPU 时间与 SNR 对比（Lena，多种噪声水平）"
+    ],
+    "comparison_basis": [
+      "A57（2017）《A splitting primal-dual proximity algorithm for solving composite optimization problems》",
+      "目标论文引用的 PD3O（Yan）、一般惯性 Mann（Dong et al.）、Chambolle–Pock、Davis–Yin 三分算子及相关工作综述"
+    ],
+    "evidence_boundary": "overview/理论/实验均已对照 A47 全文 Abstract、Algorithm 2、Theorem 1、§IV–VI 与 Table 1；创新性比较仅相对本地 A57 与 A47 自引相关工作，A47 参考文献未列入 A57，二者问题形式与算法骨架并不连续继承；未核对领域内其他两步惯性原始对偶文献，故不作“首个/唯一”类判断。",
+    "confidence": 0.9
+  },
+  "lineage_position": "A47 与 A57 同处“复合凸优化的原始对偶邻近分裂”研究线：A57（2017）面向多复合项 ΣF_i(K_i x)+G 并强调预条件与 CT 重建；A47（2019）转向光滑项+两非光滑项（含下确界卷积）的三项和，以 PD3O 为内核叠加两步惯性，属于同谱系中偏惯性加速与三分算子统一表述的后续节点，而非 A57 多算子预条件路线的直接续篇。",
+  "keywords": [
+    "原始对偶",
+    "惯性方法",
+    "两步惯性",
+    "邻近算子",
+    "PD3O",
+    "三分算子分裂",
+    "全变分去噪",
+    "不动点"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.631Z",
+  "comparison_ids": [
+    "A57"
+  ]
+}

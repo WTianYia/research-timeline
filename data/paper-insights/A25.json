@@ -1,0 +1,66 @@
+{
+  "id": "A25",
+  "title": "Solving monotone inclusions involving the sum of three maximally monotone operators and a cocoercive operator with applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三极大单调算子与一 cocoercive 算子之和的零点问题，提出两类不依赖乘积空间技术的四算子分裂算法，并证明弱/强收敛，进而用于复合凸最小化与图像修复。",
+    "research_problem": "求解 0∈A1x+A2x+A3x+Cx（A1,A2,A3 极大单调，C 为 β-cocoercive）的四算子单调包含；既有广义前向–后向等算法常依赖乘积空间提升，本文目标是在不使用乘积空间技巧下构造可收敛的直接分裂迭代。",
+    "core_method": "构造两类基于三个 resolvent 与一次 cocoercive 前推的四算子迭代：Algorithm 1 在第三步对 C(uk) 作前推，Algorithm 2 将对偶位置改为 C(vk)；再对辅助变量 (xk,yk) 作松弛更新，并在 γ∈(0,2β)、λk∈(0,1−γ/(2β)) 及发散型步长条件下给出 Fejér 型收敛分析。",
+    "main_findings": [
+      "Theorem 5/6：Algorithm 1、2 在 mild 参数条件下有 uk−wk→0、vk−uk→0，(xk,yk) 弱收敛到 Ωγ 中点，uk,vk,wk 弱收敛到 zer(A1+A2+A3+C) 中的 ū，且 C 在零点集上取常值 C(ū)；若 A1/A2/A3 在有界子集上一致单调或 C 半正则，则 uk,vk,wk 强收敛。",
+      "Algorithm 1 可退化为 Ryu 三算子分裂、Davis–Yin 三算子分裂与 Douglas–Rachford；作者说明其与 GFBS、分布式前向–后向（DFB）迭代形式不同。",
+      "复合凸最小化 min(f1+f2+f3+g) 经 ∂fi 与 ∇g 对应到四算子包含，Corollary 7/8 给出邻近算子形式迭代的相应收敛结论。",
+      "约束彩色图像修复实验中，Algorithm 1 在迭代次数与 CPU 时间上优于所比较的 GFBS/FPIF/DFB/DFRB 等，PSNR/NMSD 与对照方法接近（Table 1：Alg1 约 29 次/6.17s，GFBS 约 32 次/7.39s 且 PSNR 略高）。"
+    ],
+    "theoretical_guarantee": "Lemma 3 建立 zer(A1+A2+A3+C)=JγA1(Ωγ)；Lemma 4 给出单调性不等式。Theorem 5（Algorithm 1）与 Theorem 6（Algorithm 2）：γ∈(0,2β)，{λk}⊂(0,1−γ/(2β)) 且 Σλk(1−γ/(2β)−λk)=+∞ 时，(xk,yk) 对 Ωγ Fejér 单调并弱收敛，uk,vk,wk 弱收敛到解，C(uk) 或 C(vk) 强收敛到 C(ū)；附加一致单调或 demiregular 条件时 uk,vk,wk 强收敛。Corollary 7/8 将上述结果迁移到邻近–梯度形式的复合凸最小化。",
+    "experiments_or_examples": "Section 5 在约束彩色图像修复问题（Building，517×493，40% 像素缺失+高斯噪声）上验证，模型为核范数低秩正则加非负约束与数据保真，与 GFBS、FPIF、DFB1、DFB2、DFRB 比较；报告参数扫描（Fig.1）、NMSD/PSNR–迭代曲线（Fig.2）及 Table 1 的 NMSD/PSNR/Iter/Time，Algorithm 1 在速度指标上最优、质量指标与对照接近。",
+    "limitations": "收敛依赖三个 resolvent 可计算、C 的 cocoercivity 及较严的步长/松弛条件；理论以渐近弱/强收敛为主，未给出一般复杂度率；数值上修复质量（PSNR）未全面优于 GFBS；全文未系统讨论算子选择次序、噪声/缺失率敏感性及大规模可扩展性。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "相对 A38 的对偶三算子/复合算子路线，A25 改攻“三极大单调+一 cocoercive”的四算子直接和，并给出不依赖乘积空间的两类 resolvent 分裂与完整弱/强收敛；属于三算子分裂谱系上的显著结构扩展，而非全新范式，亦非 A38 对偶框架的直接续作。",
+    "inherited_foundations": [
+      "极大单调算子 resolvent 与 cocoercive 前推的经典分裂框架（Douglas–Rachford、forward-backward、Davis–Yin 等）",
+      "Ryu 三算子分裂与 Davis–Yin 三算子分裂作为可退化特例的结构基础",
+      "单调包含→复合凸最小化（次微分+Lipschitz 梯度）及成像数值验证的研究范式（与 A38 同属该脉络）"
+    ],
+    "incremental_advances": [
+      "将 Davis–Yin 三算子（两极大单调+一 cocoercive）扩展为三极大单调+一 cocoercive 的四算子设定",
+      "通过交换 cocoercive 算子作用点（C(uk) 与 C(vk)）得到第二套同条件收敛算法",
+      "将四算子结果直接写成三邻近算子+梯度的复合凸最小化算法（Corollary 7/8）"
+    ],
+    "core_innovations": [
+      "不依赖传统乘积空间/提升技术、仅用两个辅助变量的两类四算子直接分裂格式（Algorithm 1/2）",
+      "围绕 Ωγ 与单调性不等式（Lemma 3–4）的 Fejér 型收敛分析，统一给出弱收敛及一致单调/半正则下的强收敛"
+    ],
+    "implementation_or_experimental_changes": [
+      "实验从 A38 侧重的图像去模糊（TV）转为约束彩色图像修复（双核范数+非负约束）",
+      "与 GFBS、FPIF、DFB、DFRB 等四算子相关算法对照，并做 (γ,λ) 参数热图与 PSNR/NMSD 报告"
+    ],
+    "comparison_basis": [
+      "A38（2021）《Dual three-operator splitting algorithms for solving composite monotone inclusion with applications to convex minimization》",
+      "目标论文相关工作与特例：Davis–Yin 三算子分裂、Ryu 三算子分裂、GFBS、分布式前向–后向/前向–反射–后向（Aragón-Artacho 等）"
+    ],
+    "evidence_boundary": "overview、定理条件、算法形式与图像修复数值均来自 A25 全文（Abstract、§1 贡献、§3 Theorem 5–6、§4 Corollary 7–8、§5 Table 1/结论）。创新性比较仅相对本地可读的 A38 及 A25 自引的 Davis–Yin/Ryu/GFBS/DFB；A38 解决的是复合+平行和结构的对偶三算子问题，二者问题设定并不相同，故“相对 A38 的继承—增量”按谱系对照而非直接定理继承；未覆盖 A25 发表前后更广四算子分裂文献，故对“是否为首个非乘积空间四算子法”不作外部优先权判断。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于 Davis–Yin/Ryu 三算子分裂与 GFBS/DFB 等四算子工作之后；与 A38 的“复合算子对偶三算子”路线并列，把问题推进到三极大单调加 cocoercive 的四算子直接和，并强调非乘积空间实现与两类前推位置变体。",
+  "keywords": [
+    "单调包含",
+    "四算子分裂",
+    "极大单调算子",
+    "cocoercive算子",
+    "非乘积空间",
+    "复合凸最小化",
+    "邻近算子",
+    "图像修复",
+    "弱收敛",
+    "Davis-Yin分裂"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.574Z",
+  "comparison_ids": [
+    "A38"
+  ]
+}

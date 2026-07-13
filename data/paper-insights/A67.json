@@ -1,0 +1,59 @@
+{
+  "id": "A67",
+  "title": "A cyclic and simultaneous iterative algorithm for the multiple split common fixed point problem of demicontractive mappings",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对半压缩映射的多重分裂公共不动点问题，构造同时与循环两类迭代格式并证明弱收敛。",
+    "research_problem": "在Hilbert空间中求解半压缩映射族的多重分裂公共不动点问题（MSCFPP）：求公共不动点经有界线性算子后仍落在另一族公共不动点集。",
+    "core_method": "对T侧作凸组合校正、对U侧分别采用全族凸组合（同时）或按模循环选取（循环），结合Mann型松弛与Fejér单调性分析。",
+    "main_findings": [
+      "同时迭代在解集非空、I−U_i与I−T_j在0处demiclosed及参数γ∈(0,(1−μ)/λ)、α_n∈(δ,1−β−δ)时弱收敛到MSCFPP解",
+      "循环迭代在上述参数条件外另需U_i连续时亦弱收敛到MSCFPP解",
+      "两类算法相对解集均具Fejér单调性",
+      "同时算法在p=r=1时可退化为Moudafi的两集半压缩分裂公共不动点迭代"
+    ],
+    "theoretical_guarantee": "Lemma 3.1/3.2给出Fejér单调性；Theorem 3.1、3.2分别证明同时与循环算法在demicontractive常数上界、谱半径步长与松弛参数条件下的弱收敛。",
+    "experiments_or_examples": "全文为理论推导，未见数值算例或仿真实验。",
+    "limitations": "仅得弱收敛、未讨论强收敛；循环算法额外要求U_i连续；步长依赖半压缩常数与A*A谱半径；无计算验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A76，问题类与算子类未变（仍为半压缩MSCFPP），主要增量是新增同时（并行）迭代，并将循环格式改为T侧同时组合、U侧循环，属同框架下的算法结构改进而非问题范式跃迁。",
+    "inherited_foundations": [
+      "多重分裂公共不动点问题（MSCFPP）Hilbert空间框架",
+      "半压缩映射及其等价内积不等式、Mann型松弛与Fejér单调弱收敛路线",
+      "A76对MSCFPP的循环迭代思想及Moudafi两集半压缩分裂算法"
+    ],
+    "incremental_advances": [
+      "提出同时迭代：对全部T_j校正作凸组合，再对全部U_i作Mann步并凸组合更新",
+      "提出不同于A76的循环格式：T侧同时组合、U侧按模循环",
+      "分别建立同时与循环算法的Fejér单调性与弱收敛定理",
+      "同时算法在p=r=1时可自然退化为Moudafi两集格式"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A76（2012）《A cyclic algorithm for the split common fixed point problem of demicontractive mappings in Hilbert spaces》",
+      "目标论文引言对Moudafi、Censor–Segal及作者前作[12]（即A76）的引用与Remark 3.1的算法对比"
+    ],
+    "evidence_boundary": "overview与定理事实均来自A67全文Abstract、§1算法、§3 Lemma/Theorem及Remark 3.1；创新性比较仅对照本地A76全文。未系统覆盖同期其他MSCFPP/并行分裂文献，故相对更广谱系的新颖性排序可能受本地文献覆盖限制。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于半压缩映射分裂公共不动点谱系：承接Moudafi两集算法与A76的MSCFPP循环算法，在同一问题设定下补充同时迭代并改写循环结构，属于A76之后的算法变体扩展。",
+  "keywords": [
+    "多重分裂公共不动点问题",
+    "半压缩映射",
+    "同时迭代",
+    "循环迭代",
+    "弱收敛",
+    "Hilbert空间",
+    "Fejér单调",
+    "不动点"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.683Z",
+  "comparison_ids": [
+    "A76"
+  ]
+}

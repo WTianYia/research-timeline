@@ -1,0 +1,67 @@
+{
+  "id": "A49",
+  "title": "Iterative Methods for Computing the Resolvent of Composed Operators in Hilbert Spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在Hilbert空间中研究复合算子U^{-1}A^*TA的预解计算：给出若干显式公式，并提出基于Krasnoselskii–Mann的定点迭代，证明弱/强收敛，并应用于带度量的复合邻近算子及有限和预解。",
+    "research_problem": "如何在一般条件下计算复合极大单调算子U^{-1}A^*TA的预解（含标度邻近算子prox^U_{φ∘A}），避免必须计算T^{-1}或(AU^{-1}A^*)^{-1}等苛刻前提。",
+    "core_method": "先在AU^{-1}A^*可逆或等于νI等条件下给出预解显式表达式；再构造平均算子Q=(I-J_{T/λ})∘F，用KM型松弛迭代逼近Fix(Q)，并由固定点还原预解；再将有限和问题嵌入乘积空间化为同一框架。",
+    "main_findings": [
+      "推广Fukushima与Bauschke–Combettes型显式预解公式至自伴强正定度量U情形（Prop.1–2）",
+      "建立一般情形下的定点刻画与KM迭代（36），在λ∈(0,2α/‖A‖²)且松弛步满足发散型条件时，y_k弱收敛于Fix(Q)；若inf α_k>0则u_k强收敛到预解（Thm.2）",
+      "得到有限个极大单调算子和的带U预解算法（Thm.3）及prox^U_{φ∘A}、prox^U_{∑f_i}的强收敛算法（Thm.4–5）",
+      "U=I时退化为Moudafi方法，且松弛参数取值范围更宽（Rem.1）"
+    ],
+    "theoretical_guarantee": "Q为平均算子；KM迭代下{y_k}弱收敛到Q的不动点；当inf α_k>0时{u_k}在等价范数下强收敛到J_{U^{-1}A^*TA}(x)（及有限和/邻近算子特例）。",
+    "experiments_or_examples": "全文为理论推导，未给出数值实验或仿真算例；仅在引言/结论中讨论与图像复原、重构及非光滑稀疏优化中Newton型方法的联系。",
+    "limitations": "如何在有限维中选取对称正定矩阵U以提升实现效率尚不清楚；结论明确将其列为未来工作。假设A^*TA在适当约束条件下极大单调。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "相对Moudafi/Micchelli的复合预解定点思路，将问题系统推广到带强正定度量U的U^{-1}A^*TA预解，并统一给出显式公式、KM收敛、有限和与标度邻近应用；相对指定前序A50/A54则属同族并行分支而非直接续作。",
+    "inherited_foundations": [
+      "预解/Yosida逼近与PPA、邻近算子的经典联系（Rockafellar、Moreau等）",
+      "A^*TA预解的显式公式与极大单调性条件（Fukushima；Bauschke–Combettes；Bot–Grad–Wanka等）",
+      "无(AA^*)^{-1}、T^{-1}条件下的复合预解定点方法（Moudafi；Micchelli–Shen–Xu）",
+      "变度量邻近/前向–后向框架与平均算子、KM收敛理论（Combettes–Vu；Bauschke–Combettes）"
+    ],
+    "incremental_advances": [
+      "将显式公式从A^*TA推广到含U∈P_α(H)的λU^{-1}A^*TA，并给出AU^{-1}A^*=νI时的Yosida型简化式",
+      "相对Moudafi（U=I），扩大松弛参数允许区间，并在inf α_k>0时给出u_k的强收敛",
+      "把有限个极大单调算子和、有限个凸函数和的标度邻近算子统一嵌入乘积空间乘积算子框架"
+    ],
+    "core_innovations": [
+      "以U^{-1}A^*TA（而非仅A^*TA）为中心对象，建立不依赖T^{-1}与(AU^{-1}A^*)^{-1}的定点算子Q及其平均性证明，从而得到一般Hilbert空间中的可计算KM格式"
+    ],
+    "implementation_or_experimental_changes": [
+      "无独立数值实现对比；应用层体现为标度邻近与有限和邻近的算法形式，未做图像/信号实验"
+    ],
+    "comparison_basis": [
+      "A50（2018）《Convergence Analysis of an Inexact Three-Operator Splitting Algorithm》",
+      "A54（2017）《Bounded perturbation resilience of extragradient-type methods and their applications》",
+      "目标文相关工作：Moudafi (2014)、Fukushima (1996)、Bauschke–Combettes (Prop.23.25)、Micchelli et al.、Combettes–Vu变度量框架"
+    ],
+    "evidence_boundary": "overview/定理/局限均对照A49全文Abstract、§1贡献陈述、Prop.1–2、Lem.5–7、Thm.2–5、Rem.1与§5结论；innovation相对判断主要依据A50/A54本地全文与A49引用的Moudafi等，未覆盖更广文献网络；不得将A50的非精确三算子分裂收敛或A54的外梯度有界扰动弹性/数值实验写入A49本身。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处于“复合预解/标度邻近的定点计算”谱系：在Moudafi–Micchelli–Fukushima–Bauschke–Combettes主线上做变度量推广；与同组A50（非精确三算子分裂求A+B+C零点）和A54（变分不等式外梯度类方法的有界扰动弹性）共享单调算子/分裂收敛分析语境，但问题设定与算法对象并行而非直接派生。",
+  "keywords": [
+    "预解算子",
+    "单调算子",
+    "复合算子",
+    "Krasnoselskii–Mann算法",
+    "标度邻近算子",
+    "极大单调算子",
+    "Yosida逼近",
+    "平均算子",
+    "有限和预解",
+    "Hilbert空间"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.636Z",
+  "comparison_ids": [
+    "A50",
+    "A54"
+  ]
+}

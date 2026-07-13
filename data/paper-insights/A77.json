@@ -1,0 +1,60 @@
+{
+  "id": "A77",
+  "title": "Reconstruction of sparse signals using smoothed l0 norm via the Mittag-Leffler function",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将Mittag-Leffler函数引入平滑ℓ0近似，提出MSL0算法，用于压缩感知下稀疏与可压缩信号重构。",
+    "research_problem": "欠定系统Ax=b的最稀疏解问题(P0)为组合优化难题；l1松弛、贪婪法、lp最小化及SL0等在可压缩信号重构精度与效率上仍有改进空间。",
+    "core_method": "以Mittag-Leffler函数E_α(-x_i²/(2σ²))替代SL0中的指数平滑核，构造MSL0目标，并在递减σ序列下用最速下降加Ax=b投影迭代求解。",
+    "main_findings": [
+      "K-稀疏情形下IR整体优于MSL0、SL0与l1-magic。",
+      "可压缩信号情形下MSL0在较高稀疏度时优于SL0、IR与l1-magic，SNR更优。",
+      "MSL0因Mittag-Leffler梯度计算比SL0更耗时，但仍明显快于IR。",
+      "α取0.25–0.9时重构性能接近，较大α略优。"
+    ],
+    "theoretical_guarantee": "全文未给出收敛性定理、误差界或重构充分条件，仅沿用SL0的算法推理与数值验证。",
+    "experiments_or_examples": "四组合成实验：高斯测量下K-稀疏与可压缩信号（n=100,m=256及n=400,m=1000）、CPU时间（n=m/2、K≈n/2.5）与α敏感性；以精确重构次数与SNR评价，对比SL0、IR、l1-magic。",
+    "limitations": "无理论保证；K-稀疏时弱于IR；相对SL0计算更贵；仅随机高斯合成信号，未见噪声模型与图像等实际应用验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 2,
+    "verdict": "在Mohimani等SL0框架内，将指数型平滑核替换为Mittag-Leffler函数得到MSL0；算法骨架（递减σ、最速下降+投影、L=3、最小二范数初值）基本沿用SL0，主要增量是近似函数族扩展及可压缩信号上的实验优势，属函数核替换型增量改进。",
+    "inherited_foundations": [
+      "压缩感知稀疏重构模型(P0)/(P1)及lp、贪婪等既有路线",
+      "Mohimani等SL0的平滑l0近似、递减σ与投影最速下降算法骨架",
+      "Mittag-Leffler函数的经典定义及其E_1(z)=e^z与指数的关系"
+    ],
+    "incremental_advances": [
+      "用E_α替换exp构造MSL0目标F(x)=∑(1-E_α(-x_i²/(2σ²)))",
+      "给出相应梯度更新形式与参数α控制的近似函数族"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "K-稀疏与可压缩信号的对比实验设置及SNR/精确重构评价",
+      "CPU时间与α敏感性测试"
+    ],
+    "comparison_basis": [
+      "Mohimani et al., smoothed l0 (SL0), IEEE TSP 2009",
+      "Chartrand & Yin, iteratively reweighted (IR), ICASSP 2008",
+      "Candès & Romberg, l1-magic",
+      "文中相关工作：OMP、CoSaMP、lp最小化、重加权l1、半阈值等"
+    ],
+    "evidence_boundary": "overview、实验与局限均直接来自A77全文；创新性相对比较仅依据文内对SL0/IR/l1-magic等的陈述，本地无前序全文可核对，故创新分级置信度下调；未把作者“outperforms”自述当作独立新颖性证据。",
+    "confidence": 0.58
+  },
+  "lineage_position": "位于压缩感知平滑l0近似重构谱系中，是Mohimani等SL0的函数核替换型变体，侧重可压缩信号重构性能的经验改进。",
+  "keywords": [
+    "稀疏优化",
+    "压缩感知",
+    "平滑l0范数",
+    "Mittag-Leffler函数",
+    "MSL0",
+    "可压缩信号",
+    "稀疏信号重构",
+    "最速下降"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.705Z",
+  "comparison_ids": []
+}

@@ -1,0 +1,63 @@
+{
+  "id": "A62",
+  "title": "Iterative methods for solving the multiple-sets split feasibility problem with splitting self-adaptive step size",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对多集合分裂可行性问题提出将C侧与Q侧校正分离的分裂自适应步长迭代，步长由迭代残差直接计算且无需线性算子谱范数，并给出松弛半空间形式，在无穷维Hilbert空间证明弱收敛，用LASSO与MSSFP算例验证有效性。",
+    "research_problem": "求MSSFP：寻找x*∈∩_{i=1}^t C_i使得Ax*∈∩_{j=1}^r Q_j；难点在于多集合交上的投影难直接计算，且经典CQ类固定步长依赖有界线性算子A的谱范数。",
+    "core_method": "构造算法(7)：将C侧加权投影方向与Q侧A*加权投影方向分别配以独立自适应步长λ_1^k、λ_2^k（由当前投影残差范数计算，参数ρ_1^k、ρ_2^k∈(0,1)）；当C_i、Q_j为凸函数水平集时，用半空间投影给出松弛算法(18)。",
+    "main_findings": [
+      "解集非空时，分裂自适应迭代(7)对解集Fejér单调并弱收敛到MSSFP解（定理3.1）",
+      "t=r=1时得到SFP新迭代(17)的弱收敛（推论3.2）；松弛形式(18)在假设(A1)(A2)下弱收敛（定理4.1）",
+      "LASSO实验中，所提(17)在停机准则下目标函数值常小于Byrne常数步长CQ与Lopez自适应CQ",
+      "两例MSSFP中，(7)(18)部分情形优于Wen同步或Zhao–Yang自适应，但迭代次数通常不及Wen循环自适应"
+    ],
+    "theoretical_guarantee": "在无穷维Hilbert空间、解集Ω非空、0<ρ̲_1≤ρ_1^k≤ρ̄_1<1、0<ρ̲_2≤ρ_2^k≤ρ̄_2<1及α_i,β_j>0条件下，{x^k}弱收敛到MSSFP解；松弛算法另需水平集表示与次微分在有界集上有界等(A1)(A2)。证明基于投影性质、Fejér单调、demiclosedness与Lemma 2.3。",
+    "experiments_or_examples": "两类实验：①LASSO（SFP特例），与Byrne CQ、Lopez自适应比较，停机‖x^{k+1}−x^k‖_2≤1e−6，报告多组(m,n,K)目标值与稀疏恢复图；②MSSFP Example 5.1/5.2（球与盒/二次水平集，t=r=20或30），与Zhao–Yang及Wen循环/同步自适应比较达到g(x)≤δ的迭代次数。",
+    "limitations": "仅证弱收敛、无收敛速率；数值上常不及Wen循环法，作者亦建议多方法并用选优；实验为有限维合成数据，未系统讨论噪声、大规模与实际成像场景。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A76的demicontractive分裂公共不动点循环算法（固定步长依赖A*A谱半径），A62回到投影型MSSFP，主增量是C/Q两侧独立自适应取步以避免谱范数；该设计承接Lopez/Zhao–Yang/Wen等自适应潮流，属既有MSSFP投影迭代上的步长结构细化，而非新问题类或新算子框架的核心突破。",
+    "inherited_foundations": [
+      "Censor等MSSFP建模、邻近函数g及其梯度∇g与Lipschitz常数含‖A‖^2的结构",
+      "Byrne CQ、Yang松弛CQ及半空间投影替代原集合投影的实现路线",
+      "Lopez、Zhao–Yang、Wen等“无需先验‖A‖”的自适应/自调节步长思想",
+      "Hilbert空间投影firm nonexpansiveness、Fejér单调、非扩张映射demiclosedness与弱收敛引理",
+      "与A76同属分裂可行性/分裂公共不动点谱系：SFP、MSSFP为SCFP在投影算子下的特例"
+    ],
+    "incremental_advances": [
+      "提出“分裂”自适应：C侧与Q侧各用独立λ_1^k、λ_2^k，形式不同于Zhao–Yang目标函数型与Wen循环/同步自适应",
+      "步长由当前投影残差直接计算，无内层Armijo线搜索、无需‖A‖或A*A谱半径",
+      "将同一分裂步长结构同步推广到半空间松弛投影算法(18)",
+      "在无穷维Hilbert空间给出(7)(18)及SFP特例的弱收敛证明"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "LASSO与两MSSFP合成算例的参数选取（如ρ_1^k=ρ_2^k=0.9）及与Byrne、Lopez、Zhao–Yang、Wen等方法的数值对比"
+    ],
+    "comparison_basis": [
+      "A76（2012）《A cyclic algorithm for the split common fixed point problem of demicontractive mappings in Hilbert spaces》",
+      "A62引言与§5所据相关工作：Byrne CQ、Lopez自适应、Zhao–Yang [17]、Wen et al. [18]、Xu、Qu–Xiu、Yang松弛CQ等"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均来自A62 full.md（摘要、§1、定理3.1/4.1、推论、§5表1–3、§6结论）；创新性相对比较以A76 full.md与A62文内算法/相关工作陈述为据。本地前序仅覆盖A76，未通读Lopez/Zhao–Yang/Wen原文，故相对后三者的“新意大小”主要依算法形式差异与A62自述“步长不同于[17][18]”作有限判断，未将作者评价直接等同新颖性证据。",
+    "confidence": 0.9
+  },
+  "lineage_position": "在分裂可行性谱系中：A76将问题提升为demicontractive映射的分裂公共不动点（SCFP），给出依赖谱半径的固定步长循环算法；A62则聚焦MSSFP的投影实现，用分裂自适应步长回应实用中的谱范数障碍，并配套松弛投影与数值验证，与Zhao–Yang/Wen同属MSSFP自适应分支，相对A76是同族后续、技术侧重点不同的增量工作。",
+  "keywords": [
+    "多集合分裂可行性问题",
+    "分裂自适应步长",
+    "松弛投影",
+    "CQ算法",
+    "LASSO",
+    "压缩感知",
+    "Hilbert空间弱收敛",
+    "Fejér单调"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.670Z",
+  "comparison_ids": [
+    "A76"
+  ]
+}

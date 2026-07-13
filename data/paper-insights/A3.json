@@ -1,0 +1,60 @@
+{
+  "id": "A3",
+  "title": "Variable selection of higher-order partially functional linear multiple varying coefficient spatial autoregressive model",
+  "source_mode": "abstract_only",
+  "overview": {
+    "one_sentence_contribution": "在摘要级证据下，该文面向高阶部分函数型线性多重变系数空间自回归模型，研究估计、离散化与变量选择问题。",
+    "research_problem": "在高维或部分函数型空间依赖设定下，如何对高阶部分函数型线性多重变系数空间自回归模型进行估计、离散化与变量选择。",
+    "core_method": "摘要仅概括为围绕高维统计或空间模型中的估计、离散化与变量选择展开；具体惩罚函数、估计方程与算法细节在本地摘要中不可核验。",
+    "main_findings": [
+      "研究问题被定位于高阶部分函数型线性多重变系数空间自回归模型的变量选择",
+      "摘要层面强调估计、离散化与变量选择的联合处理框架",
+      "相对前序部分函数型空间自回归变量选择工作，标题显示模型结构向高阶、多重变系数方向扩展",
+      "本地仅有摘要与元数据，无法核验具体选择一致性、估计效率或有限样本表现"
+    ],
+    "theoretical_guarantee": "本地摘要未给出可核验的定理表述、收敛速率或选择一致性结论；理论保证证据不足。",
+    "experiments_or_examples": "本地摘要与元数据未提供模拟设计、真实数据应用或数值结果，实验证据不可核验。",
+    "limitations": "全文缺失导致方法细节、理论条件与实验结论均无法从原文定位；当前判断严格受 abstract_only 限制。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对 A11 的部分函数型线性空间自回归变量选择框架，A3 标题与问题定位显示向高阶空间依赖与多重变系数结构扩展，属模型结构层面的显著扩展；但因仅有摘要，增量细节与理论/实验增益尚不能被全文核验。",
+    "inherited_foundations": [
+      "部分函数型线性结构与空间自回归设定下的变量选择问题意识",
+      "高维或参数维发散情形下对估计与选择同步处理的研究脉络",
+      "函数型协变量离散化后再进入参数/半参数估计与选择的基本路线"
+    ],
+    "incremental_advances": [
+      "由单阶或部分函数型空间自回归设定推进到标题所示的高阶模型",
+      "引入多重变系数结构，使空间效应或协变量效应允许更灵活的变系数刻画",
+      "在更复杂的空间依赖与半参数结构上继续讨论变量选择"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "摘要提到估计、离散化与变量选择，但具体实现、模拟设计与应用场景无法从本地摘要核验"
+    ],
+    "comparison_basis": [
+      "A11（2025）《Variable selection of partially functional linear spatial autoregressive model with a diverging number of parameters》",
+      "A3 标题与本地摘要：higher-order partially functional linear multiple varying coefficient spatial autoregressive model；估计、离散化与变量选择"
+    ],
+    "evidence_boundary": "overview 中目标论文事实仅来自 A3 标题、期刊元数据与本地摘要，未使用全文。innovation 相对比较主要依据 A11 全文与 A3 标题/摘要的模型结构差异；因 A3 全文缺失，未将其任何定理、实验或作者自述新颖性直接采信为已证实贡献，confidence 上限约束为 ≤0.65。",
+    "confidence": 0.55
+  },
+  "lineage_position": "A3 位于 A11 所代表的部分函数型线性空间自回归变量选择脉络之上，将模型由（发散参数下的）部分函数型线性 SAR 进一步推向高阶、多重变系数的更复杂空间半参数设定；在谱系上更像结构扩展节点，而非可确认的全新方法学起点。",
+  "keywords": [
+    "变量选择",
+    "部分函数型线性模型",
+    "空间自回归",
+    "高阶空间依赖",
+    "多重变系数",
+    "高维统计",
+    "离散化",
+    "半参数估计"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.516Z",
+  "comparison_ids": [
+    "A11"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "A30",
+  "title": "Forward-partial inverse-half-forward splitting algorithm for solving monotone inclusions",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "本文提出 forward-partial inverse-half-forward 分裂算法，用于求解含法锥、极大单调、单调-Lipschitz 与 cocoercive 算子的耦合单调包含，并导出复合原-对偶与约束凸优化应用。",
+    "research_problem": "在实 Hilbert 空间中求解耦合单调包含：涉及向量子空间法锥、极大单调算子、单调 Lipschitz 算子与 cocoercive 算子之和，需在利用各算子内禀性质的同时兼顾计算效率。",
+    "core_method": "提出 forward-partial inverse-half-forward 分裂：每步对 Lipschitz 算子计算两次、对 cocoercive 算子仅激活一次；经积空间技巧导出含线性算子的复合单调原-对偶方法，并应用于约束复合凸优化。",
+    "main_findings": [
+      "该算法统一并推广 partial inverse 方法与 forward-backward-half-forward 分裂等经典框架",
+      "在合适步长与算子条件下证明弱收敛（及相应强收敛情形）",
+      "由积空间重构得到复合原-对偶分裂，可处理带线性算子的复合单调包含",
+      "在约束全变差最小二乘问题上与文献高效方法对比，验证算法有效性"
+    ],
+    "theoretical_guarantee": "在极大单调性、单调-Lipschitz、cocoercivity 及步长限制等标准假设下，迭代序列弱收敛到原问题解；具体定理与条件以全文定理陈述为准。",
+    "experiments_or_examples": "将算法应用于约束全变差最小二乘问题，并与文献中高效方法进行数值比较。",
+    "limitations": "每步需两次 Lipschitz 算子求值；数值验证主要集中于约束 TV 最小二乘设定，更广问题类与强收敛条件依赖额外结构假设。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "在 partial inverse 与 FBHF 分裂基础上，将法锥-极大单调-Lipschitz-cocoercive 四类算子统一到可利用各算子性质的 forward-partial inverse-half-forward 框架，并以积空间导出原-对偶形式，属显著方法扩展而非全新范式。",
+    "inherited_foundations": [
+      "partial inverse（部分逆）方法框架",
+      "forward-backward-half-forward (FBHF) 分裂思想",
+      "积空间技巧处理耦合/原-对偶单调包含",
+      "单调算子、Lipschitz 与 cocoercive 算子的标准分裂假设"
+    ],
+    "incremental_advances": [
+      "将 partial inverse 与 half-forward 结构结合，使 cocoercive 算子每步仅激活一次而 Lipschitz 算子激活两次",
+      "覆盖同时含法锥、极大单调、单调-Lipschitz 与 cocoercive 的耦合包含",
+      "由积空间导出含线性算子的复合原-对偶分裂及应用到约束复合凸优化"
+    ],
+    "core_innovations": [
+      "forward-partial inverse-half-forward 分裂算法的构造及其对 partial inverse 与 FBHF 的统一推广"
+    ],
+    "implementation_or_experimental_changes": [
+      "约束全变差最小二乘问题的实现与和文献高效方法的数值对比"
+    ],
+    "comparison_basis": [
+      "A38（2021）Dual three-operator splitting algorithms for solving composite monotone inclusion with applications to convex minimization",
+      "A49（2019）Iterative Methods for Computing the Resolvent of Composed Operators in Hilbert Spaces",
+      "目标论文相关工作中的 partial inverse 与 forward-backward-half-forward splitting"
+    ],
+    "evidence_boundary": "overview 与理论/实验描述均以 A30 全文 abstract、贡献与实验段落为据；与 A38/A49 的相对创新判断仅基于本地三篇全文的方法定位比较，未覆盖该方向全部文献，故“核心创新”边界受本地文献集限制。",
+    "confidence": 0.82
+  },
+  "lineage_position": "A49 侧重复合算子 resolvent 的迭代计算；A38 给出复合单调包含的对偶三算子分裂及凸极小化应用；A30 在 partial inverse 与 FBHF 谱系上进一步处理“法锥+极大单调+Lipschitz+cocoercive”的耦合结构，并以积空间通向复合原-对偶与约束优化，是该分裂算法线的显著方法扩展。",
+  "keywords": [
+    "单调包含",
+    "分裂算法",
+    "部分逆",
+    "forward-backward-half-forward",
+    "原-对偶",
+    "cocoercive",
+    "Lipschitz 算子",
+    "约束全变差"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.587Z",
+  "comparison_ids": [
+    "A38",
+    "A49"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "id": "A23",
+  "title": "First-order primal-dual algorithm for image restoration corrupted by mixed Poisson-Gaussian noise",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将TV-IC模型改写为复合凸优化，用Chambolle–Pock一阶原始-对偶外层迭代，并以双线性约束ADMM求解KL+ℓ₂联合邻近子，避免Newton子问题。",
+    "research_problem": "混合Poisson–Gaussian噪声破坏下的图像去噪与去模糊复原；已有TV-IC求解多依赖Newton解非线性子问题，计算负担大且部分算法收敛性不明。",
+    "core_method": "将TV-IC化为min f(x)+δ_C(Lx)，用PDCP更新对偶与原始变量；TV与盒约束邻近有闭式；KL+ℓ₂联合邻近由双线性约束ADMM（BCA）内层求解。",
+    "main_findings": [
+      "PDCP+BCA子问题均可闭式更新，无需计算二阶导数",
+      "Theorem 3.2：步长满足条件时，不精确求解邻近子仍收敛到TV-IC解",
+      "去模糊与去噪实验中，多数情形PSNR/SSIM高于PD+TV、PDHG+TV（去噪还对比BCA+TV）",
+      "在Berkeley 100张图与真实zebrafish胚胎共聚焦图上仍有竞争力"
+    ],
+    "theoretical_guarantee": "Proposition 3.1给出内层乘子关系用于简化v-子问题；Theorem 3.2声称在στ‖L‖²<1时迭代序列收敛到(2.7)的解，证明引自不精确一阶原始-对偶结果[29]并省略详证。",
+    "experiments_or_examples": "模拟MPG去模糊（disk/Gaussian模糊，η=4,16,64，σ̃=10⁻¹/10⁻²）与纯去噪（H=I）；测试图Monarch等六幅、Berkeley 100张与真实zebrafish胚胎图；指标PSNR/SSIM/CPU，停止Rel≤2×10⁻⁴或最多1000次；内迭代15次。",
+    "limitations": "TV-IC模型本身非本文新建；步长依赖实验取值，文中明言尚无自适应步长规则故效率不总是最优；收敛定理证明依赖引用而非自给完整证明；实验主要对比同模型求解器而非广泛去噪方法。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A68/A55的一阶原始-对偶图像谱系，本文将PDCP适配到TV-IC/MPG设定，并用BCA处理KL+ℓ₂联合邻近；模型与外层框架均非首创，属算法层增量而非核心创新。",
+    "inherited_foundations": [
+      "TV-IC模型及KL+ℓ₂信度项（Calatroni/Lanza等）",
+      "Chambolle–Pock一阶原始-对偶框架（与A68、A55同谱）",
+      "变量拆分+邻近算子/投影计算（soft-shrinkage、盒约束投影）",
+      "双线性约束ADMM（BCA，Zhang et al.）用于KL相关子问题",
+      "不精确原始-对偶收敛结果（引自[29]）"
+    ],
+    "incremental_advances": [
+      "将TV-IC改写为PDCP可直接处理的复合凸形式，并给出对应子问题分解",
+      "以BCA作为KL+ℓ₂联合邻近的内层求解器，替代Newton/半光滑Newton",
+      "Proposition 3.1用于简化内层v更新；将BCA从纯去噪场景纳入可含模糊算子H的复原框架"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "与PD+TV、PDHG+TV、BCA+TV在去模糊/去噪上的PSNR、SSIM、CPU对比",
+      "步长、计算负荷与内层迭代次数的实验调试",
+      "Berkeley 100张与真实共聚焦图的扩展验证"
+    ],
+    "comparison_basis": [
+      "A68（2013）《A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction》",
+      "A55（2017）《A new approach to solving the prior image constrained compressed sensing (PICCS) with applications in CT image reconstruction》",
+      "目标文中TV-IC求解相关工作：Lanza et al. PD+TV、Calatroni et al. TV-IC、Toader et al. PDHG+TV、Zhang et al. BCA"
+    ],
+    "evidence_boundary": "overview/理论/实验/局限均可在A23全文Abstract、第3节Algorithm 1、Prop.3.1、Thm.3.2、第4节与Conclusions定位；innovation仅相对本地A55、A68及A23引用的TV-IC文献；未核对网上同期其他MPG/TV-IC工作，故“领域首个”类判断不作。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于唐玉超课题组一阶原始-对偶图像复原谱系之后：A68将Chambolle–Pock用于CT上ℓ₂+TV，A55将原始-对偶邻近拆分用于广义PICCS；A23继续该框架，转向混合Poisson–Gaussian的TV-IC去噪/去模糊，并嵌入BCA处理联合数据项邻近子。",
+  "keywords": [
+    "原始对偶",
+    "图像复原",
+    "噪声处理",
+    "混合Poisson-Gaussian噪声",
+    "TV-IC",
+    "Kullback-Leibler散度",
+    "Chambolle-Pock",
+    "双线性约束ADMM"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.569Z",
+  "comparison_ids": [
+    "A55",
+    "A68"
+  ]
+}

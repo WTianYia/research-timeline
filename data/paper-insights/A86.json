@@ -1,0 +1,58 @@
+{
+  "id": "A86",
+  "title": "A necessary and sufficient condition for the strong convergence of Lipschitzian pseudocontractive mapping in Banach spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在一般Banach空间中，对Lipschitz伪压缩映射给出Ishikawa与Mann迭代强收敛到不动点的充要条件：在可和型参数条件下，强收敛当且仅当liminf d(x_n,F(T))=0。",
+    "research_problem": "Ishikawa（1974）关于Hilbert空间中Lipschitz伪压缩映射的强收敛结果如何向一般Banach空间推进，以及Ishikawa/Mann迭代强收敛到不动点的充要条件如何刻画。",
+    "core_method": "在Banach空间中采用伪压缩的对偶表述及等价不等式，对Ishikawa两步迭代在∑α_nβ_n<∞与∑α_n²<∞条件下建立准Fejér型估计，再由liminf d(x_n,F(T))=0推出序列为Cauchy并强收敛到不动点；Mann情形作为β_n=0的特例。",
+    "main_findings": [
+      "Ishikawa迭代在∑α_nβ_n<∞且∑α_n²<∞时，强收敛到T的不动点当且仅当liminf d(x_n,F(T))=0",
+      "Mann迭代在∑α_n²<∞时具有同形式的充要强收敛条件",
+      "所得框架同时适用于Ishikawa与Mann两类迭代，而Ishikawa原定理不能直接退化为Mann"
+    ],
+    "theoretical_guarantee": "Lemma 2.1给出相对不动点的准Fejér估计与一致有界控制；Theorem 2.2与Corollary 2.3分别给出Ishikawa与Mann迭代强收敛的充要条件，并证明极限点属于F(T)。",
+    "experiments_or_examples": "全文为纯理论证明，未提供数值实验或算例。",
+    "limitations": "参数为可和型（∑α_nβ_n<∞、∑α_n²<∞），与Ishikawa原定理的发散型条件（∑α_nβ_n=∞）不同，因而未在原参数格式下完全解决Banach推广的公开问题；结论依赖F(T)非空与L>1的Lipschitz伪压缩假设；liminf d=0条件在应用中仍需额外核验；无数值验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A90在Hilbert空间构造混合投影Ishikawa算法并保证强收敛，A86转向一般Banach空间中经典Ishikawa/Mann迭代，给出可和参数下的充要收敛刻画；问题设定有扩展，但证明主线为准Fejér估计加Cauchy论证，且未沿A90混合算法路线推进，也未按Ishikawa原参数完全解决公开问题，故属有意义的增量改进。",
+    "inherited_foundations": [
+      "Lipschitz伪压缩映射及其不动点集F(T)",
+      "Ishikawa两步迭代与Mann迭代的基本格式",
+      "伪压缩在Banach空间中的对偶映射表述及与Hilbert情形的等价关系"
+    ],
+    "incremental_advances": [
+      "将讨论空间由Hilbert推进到一般Banach空间",
+      "把结论形式改为强收敛的充要条件（liminf d(x_n,F(T))=0）",
+      "在同一框架下同时覆盖Ishikawa与Mann迭代"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A90（2010）《Strong convergence theorem for pseudo-contractive mappings in Hilbert spaces》",
+      "Ishikawa（1974）Hilbert空间紧凸集上的强收敛定理（目标文Theorem 1.1）",
+      "目标文引用的Berinde（2007）、Chidume（2009）关于原定理向更一般Banach空间推广的公开问题论述"
+    ],
+    "evidence_boundary": "overview、定理与局限均直接对照A86全文Abstract、Lemma 2.1、Theorem 2.2、Corollary 2.3与Remark 2.4；创新性仅相对本地A90及目标文内相关工作背景作比较，未系统覆盖同期其他Banach空间伪压缩文献，故新颖性排序受本地文献范围限制。",
+    "confidence": 0.9
+  },
+  "lineage_position": "与A90同属Lipschitz伪压缩映射强收敛研究线，但A90走Hilbert空间混合投影算法路线，A86回归经典Ishikawa/Mann迭代并给出Banach空间充要条件，二者并行互补，共同承接Ishikawa 1974以来的强收敛问题。",
+  "keywords": [
+    "不动点",
+    "Banach空间",
+    "伪压缩映射",
+    "Ishikawa迭代",
+    "Mann迭代",
+    "强收敛",
+    "充要条件",
+    "Lipschitz映射"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.723Z",
+  "comparison_ids": [
+    "A90"
+  ]
+}

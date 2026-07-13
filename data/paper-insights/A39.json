@@ -1,0 +1,62 @@
+{
+  "id": "A39",
+  "title": "An inertial alternating direction method of multipliers for solving a two-block separable convex minimization problem",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将惯性Douglas–Rachford分裂作用于两块可分凸问题的对偶，构造一般线性等式约束下的惯性ADMM，并在Hilbert空间给出收敛分析，以RPCP算例验证有效性。",
+    "research_problem": "求解带线性等式约束的两块可分凸最小化问题 min F(u)+G(v) s.t. Mu+Nv=b，在已有ADMM/惯性ADMM基础上，如何对一般两块形式建立可分析的惯性加速迭代并保证收敛。",
+    "core_method": "对对偶问题施加惯性Douglas–Rachford分裂，导出惯性ADMM（Algorithm 1）：在u、v子问题与乘子更新中引入惯性/松弛参数(α_k, λ_k)，并证明其与对偶惯性DRS等价。",
+    "main_findings": [
+      "给出面向一般两块约束(1.1)的iADMM格式；α_k≡0时退化为GADMM，并推广Bot–Csetnek针对min F(u)+G(Mu)的惯性ADMM",
+      "在Attouch–Brezis条件与M、N下有界（有限维为满列秩）等假设下，证明原—对偶变量弱收敛、可行性强收敛及目标值趋于最优值",
+      "RPCP合成算例上，相对经典ADMM与Chen等惯性邻近ADMM，多数情形迭代更少或精度相当，并与GADMM总体可比",
+      "相对把(1.1)化为(1.3)再套用既有惯性ADMM的写法，Algorithm 1形式更简洁"
+    ],
+    "theoretical_guarantee": "定理3.1：在问题有解、(3.2)成立、‖Mx‖≥θ_1‖x‖、‖Nx‖≥θ_2‖x‖，且α_k非减、0≤α_k≤α<1、λ_k落在由α,σ,δ确定的区间时，(u^k,v^k)弱收敛至原问题最优解，Mu^{k+1}+Nv^k强收敛到b，y^k弱收敛至对偶最优；若F*或G*一致凸则y^k强收敛；原/对偶目标值趋于v(P)=v(D)。定理3.2在可和型惯性残差条件下给出同类结论。",
+    "experiments_or_examples": "合成RPCP：min‖u‖_*+μ‖v‖_1 s.t. u+v=b；对比经典ADMM、GADMM、Chen等iADMM及本文Algorithm 1-1/1-2；矩阵规模m=500/800/1000，不同秩与稀疏度，报告迭代次数与相对误差rel u*、rel v*。",
+    "limitations": "仅处理两块可分问题；收敛需M、N满列秩型条件；定理3.1对α_k、λ_k约束较紧；无收敛速率；实验限于合成RPCP，且部分情形GADMM迭代更少。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "核心是把已有“对偶惯性DRS→惯性ADMM”路线从特殊形式min F(u)+G(Mu)推广到一般两块Mu+Nv=b，并补全Hilbert空间收敛与RPCP对比；属方法推广与分析完善，而非新范式。",
+    "inherited_foundations": [
+      "经典ADMM与GADMM（含对偶DRS解释）",
+      "惯性方法与惯性Douglas–Rachford分裂",
+      "Chen等惯性邻近ADMM、Bot–Csetnek针对(1.3)的惯性ADMM"
+    ],
+    "incremental_advances": [
+      "由对偶惯性DRS导出一般两块(1.1)的iADMM，并证明与特殊情形惯性ADMM在满列秩约化下的等价及本文格式更简洁",
+      "给出两组参数条件下的Hilbert空间弱/强收敛与原—对偶目标收敛",
+      "α_k=0退化为GADMM，明确与松弛ADMM的包含关系"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "RPCP上与ADMM、GADMM、Chen等iADMM的参数选取与迭代/精度对比",
+      "Algorithm 1-1（定理3.1型参数）与Algorithm 1-2（可和型惯性参数）两套实现"
+    ],
+    "comparison_basis": [
+      "A40（2020）Primal-dual fixed point algorithm based on adapted metric method for solving convex minimization problem with application",
+      "A47（2019）A Two-Step Inertial Primal-Dual Algorithm for Minimizing the Sum of Three Functions",
+      "目标文相关工作：Bot–Csetnek惯性ADMM、Chen等惯性邻近ADMM、GADMM/经典ADMM"
+    ],
+    "evidence_boundary": "overview、定理与实验均据A39全文Abstract、贡献段、§3定理与§4–5核对；创新性仅相对本地A40、A47及文内已引惯性ADMM文献判断。A40为自适应度量PDFP、A47为两步惯性原始—对偶三函数算法，与A39的ADMM路线不同；未覆盖更广惯性ADMM文献，故不排除领域内更早的一般两块结果。",
+    "confidence": 0.9
+  },
+  "lineage_position": "处于ADMM与惯性加速交汇：继承对偶DRS型ADMM及Bot–Csetnek特殊情形惯性ADMM，将对象扩至一般两块线性约束；相对A47的两步惯性原始—对偶（三函数、近端分裂）与A40的自适应度量原始—对偶不动点，A39更偏约束可分结构下的惯性ADMM形式及其Hilbert空间分析，应用落在RPCP而非图像去模糊/去噪主线。",
+  "keywords": [
+    "惯性方法",
+    "交替方向乘子法",
+    "Douglas-Rachford分裂",
+    "两块可分凸优化",
+    "广义ADMM",
+    "鲁棒主成分追踪",
+    "Hilbert空间收敛"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.611Z",
+  "comparison_ids": [
+    "A40",
+    "A47"
+  ]
+}

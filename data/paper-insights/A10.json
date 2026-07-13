@@ -1,0 +1,63 @@
+{
+  "id": "A10",
+  "title": "A noise estimation method for multiplicative noise removal",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将 AA 型乘性去噪推广为含噪声约束的变分模型，提出噪声估计分裂算法 NEM 及其全分裂形式 NEMF，使噪声子问题闭式可解并以 SNR 优于若干先进方法。",
+    "research_problem": "针对乘性 Gamma 噪声下的非凸 AA 型变分去噪，如何设计高效分裂算法，使噪声变量子问题具有闭式解并降低 TV 相关计算代价。",
+    "core_method": "将广义 AA 模型改写为 g=u◦η 与 q=∇u 的约束问题；用 ADMM 交替更新 u、η、q 得 NEM；对 u 子问题加近端项并取消内层循环得全分裂 NEMF；u 用 FFT 求解，η 与 q 有闭式解。",
+    "main_findings": [
+      "引入噪声约束后 η 子问题可逐元素闭式求解，NEM/NEMF 各子问题均可有效计算",
+      "NEMF 无需内层迭代，CPU 时间明显低于带内层循环的 NEM",
+      "在 Parrot、Cameraman、Syn 与 K=6/10/20 上，NEM1/NEMF1 的 SNR 多数情形达到或高于 AA、AA-DCA、HNW、DZ、NRTVW",
+      "p=1 较 p=2 更保结构、视觉更清晰，后续对比以 NEM1/NEMF1 为主"
+    ],
+    "theoretical_guarantee": "全文未给出收敛性定理或最优性证明；仅说明子问题闭式/FFT 可解，并以相对误差曲线给出数值收敛观察。",
+    "experiments_or_examples": "仅去噪实验：Gamma 噪声 K=6/10/20，测试图 parrot、cameraman、syn；指标为 SNR 与 CPU 时间；对比 AA、AA-DCA、HNW、DZ、NRTVW；NEM 内层迭代固定为 3，停止准则相对误差 5×10^{-4}。",
+    "limitations": "模型非凸，存在局部极小与初始化依赖风险；参数按图像与噪声水平手工调；实验仅去噪不含去模糊；作者称视觉优势不明显；无形式化收敛理论。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "主线仍是 AA 型非凸变分与 ADMM 分裂；真正增量在于以噪声变量 η 为中心的约束改写、η 闭式估计及 NEMF 全分裂实现，属于算法层面的实质改进而非新模型范式。",
+    "inherited_foundations": [
+      "AA 模型的 MAP 数据项与 TV 正则（p=1 即退化为 AA）",
+      "ADMM/增广拉格朗日与变量分裂求解框架",
+      "闭式收缩算子、近端项与 FFT 对角化解 u 子问题等常规技巧",
+      "既有乘性去噪对比基线 AA、HNW、DZ、AA-DCA、NRTVW"
+    ],
+    "incremental_advances": [
+      "将保真项改写为约束 g=u◦η 与 E(η)=⟨-log η+η,1⟩，使 η 子问题有闭式解（噪声估计视角）",
+      "给出带内层循环的 NEM 与加近端项的全分裂 NEMF 两套算法",
+      "将正则推广为 p=1 或 2 的梯度范数形式并比较边缘保持差异"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "NEM 内层迭代固定为 3 以控时",
+      "按图像与 K 手调 λ 与惩罚参数，以 SNR/时间对比五类先进方法",
+      "强度范围缩放到 [0.03,0.9] 的实验设定"
+    ],
+    "comparison_basis": [
+      "A21（2023）《A Simplified Convex Optimization Model for Image Restoration with Multiplicative Noise》",
+      "A10 正文相关工作与实验对比：AA、HNW、DZ、AA-DCA、NRTVW 及 AA 型分裂文献（如 Gan et al. 2022）"
+    ],
+    "evidence_boundary": "overview 与实验、理论判断均来自 A10 full.md 通读；创新性相对位置主要对照本地 A21 与 A10 自述相关工作。A10 未引用 A21，二者为乘性噪声变分下的并行路线（A21 为 ZWN 凸约束简化，A10 为 AA 非凸噪声估计分裂），非直接前后继扩展。未见 Gan 等全文，无法做更细算法对照；无形式收敛定理可核。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处在 AA 非凸 TV 乘性去噪的算法求解支线：相对 A21 的 ZWN 凸模型与等式约束参数简化路线并行，贡献集中在噪声估计分裂与全分裂实现，而非继承 A21 的凸简化建模。",
+  "keywords": [
+    "噪声处理",
+    "乘性噪声去除",
+    "噪声估计方法",
+    "全变差正则",
+    "ADMM分裂算法",
+    "非凸变分模型",
+    "NEM",
+    "NEMF"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.536Z",
+  "comparison_ids": [
+    "A21"
+  ]
+}

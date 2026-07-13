@@ -1,0 +1,63 @@
+{
+  "id": "A26",
+  "title": "Convergence Analysis of a Relaxed Inertial Alternating Minimization Algorithm with Applications",
+  "source_mode": "abstract_only",
+  "overview": {
+    "one_sentence_contribution": "在仅有摘要的条件下，可确认本文面向复合优化问题，通过构造原始对偶或算子分裂类算法以降低求解复杂度；更细的方法与结论无法从本地材料核实。",
+    "research_problem": "复合优化问题求解复杂度偏高，需要更有效的原始对偶或算子分裂型算法框架。",
+    "core_method": "摘要仅表明构造原始对偶或算子分裂算法；结合标题，可推断涉及松弛惯性交替最小化（relaxed inertial AMA），但具体算法形式与参数条件本地不可核实。",
+    "main_findings": [
+      "摘要层面：以原始对偶/算子分裂思路处理复合优化，意在降低求解复杂度。",
+      "标题层面：关注松弛惯性交替最小化算法的收敛性分析及其应用。",
+      "全文缺失，无法核实具体收敛定理、数值结果与应用场景细节。",
+      "与前序松弛 AMA、原始对偶不动点工作的精确增量边界，无法在目标原文中定位。"
+    ],
+    "theoretical_guarantee": "本地仅有摘要与标题，未提供可核对的收敛定理、假设条件或收敛速率陈述；理论保证证据不足。",
+    "experiments_or_examples": "本地材料未给出实验设置、数据集、对比算法或数值表；应用仅见于标题表述，细节不可核实。",
+    "limitations": "目标论文无本地全文，分析只能基于标题、作者/出处元数据与简短摘要；凡涉及定理编号、参数范围、实验指标与应用算例的判断均属证据不足，不得外推为已证实结论。"
+  },
+  "innovation": {
+    "classification": "证据不足",
+    "score": 2,
+    "verdict": "从标题与摘要只能看出其处于松弛/惯性 AMA 与原始对偶分裂谱系中，相对 A34、A35 可能叠加了惯性与松弛并做收敛分析，但无全文则无法区分核心创新、显著扩展与增量改进，故 innovativeness 判定为证据不足。",
+    "inherited_foundations": [
+      "交替最小化算法（AMA）及其可分凸规划框架（A34 等所在谱系）",
+      "松弛技巧用于加速或拓宽原始对偶/AMA 类迭代（A34、A35）",
+      "原始对偶与算子分裂思路用于复合优化（摘要表述）",
+      "惯性（inertial）外推作为一阶方法的常见加速机制（由标题推断其被引入，具体形式不可核实）"
+    ],
+    "incremental_advances": [
+      "标题暗示在 AMA 上同时引入 relaxed 与 inertial 并作收敛分析，相对纯松弛 AMA（A34）可能构成参数/结构叠加",
+      "摘要强调构造原始对偶或算子分裂算法以降低复合优化求解复杂度，方向与前序一致但增量幅度不可量化",
+      "因无定理与实验对照，上述增量仅为谱系位置推断，不能确认为已证明的新结果"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "标题含 Applications，但本地无实验/实现细节可核，无法列出具体实现或实验层面变化"
+    ],
+    "comparison_basis": [
+      "A34（2022）Relaxed Alternating Minimization Algorithm for Separable Convex Programming with Applications to Imaging",
+      "A35（2022）一种超松弛原始对偶不动点算法及其应用",
+      "目标论文标题与摘要中的 AMA / 原始对偶或算子分裂 / 复合优化表述"
+    ],
+    "evidence_boundary": "有本地对照支持的仅限：目标元数据（A26、2023、标题、作者 Tang/Yang/Peng、出处章节 363-389）与给定摘要句；A34/A35 全文仅用于相对谱系比较，其定理与实验不得记入目标 overview。受全文缺失限制：收敛条件、定理陈述、应用算例、相对 A34/A35 的真实增量与是否核心创新均无法核实，故 classification 取证据不足，confidence 不超过 0.65。",
+    "confidence": 0.45
+  },
+  "lineage_position": "位于可分凸/复合优化的 AMA 与原始对偶分裂谱系：前承 A34 的松弛 AMA 与 A35 的超松弛原始对偶不动点思路，标题显示进一步叠加惯性并强调收敛分析；因目标全文缺失，其在谱系中是参数推广、结构重组还是应用迁移无法定论。",
+  "keywords": [
+    "AMA",
+    "惯性方法",
+    "松弛算法",
+    "交替最小化",
+    "原始对偶",
+    "算子分裂",
+    "复合优化",
+    "收敛分析"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.577Z",
+  "comparison_ids": [
+    "A35",
+    "A34"
+  ]
+}

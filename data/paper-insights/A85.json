@@ -1,0 +1,58 @@
+{
+  "id": "A85",
+  "title": "Robustness of Krasnoselski-Mann's Algorithm for Asymptotically Nonexpansive Mappings",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将Kim-Xu型带加性误差的Krasnoselski-Mann迭代由非扩张映射推广到渐近非扩张映射，并在一致凸Banach空间与Hilbert空间投影情形下证明弱收敛，从而建立该算法对误差的鲁棒性。",
+    "research_problem": "当计算中出现误差时，Krasnoselski-Mann迭代对渐近非扩张映射的不动点逼近是否仍保持收敛；如何把Kim-Xu关于非扩张映射的误差鲁棒性结果推广到渐近非扩张映射。",
+    "core_method": "采用带加性误差的KM格式x_{n+1}=(1-α_n)x_n+α_n(T^n x_n+e_n)，及Hilbert空间中含投影P_C的两种变形；在∑u_n<∞、α_n∈(a,b)⊂(0,1)与∑α_n‖e_n‖<∞条件下，借助一致凸不等式、I−T半闭性及Kadec-Klee/Opial条件证明弱收敛。",
+    "main_findings": [
+      "在一致凸Banach空间且对偶具Kadec-Klee或空间满足Opial条件时，带误差KM迭代弱收敛到渐近非扩张映射的不动点。",
+      "在Hilbert空间闭凸集上，两种含投影的带误差KM格式在相同步长与误差条件下亦弱收敛到不动点。",
+      "由此表明KM算法对渐近非扩张映射在可和误差扰动下具有鲁棒性，推广了Kim-Xu关于非扩张映射的相应结果。"
+    ],
+    "theoretical_guarantee": "定理3.1：一致凸Banach空间中，T为渐近非扩张且∑u_n<∞，0<a<α_n<b<1，∑α_n‖e_n‖<∞，F(T)≠∅时，{x_n}弱收敛到T的不动点。定理3.4：Hilbert空间中两种投影型迭代在相同条件下弱收敛到不动点。均为弱收敛，非强收敛。",
+    "experiments_or_examples": "全文为纯理论证明，无数值实验或具体算例。",
+    "limitations": "仅得弱收敛；要求∑u_n<∞且α_n严格有界离开0与1，步长条件严于Kim-Xu的∑α_n(1−α_n)=∞；依赖一致凸与Kadec-Klee/Opial；无数值验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在Kim-Xu误差鲁棒性框架内，将映射类由非扩张推进到渐近非扩张并补全Hilbert投影情形，技术路线与工具多为既有引理的适应性推广，属有明确贡献的增量改进而非范式级核心创新。",
+    "inherited_foundations": [
+      "Krasnoselski-Mann迭代与Combettes/Kim-Xu带误差鲁棒性分析框架",
+      "Goebel-Kirk渐近非扩张映射及Tan-Xu的I−T半闭性",
+      "一致凸空间Xu不等式、Kadec-Klee与Opial条件等弱收敛论证工具"
+    ],
+    "incremental_advances": [
+      "将Kim-Xu的加性误差KM迭代由非扩张T推广为含T^n的渐近非扩张情形",
+      "在∑u_n<∞与α_n∈(a,b)下建立弱收敛的充分条件",
+      "给出Hilbert空间两种投影型带误差KM格式的弱收敛结果"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A95（2006）Note on some results for asymptotically pseudocontractive mappings and asymptotically nonexpansive mappings",
+      "Kim and Xu (2007) Robustness of Mann's algorithm for nonexpansive mappings（目标文Theorem 1.1–1.2及主要推广对象）",
+      "Combettes (2001) 平行投影误差模型；Ceng et al. (2010) 带扰动映射的Mann型算法"
+    ],
+    "evidence_boundary": "overview与定理陈述均可在A85全文Abstract、Introduction、Theorem 3.1/3.4及证明中定位；创新性比较主要相对本地A95与目标文明确引用的Kim-Xu/Combettes线，未覆盖该方向全部文献；A95误差为凸组合型γ_n u_n且侧重伪压缩与强收敛条件，与A85的加性e_n弱收敛鲁棒性路线不同，故不宜将A95结论写入目标贡献；无实验可核。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于Combettes–Kim-Xu“带误差Mann/KM鲁棒性”谱系：将非扩张情形推广到渐近非扩张；与同作者A95的Mann/Ishikawa带误差（凸组合型、伪压缩、强收敛）并行而非直接承接，共同服务于含误差的渐近型映射不动点迭代。",
+  "keywords": [
+    "不动点",
+    "误差鲁棒性",
+    "Krasnoselski-Mann迭代",
+    "渐近非扩张映射",
+    "一致凸Banach空间",
+    "弱收敛",
+    "投影算法",
+    "Opial条件"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.720Z",
+  "comparison_ids": [
+    "A95"
+  ]
+}

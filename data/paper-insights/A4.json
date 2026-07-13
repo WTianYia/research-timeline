@@ -1,0 +1,60 @@
+{
+  "id": "A4",
+  "title": "A new splitting algorithm for monotone inclusion problems involving three maximally monotone operators and a cocoercive operator",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三极大单调算子与一个 cocoercive 算子之和的四算子单调包含，提出将 cocoercive 项前移至第二 resolvent 的新 frugal 分裂算法，并在温和参数条件下证明弱/强收敛，应用于凸最小化及图像修复、投资组合算例。",
+    "research_problem": "在实 Hilbert 空间中求解 0∈A₁x+A₂x+A₃x+Cx（Aᵢ 极大单调，C 为 β-cocoercive），即三极大单调与一 cocoercive 之和的四算子单调包含；动机来自对 ZTZ 算法中 γCuₖ 位置调整后仍数值收敛的观察，需给出可证明收敛的新迭代格式。",
+    "core_method": "Algorithm 1：uₖ=J_{γA₁}(xₖ)，vₖ=J_{γA₂}(uₖ+yₖ−γCuₖ)，wₖ=J_{γA₃}(uₖ−xₖ+vₖ−yₖ)，再以松弛步更新 x、y；每迭代对各 resolvent 各调用一次（frugal）。C=0 退化为 Ryu 分裂，A₂=0 退化为 Davis–Yin。凸最小化 f₁+f₂+f₃+g 时用 prox 与 ∇g 具体化。",
+    "main_findings": [
+      "给出解集固定点刻画 Ω，并证明在 γ∈(0,β)、λₖ∈(0,1−γ/β) 且 ∑λₖ(1−γ/β−λₖ)=∞ 下残差趋于 0、(xₖ,yₖ) 弱收敛、uₖ,vₖ,wₖ 弱收敛到零点，且 Cuₖ→Cu*；附加一致单调或 demiregular 时强收敛。",
+      "彩色图像修复中与 ZTZ 在相同步长下迭代数与 PSNR 几乎一致；投资组合均值–方差模型中与 ZTZ、二次规划精度接近，体现一阶方法潜力。",
+      "作者指出本算法允许参数范围比 GFBS、分布式 FB 及 ZTZ 更窄，数值上在相同参数下与 ZTZ 表现相当而非更优。"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：zer(A₁+A₂+A₃+C)≠∅ 时，γ∈(0,β)、{λₖ}⊂(0,1−γ/β) 且 ∑λₖ(1−γ/β−λₖ)=∞，则 ‖wₖ−uₖ‖²+‖wₖ−vₖ‖²→0 且为 o(1/∑λᵢ(1−λᵢ−γ/β))；(xₖ,yₖ) 关于 Ω Fejér 单调并弱收敛到 Ω 中点，uₖ,vₖ,wₖ 弱收敛到 u*∈zer(·)，Cuₖ→Cu*；若 A₁/A₂/A₃ 在有界子集上一致单调或 C 在零点 demiregular，则 uₖ,vₖ,wₖ 强收敛到 u*。凸最小化情形由次微分+梯度代入得相应推论。",
+    "experiments_or_examples": "相对误差≤1e−5 停机；γ=0.4β、λₖ=0.5。彩色图像修复（Building、Starfish，缺失率 20%–80%，高斯噪声）对比 ZTZ；投资组合（OR-Library，C 为 225×225，r=0.001/0.002/0.003）对比 ZTZ 与 MATLAB QP。",
+    "limitations": "允许 (γ,λₖ) 范围严于 ZTZ 等（γ 至多到 β 而非 2β），大步长下 ZTZ 可更快；实验为初步对比且同参下与 ZTZ 几乎持平。文末待研究：非精确 resolvent、将 cocoercive 放宽为单调 Lipschitz、惯性/加速及收敛速率。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "问题设定与 A25（ZTZ）同属四算子单调包含；核心增量是将 cocoercive 评估从第三 resolvent 前移至第二 resolvent 并重证收敛与固定点刻画，属同框架下的算法位置变体，参数域更窄、同参数值与 ZTZ 接近，故评为增量改进而非显著扩展或核心创新。",
+    "inherited_foundations": [
+      "问题 0∈A₁+A₂+A₃+C 及 frugal/Ryu–Davis–Yin 谱系（与 A25 相同）",
+      "A25/ZTZ 的四算子分裂骨架与弱/强收敛分析套路（Lemma 3.2 明确受 A25 Lemma 4 启发）",
+      "复合凸最小化 f₁+f₂+f₃+g 的 prox–梯度具体化与图像修复应用背景"
+    ],
+    "incremental_advances": [
+      "将 −γC 从第三 resolvent 移入第二 resolvent 的新迭代（与 A25 在第三步内仅交换 Cuₖ/Cvₖ 不同）",
+      "相应 Ω 刻画与 Fejér/Opial 型收敛定理（含残差 o 型估计）",
+      "投资组合均值–方差算例扩展（A25 实验以图像修复为主）"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "MATLAB 实现并与 ZTZ 同参对比图像修复 PSNR/Iter/CPU",
+      "新增投资组合与 QP 对照；参数取 γ=0.4β、λₖ=0.5"
+    ],
+    "comparison_basis": [
+      "A25（2023）《Solving monotone inclusions involving the sum of three maximally monotone operators and a cocoercive operator with applications》（Zong–Tang–Zhang，文中 [27]/ZTZ）",
+      "目标文 Introduction/Remark 3.2 对 [19][27][28] 及 Table 1 参数域对比"
+    ],
+    "evidence_boundary": "overview、定理参数、实验与局限均仅依据 A4 全文 Abstract、§1 contributions、Algorithm 1、Lemma 3.1–3.2、Theorem 3.1、§4 实验与 §5 结论；创新性仅相对本地 A25 全文比较。未覆盖更广 splitting 文献，故不宣称领域首创；凸最小化段 OCR 出现 γ∈(0,2β) 与主定理 γ∈(0,β) 不一致，理论保证以 Theorem 3.1 为准。",
+    "confidence": 0.9
+  },
+  "lineage_position": "直接承接 A25/ZTZ 对三极大单调+cocoercive 四算子包含的 frugal 分裂路线：在保留每步各算子 resolvent 一次的结构下，将 cocoercive 前移至第二 resolvent 并给出独立收敛证明，构成该问题族上的算法位置变体与后续应用验证。",
+  "keywords": [
+    "单调包含",
+    "算子分裂",
+    "极大单调算子",
+    "cocoercive 算子",
+    "frugal resolvent",
+    "凸最小化",
+    "图像修复",
+    "投资组合优化"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.519Z",
+  "comparison_ids": [
+    "A25"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "id": "A22",
+  "title": "Proximal linearized alternating direction method of multipliers algorithm for nonconvex image restoration with impulse noise",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将冲激噪声下非凸数据保真+TV模型经DC分解与变量分裂化为可分离约束问题，并用近端线性化ADMM给出各子问题均有闭式解的完全显式算法。",
+    "research_problem": "高噪声水平下凸ℓ₁-TV对冲激噪声去模糊效果变差；已有非凸模型（SCADTV/ETTV/LogTV等）的DCA、PLM等求解器含无闭式解子问题，需要更简洁、完全分裂的高效算法。",
+    "core_method": "建立一般模型min μF(Ku−f)+∥Du∥_{p,1}；对SCAD/MC/Log/ET等罚函数作DC分解，将可微非凸部分线性化后用近端ADMM交替更新u（FFT或梯度步）、x（软阈值）、y（各向同/异性收缩）及乘子。",
+    "main_findings": [
+      "算法完全分裂，每个子问题均有闭式解，避免内层迭代与逐步增大罚参数",
+      "多数情形下PSNR/SSIM优于ℓ₁TV、ETTV与ETTV_DC，对随机值冲激噪声优势更稳定",
+      "多种非凸数据项可纳入统一框架求解；极高盐椒噪声（约90%）时未必始终最优"
+    ],
+    "theoretical_guarantee": "全文未给出非凸情形下的收敛定理；仅证明非凸罚的DC分解性质（Ψ凸、二阶可微且梯度Lipschitz，Lemma 2.1）。作者明确指出凸情形收敛已知，非凸收敛有待研究；数值上以能量与PSNR曲线展示经验收敛。",
+    "experiments_or_examples": "Lena、Peppers、Circle、Shepp–Logan；Average/Disk/Gaussian模糊；SP噪声10%–90%、RV噪声20%–80%；对比ℓ₁TV、ETTV、ETTV_DC；以PSNR、SSIM与CPU时间评价。",
+    "limitations": "非凸收敛理论缺失；极高SP噪声下可能劣于ETTV/ETTV_DC；β₁与正则参数需调；非凸+非凸扩展与更复杂场景未充分验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A68/A55的凸TV与原始–对偶分裂路线，本文将工作推进到冲激噪声非凸数据保真场景；相对领域内已有DCA/PLM，主要增量是PL-ADMM完全显式化与多罚函数统一求解，属算法实现层面的扎实改进而非新模型或新理论框架。",
+    "inherited_foundations": [
+      "ℓ₁数据保真与TV正则及冲激噪声变分建模传统",
+      "SCAD/ET/Log等非凸数据项及其DC分解思想",
+      "ADMM、近端算子与变量分裂（与A68原始–对偶近端、A55分裂原始–对偶同属近端分裂谱系）",
+      "ETTV/SCADTV/LogTV等已有非凸模型及DCA、PLM求解框架"
+    ],
+    "incremental_advances": [
+      "将非凸光滑项线性化并与近端ADMM结合，使u/x/y子问题均闭式可解",
+      "统一覆盖Table 2中多种非凸数据项的完全分裂实现",
+      "避免DCA/PLM中需ADMM内层求解的复合近端子问题"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "周期边界下FFT求u、其他边界下显式梯度型更新",
+      "与ℓ₁TV、ETTV、ETTV_DC在自然图与分片常数图上的系统对比",
+      "多非凸函数在Average模糊+SP噪声下的PSNR–时间曲线"
+    ],
+    "comparison_basis": [
+      "A55（2017）《A new approach to solving the prior image constrained compressed sensing (PICCS) with applications in CT image reconstruction》",
+      "A68（2013）《A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction》",
+      "目标文相关工作：ETTV/PLM、SCADTV/LogTV的DCA、PADMM等"
+    ],
+    "evidence_boundary": "overview、理论与实验均来自A22全文Abstract、第3节算法、Lemma 2.1、第4节实验与第5节结论；创新性比较仅相对本地A55/A68及目标文自引相关工作，未覆盖冲激噪声非凸领域全部文献；不得将A55/A68的CT/PICCS结果记为目标文内容。",
+    "confidence": 0.9
+  },
+  "lineage_position": "承A68/A55一脉的TV正则与近端/分裂算法传统，由凸CT重建转向冲激噪声去模糊的非凸数据保真模型；在既有非凸变分模型上做PL-ADMM完全显式化，处于“凸原始–对偶→非凸数据项+闭式ADMM”的增量演进位置。",
+  "keywords": [
+    "图像复原",
+    "冲激噪声",
+    "非凸优化",
+    "近端线性化ADMM",
+    "全变差",
+    "DC分解",
+    "去模糊",
+    "闭式解",
+    "盐椒噪声",
+    "随机值冲激噪声"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.566Z",
+  "comparison_ids": [
+    "A55",
+    "A68"
+  ]
+}

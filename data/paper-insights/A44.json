@@ -1,0 +1,61 @@
+{
+  "id": "A44",
+  "title": "Efficient primal-dual fixed point algorithms with dynamic stepsize for composite convex optimization problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对光滑项加非光滑复合项的凸极小问题，提出带动态步长与修正Mann松弛的原始对偶邻近不动点算法PDFP²O_DS_n，并建立收敛性。",
+    "research_problem": "求解min f(x)+(h∘D)(x)，其中f可微且梯度1/β-Lipschitz，h为非光滑凸函数，D为连续线性算子。",
+    "core_method": "在Chen等PDFP²O不动点框架上，将固定步长推广为迭代依赖的μ_n、τ_n，并引入松弛序列α_n得到修正Mann型PDFP²O_DS_n；借助邻近算子的firmly nonexpansive性质证明收敛。",
+    "main_findings": [
+      "在μ_n、τ_n、α_n满足liminf/limsup条件下，PDFP²O_DS_n的迭代收敛到问题(1.1)的解",
+      "固定步长PDFP²O以及PFBS、FP²O可视为其特例；在D满行秩且f强凸等条件下可给出线性型收敛估计",
+      "CT重建数值实验中，动态步长方案较原PDFP²O收敛更快"
+    ],
+    "theoretical_guarantee": "定理2.3：当0<liminf μ_n≤limsup μ_n<2β、0<liminf τ_n≤limsup τ_n≤1/τ_max(DD^T)、0<liminf α_n≤limsup α_n<1时，{u_n}收敛到算子T的不动点且{x_n}收敛到(1.1)的解；条件2.1下定理2.5给出||x_n−x̄||的线性型估计。",
+    "experiments_or_examples": "Shepp-Logan 256×256的CT重建（AIRTools并行束、相对强度0.01高斯噪声、各向异性TV）；动态步长取μ_n=f(x_n)/‖∇f(x_n)‖²，与PDFP²O比较SNR与RelErr曲线，重建SNR约23.4 dB。",
+    "limitations": "问题限定为单复合项f+(h∘D)，未覆盖多复合项求和；线性率依赖D满行秩与f强凸等强条件；数值仅与PDFP²O对比、规模有限；引言提及算子求值容错，正文未系统展开误差分析。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在Chen等(2013) PDFP²O固定点框架上，将固定步长改为动态步长并加入修正Mann松弛，补全相应收敛与特殊线性率；相对A57属同领域并行路线而非直接继承扩展。",
+    "inherited_foundations": [
+      "Chen等(2013) PDFP²O迭代格式与不动点算子T=(T_1,T_2)刻画",
+      "邻近算子及I−prox的firmly nonexpansive性质；PFBS、FP²O作为特例的关系",
+      "问题形式min f+(h∘D)与固定步长参数条件μ∈(0,2β)、τ≤1/τ_max(DD^T)"
+    ],
+    "incremental_advances": [
+      "将μ、τ推广为迭代依赖的动态步长μ_n、τ_n，得到PDFP²O_DS",
+      "引入松弛序列α_n构成修正Mann型PDFP²O_DS_n，并在liminf/limsup条件下证明收敛",
+      "在条件2.1（含D满行秩、f强凸等）下给出线性型收敛估计"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "CT重建中采用μ_n=f(x_n)/‖∇f(x_n)‖²的动态步长选取",
+      "与PDFP²O在Shepp-Logan CT算例上比较SNR/RelErr，报告动态步长收敛更快"
+    ],
+    "comparison_basis": [
+      "A57（2017）《A splitting primal-dual proximity algorithm for solving composite optimization problems》",
+      "Chen et al. (2013) PDFP²O（Inverse Problems 29:025011）",
+      "Combettes & Wajs (2005) PFBS；Micchelli et al. (2011) FP²O"
+    ],
+    "evidence_boundary": "overview、定理条件、实验设置与数值结论均对照A44全文Abstract/§2/§3；与A57的比较仅用于谱系与相对创新判断，未把A57的多复合项分裂算法、预条件矩阵或表格数据记为目标论文内容。本地仅覆盖A57作为前序比较文献，未纳入Chen 2013全文，故对PDFP²O原始证明细节的对照受限于A44转述。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处于Chen等(2013) PDFP²O主线上的动态步长与Mann松弛扩展；与A57(2017)同属作者团队的原始对偶/邻近方法族并共享CT应用，但骨架不同——A57为Chambolle–Pock型多复合项分裂PD邻近+对角预条件，A44为PDFP²O型固定点动态步长。",
+  "keywords": [
+    "原始对偶",
+    "动态步长",
+    "邻近算子",
+    "不动点算法",
+    "复合凸优化",
+    "修正Mann迭代",
+    "PDFP²O",
+    "CT图像重建"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.623Z",
+  "comparison_ids": [
+    "A57"
+  ]
+}

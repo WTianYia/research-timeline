@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+.dev.vars*
+.env*
+upload-progress.json
+data/paper-insights/_errors/

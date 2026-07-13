@@ -1,0 +1,63 @@
+{
+  "id": "A68",
+  "title": "A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对CT不完全投影重建，将Chambolle-Pock原始对偶近端点法及其对角预条件形式具体化为ℓ₂数据保真加各向异性TV模型，并在少视角与有限角仿真中验证重建效果。",
+    "research_problem": "在投影数据不完整（少视角、有限角）且含高斯噪声时，如何高效求解以ℓ₂数据误差与全变分正则之和为目标的CT图像重建问题，并避免ADMM类方法中难以实现的矩阵求逆。",
+    "core_method": "将模型写成min (1/2)‖Ax−b‖₂²+λ‖x‖_TV（‖x‖_TV=‖Dx‖₁），嵌入鞍点形式min_x max_y {⟨Kx,y⟩+G(x)−F*(y)}，其中K=(A,D)^T、G=0、F含二次保真与λ‖·‖₁；给出CP-ℓ₂TV（算法1）与Pre-CP-ℓ₂TV（算法2），近端映射为prox_σ(F*)(y,z)=((y−σb)/(1+σ), λz/max(λ1,|z|))及prox_τ(G)(x)=x，预条件用|A|、|λD|的对角权重替代全局步长。",
+    "main_findings": [
+      "算法1在18视角、每角800射线、相对噪声0.01的Shepp-Logan仿真上可得到忠实重建，相对误差随迭代下降并趋于平稳。",
+      "预条件算法2在相同数据条件下收敛明显快于算法1。",
+      "λ在0.6–1.5区间影响重建质量，文中取λ=0.9；15视角、每角960射线时重建与18视角情形差异不大。"
+    ],
+    "theoretical_guarantee": "未给出作者自证新定理；沿用Chambolle-Pock收敛条件L²στ<1（L为‖(A;D)‖₂，幂法估计），并称实践中σ=τ=1/L未见不收敛；预条件形式引用Pock-Chambolle对角预条件，近端算子推导明确采用Sidky等。",
+    "experiments_or_examples": "MATLAB仿真：256×256 Shepp-Logan，AIRTools的paralleltomo生成系统矩阵；实验1为18视角少视角加高斯噪声；实验2比较算法1与算法2收敛；实验3为15视角有限角；指标为相对真图的log10相对误差，并考察λ敏感性。",
+    "limitations": "仅仿真体模、无真实临床数据；未与ADMM/PDHG等其他一阶方法系统对比；λ凭实验选取；角范围与射线数最优组合留作未来工作；收敛理论完全依赖既有文献。"
+  },
+  "innovation": {
+    "classification": "应用迁移",
+    "score": 2,
+    "verdict": "相对A74及Sidky等已给出的CP原型，本文将同一套Chambolle-Pock/预条件框架从ℓ₁-TV迁到ℓ₂-TV高斯噪声CT设定并做少视角/有限角数值验证，算法骨架与写作结构高度平行，属应用迁移而非新方法。",
+    "inherited_foundations": [
+      "Chambolle-Pock一阶原始对偶迭代及其鞍点表述",
+      "Sidky等已给出的ℓ₂数据误差加TV等CT重建算法实例及近端映射",
+      "Pock-Chambolle对角预条件",
+      "各向异性TV（‖Dx‖₁）与Kronecker差分矩阵D",
+      "与A74相同的PDPPM流程：原始CP算法+预条件版、仅需矩阵-向量乘"
+    ],
+    "incremental_advances": [
+      "将A74中的ℓ₁保真改为ℓ₂二次保真，相应prox由投影型改为(y−σb)/(1+σ)型",
+      "在有限角与少视角两种不完整投影设定下对Pre-CP-ℓ₂TV作相对误差与λ敏感性实验"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "系统矩阵由AIRTools paralleltomo生成（A74用Siddon）",
+      "噪声由脉冲噪声改为相对幅值0.01的高斯白噪声",
+      "主指标为log10相对误差，并比较18视角与15视角重建",
+      "λ取值区间与优选值与A74不同（文中约0.9）"
+    ],
+    "comparison_basis": [
+      "A74（2012）《A primal dual proximal point method of Chambolle-Pock algorithms for l1-TV minimization problems in image reconstruction》",
+      "目标文中相关工作：Chambolle-Pock[7]、Sidky等CP用于CT原型[6]、Pock-Chambolle预条件[22]、PDHG[9]"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均来自A68全文Abstract/§II–V；innovation与lineage_position仅相对A74全文及A68所引[6][7][22]作比较；作者自述“good performance”不作为新颖性证据；未检索A68/A74之外的同时期文献，故对“是否首现ℓ₂-TV的CP-CT实现”不作更强主张。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于A74同系列的姊妹工作：A74处理ℓ₁-TV（脉冲噪声），A68处理ℓ₂-TV（高斯噪声）；二者均承接Chambolle-Pock与Sidky的CT原型，再配对角预条件做少视角/有限角仿真，未在算法理论层面对前序工作形成突破。",
+  "keywords": [
+    "图像重建",
+    "全变分",
+    "Chambolle-Pock算法",
+    "原始对偶近端点法",
+    "ℓ₂数据保真",
+    "对角预条件",
+    "少视角CT",
+    "有限角CT"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.686Z",
+  "comparison_ids": [
+    "A74"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "A33",
+  "title": "Rassias. Douglas-Rachford Splitting Method with Linearization for the Split Feasibility Problem",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "对分裂可行性问题提出线性化 Douglas–Rachford 分裂迭代及其松弛形式，统一 Wang 与 Tang 等既有算法为特例并扩大参数范围，证明弱收敛并用两则数值算例验证。",
+    "research_problem": "一致的分裂可行性问题（SFP）可化为 min ι_C(x)+f(x)，直接 Douglas–Rachford 分裂需计算 f 的 resolvent，而 (I+λA^*(I−P_Q)A)^{-1} 难以实现，因而需要可计算的线性化分裂格式并给出收敛保证。",
+    "core_method": "取 g=ι_C、h=f 套入 DR 分裂，对 f 在当前点线性化以消去困难 resolvent，得到双参数迭代 x^{k+1}=x^k−α_k[(x^k−P_C(x^k))+λ_k A^*(I−P_Q)Ax^k]；再经 β_k、θ、ρ 与自自适应步长 η_k 参数化，并给出水平集外逼近下的松弛算法。",
+    "main_findings": [
+      "线性化 DR 迭代在常数或自适应 β_k 下弱收敛到 SFP 解集中的点",
+      "该格式以 Wang 的 Polyak 梯度法与 Tang 等分裂自适应步长法为特例，并将后者相关参数范围由 (0,1) 扩至 (0,2)",
+      "两则有限维与函数空间离散算例中，算法在迭代步数上优于所对比的两种既有方法"
+    ],
+    "theoretical_guarantee": "引理给出相对解集的 Fejér 型下降不等式；定理 1 证明算法 2 弱收敛到 Γ 中的解；定理 2 结合既有结果证明松弛算法 3 亦弱收敛。全文仅建立弱收敛，未给强收敛。",
+    "experiments_or_examples": "例 1：随机矩阵 SFP（m=200,n=500），C 为球、Q 为箱，停机 p(x^k)≤10^{-5}，与 Wang、Tang 算法比较迭代与 CPU；例 2：L^2[0,1] 上积分算子离散化 SFP，停机 10^{-10}，同样对比目标函数下降曲线。",
+    "limitations": "仅证弱收敛；自适应 β_k 需上下界约束，并非完全自适应；数值限于两则合成算例；文末指出多集 SFP、其他参数选取与自自适应步长仍待研究。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在已有线性化一般分裂与投影类 SFP 算法基础上，用 g 与 h 对偶赋值得到可实现的 linearized DR 统一格式，主要增益是特例涵盖与参数区间扩大，相对 A52 的投影收缩最优步长路线属并行方法族上的增量改进。",
+    "inherited_foundations": [
+      "SFP 的 Censor–Elfving 表述及其 min ι_C+f 等价形式",
+      "Douglas–Rachford 分裂与 proximal 正则化框架",
+      "对光滑项线性化以回避 resolvent 的技巧（文中对偶于 Dong–He–Rassias 一般分裂线性化）",
+      "Wang 的 Polyak 梯度法与 Tang 等分裂自适应步长法",
+      "水平集外逼近下的松弛投影思想",
+      "Fejér 单调性、非扩张映照 demi-closed 原理与弱收敛引理"
+    ],
+    "incremental_advances": [
+      "将 g=ι_C、h=f 的 DR 线性化具体化为双参数可计算迭代",
+      "证明 Wang 与 Tang 算法分别对应 α_k、λ_k 的特殊取法",
+      "经 β_kθ 与 (1−β_k)ρ 参数化，把 Tang 类步长相关范围从 (0,1) 扩到 (0,2)（二者不能同时落在 (1,2)）",
+      "给出常数与有界自适应两类 β_k 的 Fejér 估计并完成弱收敛证明",
+      "补充水平集情形的松弛线性化 DR 算法"
+    ],
+    "core_innovations": [
+      "以线性化 DR 为统一外壳，系统刻画并扩展一类已存在的投影–梯度型 SFP 迭代"
+    ],
+    "implementation_or_experimental_changes": [
+      "两则合成算例的具体维数、停机阈值与参数取值（如 θ、ρ、β）",
+      "与算法 (2)(3) 的迭代次数与 CPU 对照，不改变问题定义本身"
+    ],
+    "comparison_basis": [
+      "A52_2018：Dong, Tang, Cho, Rassias, “Optimal” choice of the step length of the projection and contraction methods for solving the split feasibility problem",
+      "目标全文引用的 Wang（Polyak 梯度法）、Tang 等（分裂自适应步长）、Dong–He–Rassias（一般分裂线性化）及 Byrne CQ 相关工作"
+    ],
+    "evidence_boundary": "overview、定理与算例均据 A33 全文 Abstract、算法 1–3、引理 5–6、定理 1–2 与第 5–6 节核对；创新性相对 A52 及目标文相关工作作比较，未将 A52 的修改投影收缩定理或数值写入目标贡献；本地未复核 [18] 等更早分裂线性化全文，谱系中“对偶于 [18]”的判断主要依据目标文自述与公式对照。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于 SFP 求解由 CQ/投影收缩（含 A52 的修正最优步长 PCM）与梯度–投影自适应步长并行发展的脉络中：以 DR 分裂加线性化为外壳，把 Wang、Tang 类迭代收束为特例并拓宽参数，形成与 PCM 路线并列、理论保证为弱收敛的 linearized DR 统一线。",
+  "keywords": [
+    "分裂可行性问题",
+    "Douglas-Rachford分裂",
+    "线性化",
+    "松弛投影",
+    "弱收敛",
+    "自适应参数",
+    "Polyak梯度法",
+    "水平集"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.595Z",
+  "comparison_ids": [
+    "A52"
+  ]
+}

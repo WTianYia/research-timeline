@@ -1,0 +1,62 @@
+{
+  "id": "A63",
+  "title": "A primal dual fixed point algorithm for constrained optimization problems with applications to image reconstruction",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将无约束PDFP²O扩展为带闭凸集投影的CPDFP²O及其Nesterov加速形式AcPDFP²O，用于CT总变差图像重建。",
+    "research_problem": "求解CT重建中常出现的约束优化问题min_{x∈C} f(x)+λψ(Dx)（C为闭凸约束，如非负集），其中无约束情形已有研究但约束情形不能直接套用原PDFP²O。",
+    "core_method": "将约束问题等价为f+λψ∘D+ι_C，在可分条件下用P_C∘prox替换邻近步，得到约束原始对偶邻近不动点算法CPDFP²O，并按Nesterov外推构造加速版AcPDFP²O。",
+    "main_findings": [
+      "在Shepp-Logan少视角仿真上，CPDFP²O与AcPDFP²O的SNR高于原PDFP²O及CP、预条件CP",
+      "AcPDFP²O达到最高SNR所需迭代数与预条件CP接近，且快于CPDFP²O",
+      "各向异性TV略优于各向同性TV，文中主要报告前者结果"
+    ],
+    "theoretical_guarantee": "正文未给出所提CPDFP²O/AcPDFP²O的独立收敛定理；仅援引前向-后向分裂一般速率O(1/k)，并称加速版可达到O(1/k²)；结论明确将理论收敛列为未来工作。",
+    "experiments_or_examples": "AIRTools生成256×256 Shepp-Logan少视角平行束问题（约0°–175°、步长10°，每角362射线，1%高斯噪声），以各向异性TV比较PDFP²O、CPDFP²O、AcPDFP²O、CP与预条件CP的SNR与剖面；报告SNR约23.50、25.14、25.25、24.98、25.00 dB。",
+    "limitations": "所提算法缺乏完整收敛证明；实验为初步仿真且参数（λ、γ、ω）手调；仅充分展示各向异性TV；未系统覆盖有限角等更广设置。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对Chen等的无约束PDFP²O，本文的主要增量是末步投影实现约束与Nesterov式加速，并完成CT重建对比；相对A68对Chambolle-Pock的TV-CT应用，属于不同算法谱系上的工程化扩展，而非新的原始对偶框架。",
+    "inherited_foundations": [
+      "Chen等(2013)PDFP²O：用对偶邻近迭代解耦prox_{ψ∘D}，无内层迭代",
+      "前向-后向分裂与邻近算子/投影算子基本性质（含可分时prox_{ι_C+ψ}=P_C∘prox_ψ）",
+      "Nesterov/FISTA型外推加速思想",
+      "二次数据保真+TV正则的CT重建模型及CP/预条件CP对照框架"
+    ],
+    "incremental_advances": [
+      "将约束问题写成无约束增广形式并得到CPDFP²O（相对PDFP²O仅在x更新后加P_C）",
+      "给出AcPDFP²O，并依据加速一阶方法宣称O(1/k²)速率",
+      "把约束/加速变体用于各向异性/各向同性TV的CT重建，并与原算法及CP类方法比较SNR"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "基准Shepp-Logan少视角参数设定与SNR/剖面对比实验设计",
+      "报告约束与加速带来的SNR提升及与预条件CP相近的迭代表现"
+    ],
+    "comparison_basis": [
+      "A68（2013）《A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction》",
+      "Chen, Huang, Zhang (2013) PDFP²O",
+      "Chambolle-Pock算法与Pock-Chambolle预条件CP（目标文实验对照）"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均严格来自A63全文Abstract、§1贡献表述、§3算法与速率陈述、§4数值及§5结论；创新性相对判断仅对照本地A68与A63引用的Chen/CP文献脉络。A63未证明收敛，故不能写成已建立严格收敛理论；A68的定理/实验数值未并入目标overview。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于Chen等PDFP²O之后：用约束投影与Nesterov加速补齐原算法不能直接处理x∈C的缺口；与A68同属一阶原始对偶方法用于TV-CT，但A68走Chambolle-Pock近端点路线，A63走PDFP²O固定点路线，二者为并行对照而非直接父子推广。",
+  "keywords": [
+    "原始对偶",
+    "图像重建",
+    "不动点",
+    "约束优化",
+    "总变差",
+    "邻近算子",
+    "一阶方法",
+    "CT重建"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.673Z",
+  "comparison_ids": [
+    "A68"
+  ]
+}

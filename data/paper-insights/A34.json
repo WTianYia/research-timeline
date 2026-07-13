@@ -1,0 +1,60 @@
+{
+  "id": "A34",
+  "title": "Relaxed Alternating Minimization Algorithm for Separable Convex Programming with Applications to Imaging",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对一带强凸块的两块可分离等式约束凸规划，提出松弛交替极小化算法，并给出原对偶收敛、遍历/非遍历速率及图像去噪数值验证。",
+    "research_problem": "求解两块可分离凸极小化问题 min f(x)+g(y) s.t. Ax+By=b，其中目标函数中一块强凸，并希望在成像去噪等复合凸模型上获得可实现的有效迭代求解。",
+    "core_method": "构造松弛交替极小化算法（relaxed AMA）：在经典交替极小化框架中引入松弛机制，利用一块目标的强凸性处理线性等式约束两块可分离结构。",
+    "main_findings": [
+      "证明算法收敛到原问题的最优原–对偶解。",
+      "研究了遍历意义与非遍历意义下的收敛速率。",
+      "将算法用于图像去噪中的若干复合凸极小化模型，并在新型去噪模型及人工/真实噪声图像上展示有效性。"
+    ],
+    "theoretical_guarantee": "摘要称：算法收敛到最优原–对偶解，并建立遍历与非遍历收敛速率；本地可定位文本中未见具体定理编号、假设清单或速率常数。",
+    "experiments_or_examples": "摘要称：将算法用于图像去噪相关复合凸问题，并在一新型图像去噪模型上做数值评估；人工与真实噪声图像结果支持有效性。本地无实验设置、对比算法、指标表或复现细节。",
+    "limitations": "本地 full.md 与 origin.pdf 仅含首页（摘要与引言起首至式(1.1)），定理、算法伪代码、参数条件与实验均无法核验；且算法依赖“目标中一块强凸”，适用范围较一般两块凸问题更窄。"
+  },
+  "innovation": {
+    "classification": "证据不足",
+    "score": 2,
+    "verdict": "相对 A39（惯性ADMM）与 A36（结构单调包含原对偶分裂），A34 在问题族上更接近两块可分离等式约束凸规划，技术主线为带强凸假设的松弛 AMA 及去噪应用；但因目标全文严重残缺，无法区分相对经典 AMA/松弛加速的真正核心创新与增量改进，只能判为证据不足。",
+    "inherited_foundations": [
+      "两块可分离、线性等式约束凸规划模板（与 A39 的 (1.1) 同类，A34 记为 min f(x)+g(y) s.t. Ax+By=b）",
+      "交替极小化/对偶型分裂求解原–对偶鞍点的总体路线（AMA 与 ADMM 同属该谱系）",
+      "将结构化一阶方法用于成像反问题的应用传统"
+    ],
+    "incremental_advances": [
+      "摘要层面：在 AMA 中引入松弛，并强调一块强凸条件下的原–对偶收敛与遍历/非遍历速率（相对 A39 的惯性 ADMM 加速路径不同）",
+      "摘要层面：应用侧重图像去噪与“新型去噪模型”，不同于 A39 的 RPCP，也不同于 A36 的平行和/下确界卷积结构单调包含"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "摘要报告了人工与真实噪声图像上的数值验证，但本地无法核对实现、对比基线与指标细节"
+    ],
+    "comparison_basis": [
+      "A39（2021）《An inertial alternating direction method of multipliers for solving a two-block separable convex minimization problem》",
+      "A36（2021）《Primal-Dual Splitting Algorithms for Solving Structured Monotone Inclusion with Applications》",
+      "A34 摘要与引言起首（式(1.1) 及关键词：AMA、强凸、TV、图像去噪）"
+    ],
+    "evidence_boundary": "overview 与理论/实验/局限仅依据 A34 本地可定位文本（Abstract、Key words、引言至式(1.1)）。A39、A36 全文仅用于 innovation 与 lineage_position 的相对比较，其定理与实验结果未写入 overview。A34 的 CSIAM 论文跨 pp.626–661，但本地解析仅首页，故算法格式、定理条件、速率阶、去噪模型与数值表均无法在目标全文中定位；创新分类因此标为证据不足，不编造具体定理或数值。",
+    "confidence": 0.55
+  },
+  "lineage_position": "A34 与 A39 同属两块可分离等式约束凸规划的一阶分裂族：A39 走惯性 ADMM（对偶惯性 Douglas–Rachford），A34 走松弛 AMA 并附加一块强凸假设；与 A36 则更远——A36 面向含 cocoercive 与平行和的结构单调包含原对偶分裂，虽同有去噪实验，但问题表述与算子框架不同。因 A34 正文缺失，其相对经典 AMA 的精确谱系定位仍待全文补全。",
+  "keywords": [
+    "AMA",
+    "松弛方法",
+    "可分离凸规划",
+    "强凸函数",
+    "原对偶收敛",
+    "遍历与非遍历速率",
+    "全变差",
+    "图像去噪"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.598Z",
+  "comparison_ids": [
+    "A39",
+    "A36"
+  ]
+}

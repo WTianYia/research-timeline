@@ -1,0 +1,63 @@
+{
+  "id": "A53",
+  "title": "Note on the modified relaxation CQ algorithm for the split feasibility problem",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将 Qu–Xiu 的带 Armijo 线搜索修正松弛 CQ 算法由欧氏空间推广到实 Hilbert 空间，给出弱收敛的简洁证明，并以 LASSO 稀疏恢复算例与 Yang 松弛 CQ 比较。",
+    "research_problem": "在实 Hilbert 空间中求解分裂可行性问题（SFP）：求 $x^*\\in C$ 使 $Ax^*\\in Q$，其中 $C$、$Q$ 为非空闭凸集、$A$ 为有界线性算子；当精确投影难以计算时，需避免估计 $\\|A\\|$ 且仍能保证收敛。",
+    "core_method": "采用半空间 $C_k$、$Q_k$ 上的子梯度投影替代 $P_C$、$P_Q$，定义 $F_k(x)=A^*(I-P_{Q_k})Ax$，以 Armijo 线搜索选取步长 $\\alpha_k=\\gamma l^{m_k}$，迭代为 $\\overline{x}^k=P_{C_k}(x^k-\\alpha_k F_k(x^k))$、$x^{k+1}=P_{C_k}(x^k-\\alpha_k F_k(\\overline{x}^k))$。",
+    "main_findings": [
+      "在解集非空及（A1）（A2）下，算法生成序列弱收敛到 SFP 的一个解（Theorem 3.1）。",
+      "有限维情形与 Qu–Xiu 结果一致，本文给出更简捷的 Hilbert 空间弱收敛论证（Remark 3.1）。",
+      "LASSO 稀疏信号恢复中，修正 CQ 在给定停止准则下通常迭代次数少于 Yang 松弛 CQ，目标函数下降更快（Tables 1–2，Fig. 3）。"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：解集 $\\Omega\\neq\\emptyset$ 且 $C,Q$ 由凸函数水平集给出、次微分有界可算时，序列弱收敛到 SFP 解；Armijo 有限终止且 $\\mu l/L<\\alpha_k\\le\\gamma$（Lemma 3.1，引 [11]）。",
+    "experiments_or_examples": "第 4 节将 LASSO 化为 SFP（$C=\\{x:\\|x\\|_1\\le t\\}$，$Q=\\{b\\}$），在无噪 $K$-稀疏恢复（$m=120,n=512$ 与 $m=240,n=1024$ 等）上与 Yang 松弛 CQ 比较 Iter/Obj/Err，并给出恢复信号与目标值曲线图。",
+    "limitations": "仅证明弱收敛而非强收敛；需一致性与次梯度有界可算；数值仅与 Yang 算法对比且为无噪有限维算例；结论指出 Banach 空间与 Bregman 投影尚待研究。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 2,
+    "verdict": "算法主体继承 Qu–Xiu 修正松弛 CQ+Armijo，主要增量是 Hilbert 空间弱收敛的简洁证明与 LASSO 数值对照，属同一 CQ 谱系上的理论维度提升与实现验证，非新框架或强收敛路线突破。",
+    "inherited_foundations": [
+      "Byrne CQ 投影梯度格式与 SFP 约束极小化表述",
+      "Yang 松弛 CQ 的半空间/子梯度投影思想",
+      "Qu–Xiu 修正松弛 CQ 与 Armijo 线搜索算法结构及有限终止性质",
+      "投影的 firm nonexpansiveness 与 Fejér 型弱收敛引理（Lemma 2.1–2.2）"
+    ],
+    "incremental_advances": [
+      "将 Qu–Xiu 主结果从欧氏空间推广到无限维实 Hilbert 空间并给出去耦证明（Remark 3.1、Theorem 3.1）",
+      "在一致假设下建立 Fejér 单调、残差趋于零与弱聚点属于 $\\Omega$ 的论证链",
+      "把方法具体化到 LASSO 的 $\\ell_1$ 水平集次梯度投影实现"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "与 Yang 松弛 CQ 的稀疏恢复对照实验（参数 $\\gamma=1,l=\\mu=0.5$ 对固定步长 $0.9\\cdot 2/L$）",
+      "报告不同稀疏度 $K$ 与 $\\varepsilon$ 下的迭代次数、目标值与恢复误差"
+    ],
+    "comparison_basis": [
+      "A59（2016）《Iterative methods of strong convergence theorems for the split feasibility problem in Hilbert spaces》",
+      "目标文自引 Qu and Xiu (2005) 修正松弛 CQ+Armijo",
+      "目标文自引 Yang (2004) 松弛 CQ 作为数值对照",
+      "目标文引言中 Byrne CQ、Xu 弱收敛 CQ 等背景工作"
+    ],
+    "evidence_boundary": "overview/定理/实验均来自 A53 full.md 的 Abstract、§3 Theorem 3.1、Remark 3.1 与 §4–5；创新性比较仅相对本地 A59 与目标文明确引用的 Qu–Xiu、Yang 等，未核对未收录的其他同期 Hilbert 空间松弛 CQ 弱收敛文献，故“领域内是否首次”不作断言。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处在 Byrne CQ→Yang 松弛 CQ→Qu–Xiu Armijo 修正松弛 CQ 的弱/实用投影分支：相对 A59 的 Halpern 型强收敛与精确投影路径，A53 不追求 $P_\\Omega u$ 强收敛，而把已有修正松弛格式的弱收敛结论抬到 Hilbert 空间并做 LASSO 验证。",
+  "keywords": [
+    "分裂可行性问题",
+    "修正松弛CQ算法",
+    "Armijo线搜索",
+    "子梯度投影",
+    "弱收敛",
+    "Hilbert空间",
+    "LASSO",
+    "稀疏信号恢复"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.646Z",
+  "comparison_ids": [
+    "A59"
+  ]
+}

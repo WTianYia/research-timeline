@@ -1,0 +1,57 @@
+{
+  "id": "A13",
+  "title": "Proximal ADMM Approach for Image Restoration with Mixed Poisson-Gaussian Noise",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对混合泊松–高斯噪声下的TV-IC图像复原模型，基于ADMM提出完全分裂的近端双线性约束ADMM算法，并宣称在温和条件下收敛且各子问题均有闭式解。",
+    "research_problem": "如何有效求解用于消除混合泊松–高斯噪声的全变分下确界卷积（TV-IC）图像复原模型。",
+    "core_method": "在ADMM框架下构造完全分裂的近端双线性约束ADMM（complete splitting proximal bilinear constraint ADMM）以求解TV-IC模型。",
+    "main_findings": [
+      "摘要宣称：相对其他求解TV-IC的算法，所提算法不含内层迭代，且每个子问题均有闭式解。",
+      "摘要宣称：在温和条件下可证明算法收敛，数值实验显示算法有效且高效。",
+      "引言片段仅交代混合泊松–高斯噪声背景与变分建模动机，未给出可核验的定量结论。"
+    ],
+    "theoretical_guarantee": "摘要称“在温和条件下证明所提算法收敛”；本地全文截断，无法定位定理编号、假设条件、收敛模式（点列/目标值等）及证明细节，故不作具体定理复述。",
+    "experiments_or_examples": "摘要仅概括“数值实验验证效率与有效性”；无法从目标全文核验测试图像、噪声/模糊设置、对比算法、PSNR/SSIM/时间等任何定量结果。",
+    "limitations": "本地A13_2025/full.md仅含标题、作者信息、Abstract与引言开头，方法细节、定理、实验与结论均缺失；因而无法从目标全文归纳作者明确讨论的方法局限或失败情形。"
+  },
+  "innovation": {
+    "classification": "证据不足",
+    "score": 2,
+    "verdict": "摘要相对“其他TV-IC求解算法”强调无内层迭代与全闭式子问题，并指向近端双线性约束ADMM完全分裂；对照A23（外层PDCP+内层BCA、仍含内层迭代）在路线上似为同模型求解器的算法改进，但目标全文不可读，算法结构、收敛理论与实验增量均无法核实，故创新性判定为证据不足。",
+    "inherited_foundations": [
+      "TV-IC混合泊松–高斯噪声复原模型（目标摘要明确“consider the TV-IC model”）",
+      "ADMM与双线性约束分裂思想（摘要提出based on ADMM的bilinear constraint ADMM）",
+      "前序A23对同一TV-IC的一阶原始–对偶Chambolle–Pock外层求解及内层BCA处理KL–ℓ2联合邻近子问题的既有路线（仅用于相对比较）"
+    ],
+    "incremental_advances": [
+      "摘要宣称相对既有TV-IC算法“无内层迭代、子问题均闭式”——若属实，相对A23仍保留约15次内层BCA迭代可构成实现层面增量；但全文未给出算法伪代码与子问题推导，无法确认"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "摘要提及数值实验证明效率与有效性，但实验设计、对比对象与指标均无法在目标全文定位"
+    ],
+    "comparison_basis": [
+      "A23（2023）《First-order primal-dual algorithm for image restoration corrupted by mixed Poisson-Gaussian noise》",
+      "目标摘要中关于“other algorithms used for solving the TV-IC model”“does not involve any inner iterations”“each subproblem has a closed-form solution”的对比表述"
+    ],
+    "evidence_boundary": "overview与理论/实验/局限仅依据A13本地full.md可见的Abstract与引言开头；创新性与谱系比较额外对照A23全文。A13文件约2.7KB且在“For more exam-”处截断，origin.pdf亦仅约59KB，实质为全文缺失。作者自述的收敛、无内层迭代与实验优势均未当作已核验新颖性证据；未把A23的定理、实验数值或应用写为目标论文内容。",
+    "confidence": 0.42
+  },
+  "lineage_position": "处于混合泊松–高斯噪声TV-IC变分复原的求解器谱系：承接TV-IC模型与双线性约束ADMM传统；相对A23“PDCP外层+BCA内层”路线，摘要宣称转向“完全分裂近端ADMM、无内层迭代”，但因目标全文缺失，该谱系跃迁仅能在摘要层面定位，尚不能确认为已实证的核心突破。",
+  "keywords": [
+    "ADMM",
+    "图像复原",
+    "混合泊松-高斯噪声",
+    "TV-IC",
+    "全变分",
+    "近端算法",
+    "双线性约束",
+    "闭式解"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.544Z",
+  "comparison_ids": [
+    "A23"
+  ]
+}

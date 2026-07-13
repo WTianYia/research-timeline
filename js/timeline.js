@@ -1,14 +1,31 @@
 import {
+  alignViewportToPixel,
+  annotateSameYearGroups,
   buildRelations,
+  computeLaneHeights,
+  exceedsDragThreshold,
+  fitLaneScaleToHeight,
   filterPapers,
   getConnectedIds,
+  horizontalEdgeOpacity,
   normalizePaper,
+  paperNodeHitRadius,
   parseCSV,
+  relationEdgeOpacity,
   summarizePapers,
+  togglePaperSelection,
+  zoomViewport2D,
 } from "./timeline-core.js";
 
 const NS = "http://www.w3.org/2000/svg";
 const TYPE_LABELS = { theory: "理论", algorithm: "算法", extension: "扩展", application: "应用" };
+const INNOVATION_LEVELS = [
+  { id: "核心创新", tone: "core" },
+  { id: "显著扩展", tone: "major" },
+  { id: "增量改进", tone: "incremental" },
+  { id: "应用迁移", tone: "application" },
+  { id: "证据不足", tone: "uncertain" },
+];
 const STAGES = [
   { label: "早期探索", start: 2006, end: 2010 },
   { label: "方向拓展", start: 2011, end: 2015 },
@@ -18,16 +35,19 @@ const STAGES = [
 
 const state = {
   papers: [],
+  insights: {},
   directions: [],
   allRelations: [],
   selectedDirections: new Set(),
   selectedTypes: new Set(Object.keys(TYPE_LABELS)),
+  selectedInnovations: new Set(INNOVATION_LEVELS.map((level) => level.id)),
   representativeOnly: false,
   search: "",
   yearStart: 2006,
   yearEnd: 2026,
   viewStart: 2005.5,
   viewEnd: 2026.5,
+  verticalScale: 1,
   fullMin: 2006,
   fullMax: 2026,
   selectedId: null,
@@ -44,13 +64,27 @@ async function init() {
   cacheElements();
   bindStaticEvents();
   try {
-    const [directionsResponse, papersResponse] = await Promise.all([
-      fetch("data/directions.json"),
-      fetch("data/papers.csv"),
+    const [directionsResponse, papersResponse, insights, pdfManifest] = await Promise.all([
+      fetch("data/directions.json?v=20260713-relations"),
+      fetch("data/papers.csv?v=20260713-relations"),
+      fetch("data/paper-insights.json?v=20260713-grok45")
+        .then((response) => response.ok ? response.json() : {})
+        .catch(() => ({})),
+      fetch("data/pdf-manifest.json?v=20260713-pdf1")
+        .then((response) => response.ok ? response.json() : { available: [] })
+        .catch(() => ({ available: [] })),
     ]);
     if (!directionsResponse.ok || !papersResponse.ok) throw new Error("数据文件无法读取");
     state.directions = await directionsResponse.json();
-    state.papers = parseCSV(await papersResponse.text()).map(normalizePaper).filter((paper) => paper.id && paper.year);
+    state.insights = insights || {};
+    const pdfAvailableIds = new Set(pdfManifest?.available || []);
+    state.papers = parseCSV(await papersResponse.text())
+      .map((paper) => normalizePaper({
+        ...paper,
+        innovationClass: state.insights[paper.id]?.innovation?.classification || "证据不足",
+        pdfAvailable: pdfAvailableIds.has(paper.id),
+      }))
+      .filter((paper) => paper.id && paper.year);
     state.allRelations = buildRelations(state.papers);
     state.selectedDirections = new Set(state.directions.map((direction) => direction.id));
     const summary = summarizePapers(state.papers);
@@ -62,13 +96,8 @@ async function init() {
     state.viewEnd = summary.maxYear + 0.5;
     configureYearControls(summary);
     buildFilterControls(summary);
-    const initialPaper = [...state.papers]
-      .filter((paper) => paper.representative)
-      .sort((a, b) => b.year - a.year || b.importance - a.importance)[0];
-    if (initialPaper) {
-      state.selectedId = initialPaper.id;
-      renderDetail(initialPaper);
-    }
+    state.verticalScale = getFittedLaneScale(state.papers);
+    alignDefaultViewport();
     render();
   } catch (error) {
     elements.timelineStatus.textContent = `数据加载失败：${error.message}`;
@@ -81,6 +110,7 @@ async function init() {
 function cacheElements() {
   Object.assign(elements, {
     app: document.querySelector("#app"),
+    workspace: document.querySelector(".workspace"),
     sidebar: document.querySelector("#sidebar"),
     detailPanel: document.querySelector("#detail-panel"),
     detailEmpty: document.querySelector("#detail-empty"),
@@ -88,6 +118,7 @@ function cacheElements() {
     scrim: document.querySelector("#scrim"),
     timeline: document.querySelector("#timeline"),
     timelineScroll: document.querySelector("#timeline-scroll"),
+    canvasTools: document.querySelector(".canvas-tools"),
     timelineStatus: document.querySelector("#timeline-status"),
     empty: document.querySelector("#empty-state"),
     tooltip: document.querySelector("#tooltip"),
@@ -98,6 +129,7 @@ function cacheElements() {
     yearEndLabel: document.querySelector("#year-end-label"),
     directionList: document.querySelector("#direction-list"),
     typeList: document.querySelector("#type-list"),
+    innovationList: document.querySelector("#innovation-list"),
     stageBand: document.querySelector("#stage-band"),
     stageCards: document.querySelector("#stage-cards"),
     summaryBody: document.querySelector("#summary-body"),
@@ -126,6 +158,12 @@ function buildFilterControls(summary) {
     </button>`).join("");
   elements.typeList.innerHTML = Object.entries(TYPE_LABELS).map(([id, label]) => `
     <button class="type-filter active" type="button" data-type="${id}" aria-pressed="true"><i class="shape ${id}" aria-hidden="true"></i>${label}</button>`).join("");
+  const innovationCounts = new Map();
+  state.papers.forEach((paper) => innovationCounts.set(paper.innovationClass, (innovationCounts.get(paper.innovationClass) || 0) + 1));
+  elements.innovationList.innerHTML = INNOVATION_LEVELS.map((level) => `
+    <button class="innovation-filter active ${level.tone}" type="button" data-innovation="${level.id}" aria-pressed="true">
+      <i aria-hidden="true"></i><span>${level.id}</span><b>${innovationCounts.get(level.id) || 0}</b>
+    </button>`).join("");
   elements.stageBand.innerHTML = STAGES.map((stage) => `<div class="stage-pill"><span><strong>${stage.label}</strong>${stage.start}–${stage.end}</span></div>`).join("");
   document.querySelector("#total-count").textContent = summary.total;
   document.querySelector("#sidebar-total").textContent = summary.total;
@@ -159,6 +197,15 @@ function bindStaticEvents() {
     syncFilterButtons();
     render();
   });
+  elements.innovationList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-innovation]");
+    if (!button) return;
+    const id = button.dataset.innovation;
+    if (state.selectedInnovations.has(id) && state.selectedInnovations.size === 1) return;
+    state.selectedInnovations.has(id) ? state.selectedInnovations.delete(id) : state.selectedInnovations.add(id);
+    syncFilterButtons();
+    render();
+  });
   document.querySelector("#all-directions").addEventListener("click", () => {
     state.selectedDirections = new Set(state.directions.map((direction) => direction.id));
     syncFilterButtons();
@@ -174,6 +221,11 @@ function bindStaticEvents() {
     syncFilterButtons();
     render();
   });
+  document.querySelector("#clear-innovations").addEventListener("click", () => {
+    state.selectedInnovations = new Set(INNOVATION_LEVELS.map((level) => level.id));
+    syncFilterButtons();
+    render();
+  });
   document.querySelector("#representative-only").addEventListener("click", () => {
     state.representativeOnly = !state.representativeOnly;
     syncFilterButtons();
@@ -181,8 +233,8 @@ function bindStaticEvents() {
   });
   document.querySelector("#reset-all").addEventListener("click", resetAll);
   document.querySelector("#fit-view").addEventListener("click", fitView);
-  document.querySelector("#zoom-in").addEventListener("click", () => zoomAt(0.78, 0.5));
-  document.querySelector("#zoom-out").addEventListener("click", () => zoomAt(1.25, 0.5));
+  document.querySelector("#zoom-in").addEventListener("click", () => zoomAt(0.78, 0.5, 0.5));
+  document.querySelector("#zoom-out").addEventListener("click", () => zoomAt(1.25, 0.5, 0.5));
   document.querySelector("#toggle-relations").addEventListener("click", toggleRelations);
   document.querySelector("#fullscreen").addEventListener("click", toggleFullscreen);
   document.querySelector("#close-detail").addEventListener("click", closeDetail);
@@ -203,10 +255,10 @@ function bindStaticEvents() {
   });
   document.querySelector("#export-svg").addEventListener("click", exportSVG);
   document.querySelector("#export-png").addEventListener("click", exportPNG);
-  elements.timelineScroll.addEventListener("wheel", onWheel, { passive: false });
   elements.timelineScroll.addEventListener("pointerdown", onPointerDown);
   window.addEventListener("pointermove", onPointerMove);
   window.addEventListener("pointerup", onPointerUp);
+  window.addEventListener("pointercancel", onPointerUp);
   window.addEventListener("resize", debounce(render, 100));
   document.addEventListener("keydown", onKeydown);
   document.addEventListener("click", (event) => {
@@ -247,6 +299,11 @@ function syncFilterButtons() {
     button.classList.toggle("active", active);
     button.setAttribute("aria-pressed", String(active));
   });
+  elements.innovationList.querySelectorAll("[data-innovation]").forEach((button) => {
+    const active = state.selectedInnovations.has(button.dataset.innovation);
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
   const allActive = state.selectedDirections.size === state.directions.length;
   document.querySelector("#all-directions").classList.toggle("active", allActive && !state.representativeOnly);
   const representativeButton = document.querySelector("#representative-only");
@@ -258,6 +315,7 @@ function currentPapers() {
   return filterPapers(state.papers, {
     directions: state.selectedDirections,
     types: state.selectedTypes,
+    innovations: state.selectedInnovations,
     representativeOnly: state.representativeOnly,
     search: state.search,
     yearStart: state.yearStart,
@@ -271,7 +329,7 @@ function render() {
   if (state.selectedId && !papers.some((paper) => paper.id === state.selectedId)) closeDetail();
   document.querySelector("#result-count").textContent = papers.length;
   elements.timelineStatus.textContent = papers.length
-    ? `${state.yearStart}–${state.yearEnd} · ${state.selectedDirections.size} 个方向 · 滚轮缩放，拖拽平移，点击节点查看详情`
+    ? `${state.yearStart}–${state.yearEnd} · ${state.selectedDirections.size} 个方向 · 滚轮纵向滚动，缩放按钮调整视图，拖拽浏览`
     : "当前筛选条件下没有文献";
   elements.empty.hidden = papers.length > 0;
   drawTimeline(papers);
@@ -282,9 +340,16 @@ function render() {
 function drawTimeline(papers) {
   const width = Math.max(elements.timelineScroll.clientWidth, 760);
   const visibleDirections = state.directions.filter((direction) => state.selectedDirections.has(direction.id));
-  const laneHeight = width < 900 ? 144 : 132;
   const top = 34;
-  const height = Math.max(elements.timelineScroll.clientHeight, top + visibleDirections.length * laneHeight + 4);
+  const laneHeights = computeLaneHeights(visibleDirections, papers, state.verticalScale);
+  const laneMetrics = new Map();
+  let laneTop = top;
+  visibleDirections.forEach((direction) => {
+    const laneHeight = laneHeights.get(direction.id) || 72;
+    laneMetrics.set(direction.id, { top: laneTop, height: laneHeight });
+    laneTop += laneHeight;
+  });
+  const height = laneTop + 4;
   const margin = { left: width < 900 ? 128 : 150, right: 28 };
   const plotWidth = width - margin.left - margin.right;
   const x = (year) => margin.left + ((year - state.viewStart) / (state.viewEnd - state.viewStart)) * plotWidth;
@@ -294,7 +359,9 @@ function drawTimeline(papers) {
   addSvgDefinitions();
 
   visibleDirections.forEach((direction, laneIndex) => {
-    const laneY = top + laneIndex * laneHeight;
+    const metric = laneMetrics.get(direction.id);
+    const laneY = metric.top;
+    const laneHeight = metric.height;
     const lanePapers = papers.filter((paper) => paper.direction === direction.id);
     elements.timeline.append(svg("rect", { x: 0, y: laneY, width, height: laneHeight, class: `lane-background ${laneIndex % 2 ? "alt" : ""}` }));
     elements.timeline.append(svg("line", { x1: 0, x2: width, y1: laneY + laneHeight, y2: laneY + laneHeight, class: "lane-divider" }));
@@ -315,25 +382,11 @@ function drawTimeline(papers) {
     elements.timeline.append(label);
   }
 
-  const positions = layoutNodes(papers, visibleDirections, x, top, laneHeight);
-  drawRelations(papers, positions);
+  const positions = layoutNodes(papers, visibleDirections, x, laneMetrics);
+  drawRelations(papers, positions, width, margin);
   const connected = getConnectedIds(state.allRelations, state.selectionActive ? state.selectedId : null);
-  const cardIds = chooseCardLabels(papers);
+  const cardIds = new Set(state.selectionActive && state.selectedId ? [state.selectedId] : []);
   positions.forEach((position, id) => drawPaperNode(position, papers.find((paper) => paper.id === id), width, margin, connected, cardIds.has(id)));
-}
-
-function chooseCardLabels(papers) {
-  const winners = new Map();
-  papers.forEach((paper) => {
-    if (!paper.representative && paper.importance < 5 && paper.id !== state.selectedId) return;
-    const bucket = `${paper.direction}:${Math.floor(paper.year / 2)}`;
-    const current = winners.get(bucket);
-    const score = (paper.id === state.selectedId ? 100 : 0) + (paper.representative ? 20 : 0) + paper.importance;
-    const currentScore = current ? (current.id === state.selectedId ? 100 : 0) + (current.representative ? 20 : 0) + current.importance : -1;
-    if (!current || score > currentScore || (score === currentScore && paper.year > current.year)) winners.set(bucket, paper);
-  });
-  if (state.selectedId) winners.set(`selected:${state.selectedId}`, papers.find((paper) => paper.id === state.selectedId));
-  return new Set([...winners.values()].filter(Boolean).map((paper) => paper.id));
 }
 
 function addSvgDefinitions() {
@@ -344,29 +397,33 @@ function addSvgDefinitions() {
   elements.timeline.append(defs);
 }
 
-function layoutNodes(papers, directions, x, top, laneHeight) {
+function layoutNodes(papers, directions, x, laneMetrics) {
   const positions = new Map();
-  const laneIndex = new Map(directions.map((direction, index) => [direction.id, index]));
+  const sameYearGroups = annotateSameYearGroups(papers);
   directions.forEach((direction) => {
+    const metric = laneMetrics.get(direction.id);
     const byYear = new Map();
     papers.filter((paper) => paper.direction === direction.id)
       .sort((a, b) => a.year - b.year || b.importance - a.importance)
       .forEach((paper) => {
         const count = byYear.get(paper.year) || 0;
         byYear.set(paper.year, count + 1);
-        const slots = [-30, 5, 38, -50, 54];
-        const center = top + laneIndex.get(direction.id) * laneHeight + laneHeight / 2;
+        const maxOffset = Math.max(18, metric.height / 2 - 15);
+        const slots = [0, -24, 24, -42, 42].map((offset) => clamp(offset, -maxOffset, maxOffset));
+        const center = metric.top + metric.height / 2;
         positions.set(paper.id, {
           x: x(paper.year + Math.min(count, 4) * 0.07),
           y: center + slots[count % slots.length],
           slot: count,
+          groupSize: sameYearGroups.get(paper.id)?.size || 1,
+          groupExtra: sameYearGroups.get(paper.id)?.extra || 0,
         });
       });
   });
   return positions;
 }
 
-function drawRelations(papers, positions) {
+function drawRelations(papers, positions, width, margin) {
   if (!state.showRelations) return;
   const visibleIds = new Set(papers.map((paper) => paper.id));
   state.allRelations.forEach((relation) => {
@@ -374,18 +431,23 @@ function drawRelations(papers, positions) {
     const source = positions.get(relation.source);
     const target = positions.get(relation.target);
     if (!source || !target) return;
+    const edgeOpacity = relationEdgeOpacity(source.x, target.x, margin.left, width - margin.right);
+    if (edgeOpacity <= 0) return;
     const midX = (source.x + target.x) / 2;
     const related = state.selectionActive && (relation.source === state.selectedId || relation.target === state.selectedId);
     const dimmed = state.selectionActive && !related;
     elements.timeline.append(svg("path", {
       d: `M ${source.x} ${source.y} C ${midX} ${source.y}, ${midX} ${target.y}, ${target.x} ${target.y}`,
       class: `relation-path ${relation.crossDirection ? "cross" : ""} ${related ? "related" : ""} ${dimmed ? "dimmed" : ""}`,
+      style: `--edge-opacity:${edgeOpacity}`,
     }));
   });
 }
 
 function drawPaperNode(position, paper, width, margin, connected, showCard) {
-  if (!paper || position.x < margin.left - 20 || position.x > width - margin.right + 20) return;
+  if (!paper) return;
+  const edgeOpacity = horizontalEdgeOpacity(position.x, margin.left, width - margin.right);
+  if (edgeOpacity <= 0) return;
   const direction = state.directions.find((item) => item.id === paper.direction);
   const radius = 4 + paper.importance * 1.1;
   const group = svg("g", {
@@ -393,25 +455,36 @@ function drawPaperNode(position, paper, width, margin, connected, showCard) {
     tabindex: 0,
     role: "button",
     "aria-label": `${paper.year} 年，${paper.title}`,
+    style: `--edge-opacity:${edgeOpacity}`,
   });
   group.dataset.id = paper.id;
+  group.append(svg("circle", {
+    cx: position.x,
+    cy: position.y,
+    r: paperNodeHitRadius(radius),
+    class: "node-hit-target",
+    "aria-hidden": "true",
+  }));
   group.append(svg("circle", { cx: position.x, cy: position.y, r: radius + 6, class: "selection-halo" }));
   if (paper.representative) group.append(svg("circle", { cx: position.x, cy: position.y, r: radius + 3.5, class: "representative-halo" }));
   group.append(createNodeShape(paper.type, position.x, position.y, radius, direction?.color || "#60748d"));
 
   if (showCard) group.append(createNodeCard(position, paper, radius, width));
-  else if (position.slot >= 3) {
+  else if (position.groupExtra > 0 && position.slot === position.groupSize - 1) {
     const badge = svg("g", { class: "node-card" });
+    const badgeTitle = svg("title");
+    badgeTitle.textContent = `同一研究方向、同一年另有 ${position.groupExtra} 篇论文，所有节点均已显示`;
+    badge.append(badgeTitle);
     badge.append(svg("circle", { cx: position.x + 14, cy: position.y, r: 9, class: "cluster-badge" }));
     const text = svg("text", { x: position.x + 14, y: position.y + 3, class: "cluster-text", "text-anchor": "middle" });
-    text.textContent = `+${position.slot}`;
+    text.textContent = `+${position.groupExtra}`;
     badge.append(text);
     group.append(badge);
   }
-  group.addEventListener("pointerenter", (event) => showTooltip(event, paper));
+  group.addEventListener("pointerenter", (event) => showTooltip(event, paper, position.groupExtra));
   group.addEventListener("pointermove", moveTooltip);
   group.addEventListener("pointerleave", hideTooltip);
-  group.addEventListener("focus", (event) => showTooltip(event, paper));
+  group.addEventListener("focus", (event) => showTooltip(event, paper, position.groupExtra));
   group.addEventListener("blur", hideTooltip);
   group.addEventListener("click", (event) => {
     event.stopPropagation();
@@ -455,11 +528,17 @@ function createNodeCard(position, paper, radius, width) {
 }
 
 function selectPaper(id) {
-  state.selectedId = id;
+  const nextSelection = togglePaperSelection(state.selectedId, id);
+  if (!nextSelection.open) {
+    closeDetail();
+    return;
+  }
+  state.selectedId = nextSelection.selectedId;
   state.selectionActive = true;
   const paper = state.papers.find((item) => item.id === id);
   if (!paper) return;
   renderDetail(paper);
+  elements.workspace.classList.remove("detail-closed");
   elements.detailPanel.classList.add("open");
   if (window.innerWidth <= 1120) {
     elements.scrim.hidden = false;
@@ -468,8 +547,94 @@ function selectPaper(id) {
   render();
 }
 
+function renderInsightList(items, emptyText = "暂无可核验信息") {
+  const values = Array.isArray(items) ? items.filter(Boolean) : [];
+  return values.length
+    ? `<ul class="insight-list">${values.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>`
+    : `<p class="insight-empty">${emptyText}</p>`;
+}
+
+function renderInsightText(label, value) {
+  if (!value) return "";
+  return `<div class="insight-block"><h5>${label}</h5><p>${escapeHTML(value)}</p></div>`;
+}
+
+function renderInsightDetails(insight) {
+  if (!insight?.innovation || !insight?.overview) {
+    return `<section class="detail-section insight-unavailable"><h4>Grok 论文精读</h4><p>当前论文的结构化精读数据暂不可用，原始摘要与演化关系仍可正常查看。</p></section>`;
+  }
+  const { innovation, overview } = insight;
+  const score = Math.max(1, Math.min(5, Number(innovation.score) || 1));
+  const confidence = Math.round((Number(innovation.confidence) || 0) * 100);
+  const sourceLabel = insight.source_mode === "fulltext" ? "全文精读" : "摘要判断";
+  const sourceClass = insight.source_mode === "fulltext" ? "fulltext" : "abstract-only";
+  const classTone = {
+    "核心创新": "core",
+    "显著扩展": "major",
+    "增量改进": "incremental",
+    "应用迁移": "application",
+    "证据不足": "uncertain",
+  }[innovation.classification] || "uncertain";
+  const meter = Array.from({ length: 5 }, (_, index) => `<i class="${index < score ? "active" : ""}"></i>`).join("");
+
+  return `
+    <section class="innovation-card ${classTone}" aria-label="创新性判断">
+      <div class="innovation-heading">
+        <div><span class="eyebrow">GROK 4.5 · NOVELTY REVIEW</span><h4>创新性判断</h4></div>
+        <span class="innovation-badge">${escapeHTML(innovation.classification || "证据不足")}</span>
+      </div>
+      <p class="innovation-verdict">${escapeHTML(innovation.verdict || overview.one_sentence_contribution || "暂无判断")}</p>
+      <div class="innovation-metrics">
+        <span class="source-badge ${sourceClass}">${sourceLabel}</span>
+        <span class="innovation-score" aria-label="创新性评分 ${score} / 5">${meter}<b>${score}/5</b></span>
+        <span>置信度 ${confidence}%</span>
+      </div>
+    </section>
+
+    <details class="insight-details" open>
+      <summary><span>创新从哪里来</span><small>继承、增量与核心创新</small></summary>
+      <div class="insight-details-body">
+        <div class="insight-grid">
+          <section><h5>继承基础</h5>${renderInsightList(innovation.inherited_foundations)}</section>
+          <section><h5>增量推进</h5>${renderInsightList(innovation.incremental_advances)}</section>
+        </div>
+        <section class="core-innovation-list"><h5>核心创新点</h5>${renderInsightList(innovation.core_innovations)}</section>
+        <section><h5>实现与实验变化</h5>${renderInsightList(innovation.implementation_or_experimental_changes)}</section>
+        <aside class="evidence-note"><b>证据边界</b><p>${escapeHTML(innovation.evidence_boundary || "未提供证据边界说明")}</p></aside>
+      </div>
+    </details>
+
+    <details class="insight-details">
+      <summary><span>论文精读</span><small>问题、方法与主要结论</small></summary>
+      <div class="insight-details-body">
+        <p class="insight-callout">${escapeHTML(overview.one_sentence_contribution || "暂无一句话贡献")}</p>
+        ${renderInsightText("研究问题", overview.research_problem)}
+        ${renderInsightText("核心方法", overview.core_method)}
+        <section><h5>主要发现</h5>${renderInsightList(overview.main_findings)}</section>
+      </div>
+    </details>
+
+    <details class="insight-details">
+      <summary><span>理论、实验与边界</span><small>保证、验证与局限</small></summary>
+      <div class="insight-details-body">
+        ${renderInsightText("理论保证", overview.theoretical_guarantee)}
+        ${renderInsightText("实验或算例", overview.experiments_or_examples)}
+        ${renderInsightText("局限性", overview.limitations)}
+      </div>
+    </details>
+
+    <details class="insight-details">
+      <summary><span>研究脉络</span><small>前序基础与谱系位置</small></summary>
+      <div class="insight-details-body">
+        ${renderInsightText("谱系位置", insight.lineage_position)}
+        <section><h5>比较依据</h5>${renderInsightList(innovation.comparison_basis)}</section>
+      </div>
+    </details>`;
+}
+
 function renderDetail(paper) {
   const direction = state.directions.find((item) => item.id === paper.direction);
+  const insight = state.insights[paper.id];
   const incoming = paper.parents.map((id) => state.papers.find((item) => item.id === id)).filter(Boolean);
   const outgoing = state.papers.filter((item) => item.parents.includes(paper.id));
   const relations = [
@@ -477,6 +642,7 @@ function renderDetail(paper) {
     ...outgoing.map((item) => ({ paper: item, icon: "subdirectory_arrow_right", label: "延伸至" })),
   ];
   const doiUrl = paper.doi ? `https://doi.org/${encodeURIComponent(paper.doi)}` : "";
+  const pdfUrl = paper.pdfAvailable ? `/api/papers/${paper.id}/pdf` : "";
   elements.detailEmpty.hidden = true;
   elements.detailContent.hidden = false;
   elements.detailContent.innerHTML = `
@@ -492,14 +658,16 @@ function renderDetail(paper) {
       <dt>期刊</dt><dd>${escapeHTML(paper.journal || "—")}</dd>
       <dt>DOI</dt><dd>${doiUrl ? `<a href="${doiUrl}" target="_blank" rel="noopener">${escapeHTML(paper.doi)}</a>` : "—"}</dd>
     </dl>
+    ${renderInsightDetails(insight)}
     <section class="detail-section"><h4>内容摘要</h4><p>${escapeHTML(paper.summary || "暂无摘要")}</p></section>
     <section class="detail-section"><h4>关键词</h4><div class="keyword-list">${(paper.keywords || "暂无关键词").split(/[,，]/).map((keyword) => `<span>${escapeHTML(keyword.trim())}</span>`).join("")}</div></section>
     <section class="detail-section"><h4>演化关系 · ${relations.length}</h4><div class="relation-list">${relations.length ? relations.map((relation) => `
       <button class="relation-item" type="button" data-paper-id="${relation.paper.id}">
         <span class="material-symbols-rounded" aria-hidden="true">${relation.icon}</span><span><b>${relation.label}</b> · ${relation.paper.year}<br>${escapeHTML(relation.paper.title)}</span>
       </button>`).join("") : "<p>当前数据中未标注直接关联论文。</p>"}</div></section>
-    <div class="detail-actions">
-      ${doiUrl ? `<a class="primary-link" href="${doiUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">open_in_new</span>访问论文 DOI</a>` : '<span class="primary-link" aria-disabled="true">暂无 DOI 链接</span>'}
+    <div class="detail-actions ${pdfUrl ? "has-pdf" : ""}">
+      ${pdfUrl ? `<a class="primary-link full-width" href="${pdfUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">menu_book</span>阅读 PDF</a>` : ""}
+      ${doiUrl ? `<a class="${pdfUrl ? "secondary-link" : "primary-link"}" href="${doiUrl}" target="_blank" rel="noopener"><span class="material-symbols-rounded">open_in_new</span>访问论文 DOI</a>` : `<span class="${pdfUrl ? "secondary-link" : "primary-link"}" aria-disabled="true">暂无 DOI 链接</span>`}
       <a class="secondary-action" href="data/papers.csv" download title="下载数据"><span class="material-symbols-rounded">bookmark_add</span></a>
     </div>`;
   elements.detailContent.querySelectorAll("[data-paper-id]").forEach((button) => button.addEventListener("click", () => selectPaper(button.dataset.paperId)));
@@ -509,6 +677,7 @@ function closeDetail() {
   state.selectedId = null;
   state.selectionActive = false;
   elements.detailPanel.classList.remove("open");
+  elements.workspace.classList.add("detail-closed");
   elements.detailContent.hidden = true;
   elements.detailEmpty.hidden = false;
   closeOverlays();
@@ -559,8 +728,9 @@ function renderSummary(papers) {
   }).join("") || '<tr><td colspan="5">当前筛选条件下没有可汇总的数据。</td></tr>';
 }
 
-function showTooltip(event, paper) {
-  elements.tooltip.innerHTML = `<strong>${escapeHTML(paper.title)}</strong><span>${paper.year} · ${escapeHTML(paper.journal || "期刊未标注")} · ${TYPE_LABELS[paper.type] || paper.type}</span>`;
+function showTooltip(event, paper, groupExtra = 0) {
+  const groupNote = groupExtra > 0 ? ` · 同年同方向另有 ${groupExtra} 篇（均已显示）` : "";
+  elements.tooltip.innerHTML = `<strong>${escapeHTML(paper.title)}</strong><span>${paper.year} · ${escapeHTML(paper.journal || "期刊未标注")} · ${TYPE_LABELS[paper.type] || paper.type}${groupNote}</span>`;
   elements.tooltip.hidden = false;
   moveTooltip(event);
 }
@@ -579,39 +749,51 @@ function moveTooltip(event) {
 
 function hideTooltip() { elements.tooltip.hidden = true; }
 
-function onWheel(event) {
-  if (event.ctrlKey || Math.abs(event.deltaY) >= Math.abs(event.deltaX)) {
-    event.preventDefault();
-    const rect = elements.timelineScroll.getBoundingClientRect();
-    zoomAt(event.deltaY > 0 ? 1.16 : 0.86, clamp((event.clientX - rect.left) / rect.width, 0, 1));
-  }
-}
-
-function zoomAt(factor, ratio) {
-  const span = state.viewEnd - state.viewStart;
-  const nextSpan = clamp(span * factor, 3, 34);
-  const anchor = state.viewStart + span * ratio;
-  state.viewStart = anchor - nextSpan * ratio;
-  state.viewEnd = state.viewStart + nextSpan;
+function zoomAt(factor, horizontalRatio, verticalRatio) {
+  const oldScale = state.verticalScale;
+  const anchorY = verticalRatio * elements.timelineScroll.clientHeight;
+  const contentAnchorY = elements.timelineScroll.scrollTop + anchorY;
+  const nextViewport = zoomViewport2D(state, factor, horizontalRatio);
+  state.viewStart = nextViewport.viewStart;
+  state.viewEnd = nextViewport.viewEnd;
+  state.verticalScale = nextViewport.verticalScale;
   render();
+  const scaleRatio = state.verticalScale / oldScale;
+  elements.timelineScroll.scrollTop = Math.max(0, contentAnchorY * scaleRatio - anchorY);
 }
 
 function onPointerDown(event) {
   if (event.target.closest(".paper-node") || event.target.closest(".canvas-tools")) return;
-  state.drag = { x: event.clientX, start: state.viewStart, end: state.viewEnd };
-  elements.timelineScroll.classList.add("dragging");
+  state.drag = {
+    pointerId: event.pointerId,
+    active: false,
+    x: event.clientX,
+    y: event.clientY,
+    start: state.viewStart,
+    end: state.viewEnd,
+    scrollTop: elements.timelineScroll.scrollTop,
+  };
   elements.timelineScroll.setPointerCapture?.(event.pointerId);
 }
 
 function onPointerMove(event) {
-  if (!state.drag) return;
-  const delta = (event.clientX - state.drag.x) / elements.timelineScroll.clientWidth * (state.drag.end - state.drag.start);
-  state.viewStart = state.drag.start - delta;
-  state.viewEnd = state.drag.end - delta;
+  if (!state.drag || event.pointerId !== state.drag.pointerId) return;
+  if (!state.drag.active) {
+    if (!exceedsDragThreshold(state.drag.x, state.drag.y, event.clientX, event.clientY)) return;
+    state.drag.active = true;
+    elements.timelineScroll.classList.add("dragging");
+  }
+  const horizontalDelta = (event.clientX - state.drag.x) / elements.timelineScroll.clientWidth * (state.drag.end - state.drag.start);
+  const verticalDelta = event.clientY - state.drag.y;
+  state.viewStart = state.drag.start - horizontalDelta;
+  state.viewEnd = state.viewStart + (state.drag.end - state.drag.start);
   render();
+  elements.timelineScroll.scrollTop = Math.max(0, state.drag.scrollTop - verticalDelta);
 }
 
-function onPointerUp() {
+function onPointerUp(event) {
+  if (!state.drag || (event?.pointerId != null && event.pointerId !== state.drag.pointerId)) return;
+  elements.timelineScroll.releasePointerCapture?.(state.drag.pointerId);
   state.drag = null;
   elements.timelineScroll.classList.remove("dragging");
 }
@@ -629,7 +811,32 @@ function onDensityClick(event) {
 function fitView() {
   state.viewStart = state.yearStart - 0.5;
   state.viewEnd = state.yearEnd + 0.5;
+  state.verticalScale = getFittedLaneScale(currentPapers());
   render();
+  elements.timelineScroll.scrollTop = 0;
+}
+
+function alignDefaultViewport() {
+  const width = Math.max(elements.timelineScroll.clientWidth, 760);
+  const marginLeft = width < 900 ? 128 : 150;
+  const marginRight = 28;
+  const span = state.yearEnd - state.yearStart + 1;
+  const targetX = elements.canvasTools.offsetLeft || width - 16 - elements.canvasTools.offsetWidth;
+  const viewport = alignViewportToPixel({
+    targetYear: state.fullMax,
+    span,
+    width,
+    targetX,
+    marginLeft,
+    marginRight,
+  });
+  state.viewStart = viewport.viewStart;
+  state.viewEnd = viewport.viewEnd;
+}
+
+function getFittedLaneScale(papers) {
+  const visibleDirections = state.directions.filter((direction) => state.selectedDirections.has(direction.id));
+  return fitLaneScaleToHeight(visibleDirections, papers, elements.timelineScroll.clientHeight || 548);
 }
 
 function toggleRelations() {
@@ -649,12 +856,12 @@ async function toggleFullscreen() {
 function resetAll() {
   state.selectedDirections = new Set(state.directions.map((direction) => direction.id));
   state.selectedTypes = new Set(Object.keys(TYPE_LABELS));
+  state.selectedInnovations = new Set(INNOVATION_LEVELS.map((level) => level.id));
   state.representativeOnly = false;
   state.search = "";
   state.yearStart = state.fullMin;
   state.yearEnd = state.fullMax;
-  state.viewStart = state.fullMin - 0.5;
-  state.viewEnd = state.fullMax + 0.5;
+  state.verticalScale = getFittedLaneScale(currentPapers());
   state.showRelations = true;
   elements.search.value = "";
   elements.yearStart.value = state.fullMin;
@@ -663,6 +870,7 @@ function resetAll() {
   elements.yearEndLabel.value = state.fullMax;
   document.querySelector("#toggle-relations").classList.add("active");
   closeDetail();
+  alignDefaultViewport();
   syncFilterButtons();
   render();
 }

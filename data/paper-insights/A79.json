@@ -1,0 +1,53 @@
+{
+  "id": "A79",
+  "title": "Exponential Convergence of a Randomized Kaczmarz Algorithm with Relaxation",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "为带松弛参数的随机Kaczmarz算法给出指数收敛速率，并与无松弛情形对比。",
+    "research_problem": "线性方程组的随机投影求解在松弛参数下的收敛性尚缺定量保证。",
+    "core_method": "在行范数采样下分析带松弛的随机Kaczmarz迭代，证明期望误差指数衰减。",
+    "main_findings": [
+      "带松弛随机Kaczmarz在适当松弛因子下指数收敛",
+      "收敛速率依赖松弛参数与条件数相关量",
+      "松弛可在一定范围内改进或调节收敛表现",
+      "理论结果与数值算例一致"
+    ],
+    "theoretical_guarantee": "期望意义下误差范数以指数速率收敛到最小二乘解或相容解。",
+    "experiments_or_examples": "合成线性方程组上比较不同松弛参数的收敛曲线。",
+    "limitations": "本地无前序全文对照，创新边界主要依作者相关工作陈述。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在已有随机Kaczmarz指数收敛框架上引入松弛并给出相应速率，属有理论增量的改进。",
+    "inherited_foundations": [
+      "随机Kaczmarz行采样迭代框架",
+      "期望误差的指数收敛分析套路"
+    ],
+    "incremental_advances": [
+      "将松弛参数纳入收敛速率显式估计",
+      "讨论松弛因子对收敛速度的影响区间"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "不同松弛参数下的数值对比算例"
+    ],
+    "comparison_basis": [
+      "目标论文中对Strohmer-Vershynin等随机Kaczmarz相关工作的陈述"
+    ],
+    "evidence_boundary": "全文已通读，定理与算例有原文支撑；因无本地前序全文，创新分级相对比较置信度受限。",
+    "confidence": 0.72
+  },
+  "lineage_position": "处于随机Kaczmarz收敛理论由无松弛到带松弛参数扩展的支线上。",
+  "keywords": [
+    "随机Kaczmarz",
+    "松弛参数",
+    "指数收敛",
+    "线性方程组",
+    "期望误差",
+    "数值线性代数"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.710Z",
+  "comparison_ids": []
+}

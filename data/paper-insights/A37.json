@@ -1,0 +1,53 @@
+{
+  "id": "A37",
+  "title": "Preconditioned Douglas-Rachford type primal-dual method for solving composite monotone inclusion problems with applications",
+  "source_mode": "abstract_only",
+  "overview": {
+    "one_sentence_contribution": "在摘要层面对复合单调包含问题提出预处理 Douglas–Rachford 型原始对偶方法，并据元数据指向成像等相关应用。",
+    "research_problem": "复合优化/单调包含问题结构复杂，直接求解代价高，需要通过原始对偶或算子分裂降低求解复杂度。",
+    "core_method": "构造预处理 Douglas–Rachford 型原始对偶（算子分裂）算法求解复合单调包含问题。",
+    "main_findings": [
+      "提出面向复合单调包含的预处理 DR 型原始对偶方法（仅摘要/题名支持）。",
+      "旨在通过原始对偶与算子分裂降低复合问题求解复杂度。",
+      "题名与期刊语境表明工作面向成像等相关应用，但本地无应用细节。"
+    ],
+    "theoretical_guarantee": "本地仅有摘要与元数据，未见收敛定理、速率或假设条件的原文表述，理论保证内容证据不足。",
+    "experiments_or_examples": "本地无目标论文实验设置、数据集、对比算法或数值表格，无法据此概括实验结论。",
+    "limitations": "目标全文缺失，摘要极简，方法细节、理论结果、实验与局限均无法从本地材料完整还原。"
+  },
+  "innovation": {
+    "classification": "证据不足",
+    "score": 2,
+    "verdict": "相对 A41 的一阶分裂与原始对偶路线，A37 从题名与关键词看更强调预处理 DR 型原始对偶及单调包含框架，但因仅有摘要，无法核验定理、算法形式与数值贡献是否构成核心创新或仅增量扩展。",
+    "inherited_foundations": [
+      "Douglas–Rachford / 算子分裂求解单调包含与凸优化的经典路线",
+      "原始对偶分裂思想及复合结构处理",
+      "A41 所代表的大规模复合凸优化一阶分裂与原始对偶相关工作脉络"
+    ],
+    "incremental_advances": [
+      "将问题表述推进到复合单调包含，并强调预处理 Douglas–Rachford 型原始对偶（题名/关键词层面）"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A41（2019）《A First-Order Splitting Method for Solving a Large-Scale Composite Convex Optimization Problem》",
+      "目标论文题名、现有关键词与极简摘要中的相关工作指向"
+    ],
+    "evidence_boundary": "overview 仅基于 A37 题名、期刊元数据与极简摘要；创新性比较仅相对本地 A41 全文及目标题名/关键词作谱系定位。因 A37 无全文，未将任何具体定理编号、收敛速率、实验指标或应用算例写入目标贡献；分类取“证据不足”，confidence 受 abstract_only 限制且不超过 0.65。",
+    "confidence": 0.42
+  },
+  "lineage_position": "A37 位于 A41 所在的一阶/原始对偶算子分裂脉络下游：A41 面向大规模复合凸优化的一阶分裂，A37 在题名上转向复合单调包含上的预处理 Douglas–Rachford 型原始对偶；二者问题层级与分裂形态可能不同，但因 A37 全文缺失，相对 A41 的精确增量边界无法从原文核验。",
+  "keywords": [
+    "Douglas-Rachford",
+    "原始对偶",
+    "单调包含",
+    "预处理",
+    "算子分裂",
+    "复合优化"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.606Z",
+  "comparison_ids": [
+    "A41"
+  ]
+}

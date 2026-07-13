@@ -1,0 +1,66 @@
+{
+  "id": "A1",
+  "title": "Accelerated Douglas-Rachford splitting algorithm using neural network",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对两极大单调算子和问题，提出带偏差的 Douglas–Rachford 分裂及相应 ADMM，并用神经网络学习偏差更新以实现加速。",
+    "research_problem": "在 Hilbert 空间中求解结构化单调包含 0∈(A+B)x（及等价的复合凸优化 min g+h）；经典 DR 自由度有限，如何在保证全局收敛的同时引入可学习偏差以加速。",
+    "core_method": "将 DR 写成 Krasnosel’skiĭ–Mann 形式并嵌入偏差向量：一般极大单调情形用单偏差序列（Algorithm 1），A 或 B 强单调时用双偏差序列（Algorithms 2–3），收敛仅要求偏差范数满足分情形不等式；再由 DR–ADMM 关系导出带偏差 ADMM（Algorithms 4–6）；数值上以自编码器加归一化网络学习满足不等式的偏差更新，而非先验惯性项。",
+    "main_findings": [
+      "一般极大单调下可得 {x_n} 弱收敛及 {y_n},{z_n} 弱收敛到 zer(A+B)；任一方强单调时 {y_n},{z_n} 强收敛，{x_n} 弱收敛并可 Q-线性收敛。",
+      "对偶线性约束问题可化为单调包含，从而得到三类带偏差 ADMM 及其弱/强/线性收敛结果。",
+      "在线性反问题（ℓ1/ℓ∞ 正则及强凸二次扰动）上，神经网络学习偏差相对经典 DR、mMiDRS 与 AFB 可更快衰减误差范数。"
+    ],
+    "theoretical_guarantee": "Theorem 1：Assumption 1 下 {y_n},{z_n} 弱收敛到 J_{γB}x*∈zer(A+B)。Theorems 2–3：B 为 ρ-强单调且 Assumptions 2–3 时，{y_n},{z_n} 强收敛、{u_n},{v_n}→0，{x_n} 弱收敛并可线性收敛。Theorems 4–5：A 强单调时对称结果。Theorems 6–10：带偏差 ADMM 在对偶问题解集非空及光滑/强凸相应假设下分别弱收敛、强收敛与线性收敛。全局收敛依赖偏差范数不等式与步长/松弛参数范围。",
+    "experiments_or_examples": "Section 5：合成线性反问题 min ½‖Kx−f‖²+R(x)（R 为 ℓ1 或 ℓ∞，(m,n)=(48,128)/(64,63)）及加 κ‖x‖² 的强凸变体；Algorithm 1 用 Ψ_θ（自编码器+归一化）更新 u_n；Algorithms 2–3 比较单偏差置零与双偏差同时学习；停机 ‖x_n−x*‖ 或相对误差 <10^{-10}；对比 DR、mMiDRS[9]、AFB[4]，见图 1–4。",
+    "limitations": "全文无独立结论/局限节；实验仅为中小规模合成反问题，未测 Section 4 的 ADMM 偏差算法；加速依赖训练网络与归一化投影以满足偏差约束；一般情形仅为弱收敛，线性率需强单调与固定参数假设。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对本地前序 A8（随机原始对偶）与 A18（LQP 上 ADMM 谱半径参数优选），A1 走不同加速路线：在偏差型分裂框架上把 DR 推到三类算子假设并导出带偏差 ADMM，再用神经网络学习偏差；理论增量实质，但偏差思想与 NN 学习偏差分别继承自 KM/FB 偏差与 AFB 路线，不宜定为全新范式。",
+    "inherited_foundations": [
+      "经典 Douglas–Rachford 与 Krasnosel’skiĭ–Mann 迭代",
+      "Sadeghi 等带偏差的 KM/FB 分裂及范数型偏差约束",
+      "用神经网络学习偏差更新函数的思路（文中 [4] AFB）",
+      "ADMM 与 DR 的已知等价联系"
+    ],
+    "incremental_advances": [
+      "相对 [31]：补证 DR 偏差迭代中 {y_n},{z_n} 的弱收敛，并给出 A 或 B 强单调时的双偏差格式与线性收敛",
+      "将偏差机制经对偶单调包含迁移为三类带偏差 ADMM 并给收敛定理",
+      "数值上把三点历史信息输入自编码器网络，在 DR 而非 FB 上验证可学习偏差"
+    ],
+    "core_innovations": [
+      "面向两算子单调包含的系统化“DR+偏差”算法族（单/双偏差、分情形不等式）及其完整弱/强/线性收敛分析",
+      "与之配套的带偏差 ADMM 族（Algorithms 4–6）及对偶问题下的收敛移植"
+    ],
+    "implementation_or_experimental_changes": [
+      "Autoencoder+归一化构造 Ψ_θ/Φ_θ/Ξ_θ，使网络输出强制满足偏差不等式",
+      "线性反问题算例及与 DR、mMiDRS、AFB 的误差衰减对比（Figs. 1–4）"
+    ],
+    "comparison_basis": [
+      "A8（2025）《A stochastic primal-dual algorithm for composite optimization with a linear operator》",
+      "A18（2024）《Optimizing ADMM and Over-Relaxed ADMM Parameters for Linear Quadratic Problems》",
+      "目标全文相关工作与引用：[31] 偏差 KM/FB、[4] AFB 神经网络偏差、[15,19,30] DR–ADMM 关系"
+    ],
+    "evidence_boundary": "overview、定理与实验均仅据 A1_2026/full.md Abstract、§1–§5 与 Theorems 1–10；创新性仅相对本地 A8/A18 及 A1 自引前序，未核对更广 DRS/LISTA/偏差分裂文献；A8/A18 的定理与实验未写入 overview；A1 未报告 ADMM 偏差算法数值，该部分创新停留在理论层面。",
+    "confidence": 0.86
+  },
+  "lineage_position": "处于算子分裂加速谱系：A8 发展三复合随机原始对偶（SPD3O），A18 在 LQP 上对 ADMM/过松弛 ADMM 做谱半径驱动的罚参数与松弛参数优选；A1 则沿“偏差增强分裂+可学习更新”支线，把偏差与神经网络引入 Douglas–Rachford 及对偶 ADMM，与前两者问题模板与加速机制均不相同、可并列为同族不同路线。",
+  "keywords": [
+    "神经网络",
+    "Douglas-Rachford",
+    "单调包含",
+    "偏差向量",
+    "极大单调算子",
+    "ADMM",
+    "线性收敛",
+    "复合凸优化"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.509Z",
+  "comparison_ids": [
+    "A8",
+    "A18"
+  ]
+}

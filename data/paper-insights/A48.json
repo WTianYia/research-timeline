@@ -1,0 +1,63 @@
+{
+  "id": "A48",
+  "title": "Convergence analysis of a variable metric forward-backward splitting algorithm with applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在实 Hilbert 空间中，对带扩展松弛参数的变度量前向-后向分裂算法给出新的弱收敛分析，并由此恢复变步长前向-后向算法，进一步用于两凸函数和、变分不等式、约束凸极小与分裂可行性问题。",
+    "research_problem": "对极大单调算子与逆强单调算子之和的单调包含问题，已有变度量前向-后向分裂算法的松弛参数条件较严；需要在更弱的松弛参数条件下建立弱收敛，并覆盖变步长情形及其在优化与可行性问题中的应用。",
+    "core_method": "采用变度量正向步与反向（预解）步，配合扩展松弛参数序列，在适当的算子与度量条件下证明算法弱收敛；作为特例恢复变步长前向-后向分裂，并导出两凸函数和极小化的变度量算法。",
+    "main_findings": [
+      "在对松弛参数施加较弱条件时，变度量前向-后向分裂算法在实 Hilbert 空间中弱收敛。",
+      "由此可恢复带变步长的前向-后向分裂算法。",
+      "应用于两凸函数和极小化（其一可微且梯度 Lipschitz）、变分不等式、约束凸极小与分裂可行性问题。",
+      "LASSO 数值实验表明所提迭代算法有效。"
+    ],
+    "theoretical_guarantee": "在实 Hilbert 空间中，对极大单调与逆强单调算子之和的包含问题，证明变度量前向-后向分裂在较弱松弛参数条件下弱收敛；并给出相应优化与应用情形的收敛结论。",
+    "experiments_or_examples": "统计学习中的 LASSO 问题数值实验，用于验证算法有效性。",
+    "limitations": "全文给出的是弱收敛；强收敛、更一般误差模型或大规模对比实验的系统讨论需以原文具体设定为准，本地前序文献仅覆盖部分相关工作。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对既有变度量/前向-后向分裂框架，主要贡献是放宽松弛参数条件并完善收敛分析与应用推演，属于在成熟算子分裂路线上的理论增量，而非全新算法范式。",
+    "inherited_foundations": [
+      "前向-后向分裂求解极大单调+逆强单调包含的基本结构",
+      "变度量与变步长前向-后向算法的既有框架",
+      "两凸函数和极小化、变分不等式与分裂可行性等标准应用场景"
+    ],
+    "incremental_advances": [
+      "对变度量前向-后向分裂给出带扩展松弛参数的新收敛分析",
+      "在较弱松弛参数条件下证明弱收敛",
+      "恢复变步长前向-后向分裂并给出若干应用推演"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "LASSO 数值实验用于展示算法有效性"
+    ],
+    "comparison_basis": [
+      "A50（2018）Convergence Analysis of an Inexact Three-Operator Splitting Algorithm",
+      "A54（2017）Bounded perturbation resilience of extragradient-type methods and their applications",
+      "目标论文摘要与正文中关于前向-后向及变度量分裂的相关工作引用"
+    ],
+    "evidence_boundary": "overview 与理论/实验陈述均来自 A48 全文与摘要锚点；创新性判断仅相对于本地可读的 A50、A54 及目标文自述相关工作，未覆盖全部前向-后向/变度量文献，故不作“领域首创”认定。",
+    "confidence": 0.82
+  },
+  "lineage_position": "A48 位于 Hilbert 空间单调包含的前向-后向分裂谱系：在变度量与松弛参数方向上推进弱收敛条件，应用面与 A54 的外梯度型扰动韧性、A50 的三算子不精确分裂并行相关但问题设定不同，属同一大类算子分裂方法中的变度量 FBS 分支。",
+  "keywords": [
+    "前向-后向分裂",
+    "变度量",
+    "松弛参数",
+    "弱收敛",
+    "单调包含",
+    "逆强单调",
+    "变分不等式",
+    "分裂可行性",
+    "LASSO"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.633Z",
+  "comparison_ids": [
+    "A50",
+    "A54"
+  ]
+}

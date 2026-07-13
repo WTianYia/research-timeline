@@ -1,0 +1,65 @@
+{
+  "id": "A78",
+  "title": "Iterative algorithms for minimum-norm fixed point of non-expansive mapping in Hilbert space",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在 Hilbert 空间闭凸锥上给出求非扩张映射最小范数不动点的隐式与显式迭代，并证强收敛，再用于约束凸优化与分裂可行问题。",
+    "research_problem": "当非扩张映射不动点集非空时，如何在 Hilbert 空间中构造可良好定义、且强收敛到最小范数不动点的迭代格式；尤其避免在一般闭凸集上取 u=0 时 Browder/Halpern 型迭代可能越出集合的困难。",
+    "core_method": "将定义域取为闭凸锥 C，对非扩张映射 T 采用带固定松弛参数 λ∈(0,1) 的格式：隐式 xt=(1−t)(λT+(1−λ)I)xt，显式 xn+1=(1−αn)(λTxn+(1−λ)xn)；证明时用 demiclosedness、有界序列技巧与 Xu 型递推引理，并分别将 T 替换为投影梯度算子与 CQ 型算子以处理凸优化与分裂可行问题。",
+    "main_findings": [
+      "隐式网 {xt} 当 t→0+ 时强收敛到 T 的最小范数不动点（定理3.1）",
+      "显式序列在 αn→0 且 Σαn=∞ 下强收敛到同一最小范数不动点，且去掉 |αn+1−αn| 可和或 αn/αn+1→1 类条件（定理3.2与注记3.1）",
+      "同一框架给出约束凸优化最小范数解与一致分裂可行问题最小范数解的强收敛算法（定理4.1、4.2）",
+      "若 0∈C 或 C 为闭凸锥，则相应迭代良定；相对 Yao–Xu、Cui–Liu 及 Wang–Xu 等结果在参数条件上有所减弱"
+    ],
+    "theoretical_guarantee": "在实 Hilbert 空间中，若 C 为闭凸锥、T:C→C 非扩张且 Fix(T)≠∅，则隐式网与显式序列均强收敛到 x*=P_Fix(T)0；显式只需 αn→0 与 Σαn=∞。应用定理中要求 ∇f 为 L-Lipschitz 且 μ∈(0,2/L)，分裂可行问题中 μ∈(0,2/ρ(A*A)) 且问题相容。",
+    "experiments_or_examples": "全文无数值算例或仿真实验；第4节仅为理论应用推导（约束凸优化、分裂可行问题的迭代格式与强收敛结论）。",
+    "limitations": "主定理依赖闭凸锥（或以 0∈C 的闭凸集代替），定义域比一般闭凸集更窄；空间限于 Hilbert；无收敛速率与数值验证；与带度量投影的一般凸集方法相比，适用几何设定更受限。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对 Yao–Xu、Cui–Liu 等最小范数不动点工作，本文以闭凸锥保证迭代良定并放宽显式参数条件，属同一问题线上的增量改进；相对 A87/A86 则问题、映射类与迭代格式均明显转向，并非其直接推广。",
+    "inherited_foundations": [
+      "Browder 隐式与 Halpern 显式求 P_Fix(T)u 的经典框架",
+      "非扩张映射 demiclosedness 及 Mann/Halpern 型强收敛分析工具",
+      "Yao–Xu、Cui–Liu 关于最小范数不动点及用投影保证良定的思路",
+      "投影梯度与 Byrne CQ 算法将凸优化、分裂可行问题化为非扩张不动点问题"
+    ],
+    "incremental_advances": [
+      "用闭凸锥替代在一般闭凸集上添加 PC 的路径，使 (1−t)(λT+(1−λ)I) 型迭代无需投影即可良定",
+      "显式算法仅需 αn→0、Σαn=∞，去掉常见的 Σ|αn+1−αn|<∞ 或 αn/αn+1→1 限制",
+      "将上述格式迁移到约束凸优化最小范数解与分裂可行问题最小范数解，并相应减弱参数假设"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "全文无算法实现细节或数值实验层面的改动，应用部分停留在定理推导"
+    ],
+    "comparison_basis": [
+      "A87（2011）《Strong Convergence Theorems of the Ishikawa Process with Errors for Strictly Pseudocontractive Mapping of Browder-Petryshyn Type in Banach Spaces》",
+      "A86（2011）《A necessary and sufficient condition for the strong convergence of Lipschitzian pseudocontractive mapping in Banach spaces》",
+      "目标文所引 Yao and Xu [14]、Cui and Liu [15]、Wang and Xu [18]、Xu [23] 等最小范数/分裂可行相关工作"
+    ],
+    "evidence_boundary": "overview、定理保证、应用与局限均来自 A78 全文（摘要、引言、定理3.1–3.2、注记3.1、定理4.1–4.2、参考文献），摘要锚点已核对一致；创新性比较中，相对 Yao–Xu/Cui–Liu 的增量判断有目标文自述与定理条件对照支持，但未读其全文故不作细部复述；相对 A87/A86 仅基于二者全文可见的问题设定与主定理作差异比较，二者并不构成 A78 的直接技术前驱；本地未覆盖更广文献，故不把“首次”或领域级突破写入结论。",
+    "confidence": 0.88
+  },
+  "lineage_position": "同作者群由 Banach 空间伪压缩/严格伪压缩映射的 Ishikawa–Mann 强收敛判据（A86/A87）转向 Hilbert 空间非扩张映射最小范数不动点算法；在 Yao–Xu、Cui–Liu 最小范数路线上，以闭凸锥良定与更弱步长条件做增量推进，并向凸优化与分裂可行问题延伸。",
+  "keywords": [
+    "非扩张映射",
+    "最小范数不动点",
+    "Hilbert空间",
+    "强收敛",
+    "闭凸锥",
+    "隐式迭代",
+    "显式迭代",
+    "约束凸优化",
+    "分裂可行问题",
+    "不动点"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.708Z",
+  "comparison_ids": [
+    "A87",
+    "A86"
+  ]
+}

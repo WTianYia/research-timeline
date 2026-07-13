@@ -1,0 +1,63 @@
+{
+  "id": "A64",
+  "title": "A Cyclic and Simultaneous Iterative Method for Solving the Multiple-Sets Split Feasibility Problem",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对多集合分裂可行性问题，提出并分析了循环与同步两类投影型迭代，在一定条件下证明弱/强收敛到解集中的最小范数解。",
+    "research_problem": "如何构造求解多集合分裂可行性问题（MSSFP）的循环与同步迭代格式，并在较弱假设下建立收敛（尤其是最小范数解）保证。",
+    "core_method": "基于投影算子与不动点表述，分别设计循环（cyclic）与同步（simultaneous）迭代；利用非扩张/平均映射及松弛参数条件，将MSSFP转化为等价不动点问题并迭代逼近。",
+    "main_findings": [
+      "循环与同步两类算法在适当步长与松弛条件下弱收敛到MSSFP解集",
+      "在附加假设下可强收敛到解集中的最小范数元",
+      "两类格式均可视为对多集合分裂可行性的投影型/CQ型推广",
+      "数值或算例层面用于验证算法可行性与相对行为（若原文有）"
+    ],
+    "theoretical_guarantee": "在Hilbert空间框架下给出弱收敛与（条件充分时）强收敛定理；收敛到MSSFP解，并在特定参数选取下得到最小范数解。",
+    "experiments_or_examples": "以数值算例检验循环/同步迭代的可行性与收敛表现（细节以全文为准）。",
+    "limitations": "结论依赖投影可实现性、参数与集合凸闭等假设；创新幅度需相对前序循环/同步分裂型工作界定。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在已有循环/同步分裂不动点与CQ类框架上，将方法系统用于多集合分裂可行性并补强最小范数解收敛分析，属问题设定与证明整理上的实质增量，而非全新范式。",
+    "inherited_foundations": [
+      "分裂可行性/多集合分裂可行性的投影与CQ型表述",
+      "循环与同步迭代的总体构造思想（与A67等同类工作同族）",
+      "非扩张/平均映射与Hilbert空间投影的基本不动点工具"
+    ],
+    "incremental_advances": [
+      "将循环/同步格式明确对准MSSFP并给出配套收敛条件",
+      "强调/建立到最小范数解的收敛路径与参数条件",
+      "与前序demicontractive分裂不动点工作相比，问题对象收束为可行性/投影型MSSFP"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "循环与同步两种可并行/可轮换实现路径的并列给出",
+      "算例用于展示两类迭代的数值行为差异（若有）"
+    ],
+    "comparison_basis": [
+      "A67（2014）A cyclic and simultaneous iterative algorithm for the multiple split common fixed point problem of demicontractive mappings",
+      "A71（2013）Approximation to minimum-norm common fixed point of a semigroup of nonexpansive operators",
+      "目标论文相关工作中的CQ算法与多集合分裂可行性文献"
+    ],
+    "evidence_boundary": "overview与理论表述以A64全文为准；创新分级仅相对本地A67、A71及目标文内引用作比较，未覆盖MSSFP全部前序文献，故不排除更早平行结果。",
+    "confidence": 0.72
+  },
+  "lineage_position": "位于CQ/投影型分裂可行性 → 多集合MSSFP → 循环/同步分裂不动点（A67）与最小范数逼近（A71）之后：将循环/同步思想落实到MSSFP并补最小范数收敛，属同谱系上的问题专化与分析增量。",
+  "keywords": [
+    "多集合分裂可行性",
+    "循环迭代",
+    "同步迭代",
+    "投影算法",
+    "最小范数解",
+    "弱强收敛",
+    "CQ算法",
+    "Hilbert空间"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.676Z",
+  "comparison_ids": [
+    "A67",
+    "A71"
+  ]
+}

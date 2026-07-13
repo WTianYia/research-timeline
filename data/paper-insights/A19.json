@@ -1,0 +1,66 @@
+{
+  "id": "A19",
+  "title": "Huang, T. Tran. A parameterized three-operator splitting algorithm for non-convex minimization problems with applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出求解三项非凸和最小化的参数化三算子分裂算法，借助非增能量函数与KL性质建立收敛，并用于低秩矩阵恢复与图像修复。",
+    "research_problem": "求解 min F(x)+G(x)+H(x)，其中G为真下半连续，F与H Fréchet可微且梯度Lipschitz连续；直接两函数分裂会破坏可分结构，而既有非凸三算子分裂对参数与强制条件要求偏强。",
+    "core_method": "在Davis–Yin型三算子框架中引入参数α∈(3/2,2]，由prox_γF、含∇H的prox_γG及反射更新构成Algorithm 1；构造能量函数θ_γ，证明充分下降，并在KL条件下分析收敛。",
+    "main_findings": [
+      "在Λ(γ)>0时能量函数非增，且可不依赖F,G,H强制有界性证明迭代有界",
+      "子序列聚点满足带(2−α)/γ残差的一阶驻点条件；θ_γ为KL函数且有聚点时全序列收敛到(1.1)的驻点",
+      "低秩矩阵恢复中α=1.6相对α=2显著减少时间、迭代与相对误差",
+      "低秩图像修复中α=1.6较α=2约减少40%时间与迭代，PSNR略优"
+    ],
+    "theoretical_guarantee": "Lemma 3.1给出θ_γ充分下降；Theorem 3.1有界性；Theorem 3.2子序列收敛；Lemma 3.2相对误差界；Theorem 3.3在θ_γ为KL函数且存在聚点时全序列全局收敛到驻点。",
+    "experiments_or_examples": "低秩矩阵恢复：n=800–3000、rank 2/5、p=0.05/0.08，对比α=2与1.9/1.8/1.6；低秩图像修复：building图517×493，r=30/10/5，p=0.8/0.5/0.3，以Time/Iter/Err或PSNR评价。",
+    "limitations": "α限于(3/2,2]且需Λ(γ)>0，γ常很小并依赖启发式；全局收敛要求H二阶连续可微且Hessian有界、θ_γ具KL性质；实验主要对照α=2的非凸三算子分裂，未系统比较其他非凸方法。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对A31的凸单调包含/预条件三算子路线，本文将参数化三算子分裂推进到三项非凸最小化，并给出能量函数与KL收敛分析，属于同一分裂谱系上的显著扩展而非全新范式。",
+    "inherited_foundations": [
+      "Davis–Yin三算子分裂基本格式",
+      "Bian–Zhang非凸三算子分裂与能量函数思路",
+      "Zhang–Chen凸情形参数化三算子分裂",
+      "参数化Douglas–Rachford（Wang–Wang；Bian–Zhang）中的α参数化技术"
+    ],
+    "incremental_advances": [
+      "将参数化由凸设定延伸到F,G,H均可非凸",
+      "有界性证明可不假设目标强制，条件弱于Bian–Zhang非凸三算子",
+      "数值上展示α<2相对α=2可加速并降误差"
+    ],
+    "core_innovations": [
+      "面向非凸三项和问题的参数化三算子迭代（α∈(3/2,2]）",
+      "适配参数α的非增能量函数θ_γ及充分下降量Λ(γ)",
+      "在KL框架下完成子序列与全局收敛分析"
+    ],
+    "implementation_or_experimental_changes": [
+      "低秩矩阵完成与低秩图像修复的闭式子问题实现",
+      "γ启发式递减策略及不同α的系统数值对比"
+    ],
+    "comparison_basis": [
+      "A31（2022）Preconditioned Three-Operator Splitting Algorithm with Applications to Image Restoration",
+      "目标全文对Bian–Zhang非凸三算子[26]、Zhang–Chen参数化三算子[28]、参数化DR[24,25]及Davis–Yin[27]的相关工作定位"
+    ],
+    "evidence_boundary": "overview与理论/实验事实均来自A19全文Abstract、§3定理与§4–5实验结论；创新比较仅对照本地A31及A19自引前序，未覆盖更广文献；用户所给“单调包含/变分不等式”摘要锚点与A19实际摘要（非凸最小化）不一致，本卡片以A19全文为准。",
+    "confidence": 0.86
+  },
+  "lineage_position": "与A31同属三算子分裂谱系：A31走凸单调包含的预条件/原对偶分支；A19走非凸最小化的参数化分支，承接Davis–Yin、非凸TOS与参数化DR/TOS，而非A31的直接后续。",
+  "keywords": [
+    "三算子分裂",
+    "参数化算法",
+    "非凸最小化",
+    "Kurdyka-Łojasiewicz",
+    "能量函数",
+    "低秩矩阵恢复",
+    "图像修复",
+    "收敛分析"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.559Z",
+  "comparison_ids": [
+    "A31"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "id": "A46",
+  "title": "Iterative Methods for Computing the Resolvent of the Sum of a Maximal Monotone Operator and Composite Operator with Applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对极大单调算子与复合算子之和的预解，建立固定点表征并提出Krasnoselskii–Mann型迭代，证明原序列强收敛，并用于约束全变差去噪。",
+    "research_problem": "如何在Hilbert空间中计算预解J_{S+B^*TB}(u)（S、T为极大单调算子，B为有界线性算子），以求解含约束的凸优化/邻近算子问题，并服务约束ROF全变差去噪。",
+    "core_method": "由不动点方程刻画预解，构造averaged算子Q，再以松弛Krasnoselskii–Mann迭代生成序列；对偶视角下等价于对偶单调包含上的松弛前向–后向分裂。",
+    "main_findings": [
+      "给出J_{S+B^*TB}的固定点表征，并在KM框架下证明{y_k}弱收敛、在inf λ_k>0时{x_k}强收敛到预解",
+      "S=0与B=I时分别回收/扩展复合预解与两算子和预解算法，并与Dykstra、Douglas–Rachford等作结构对比",
+      "将结果特化为prox_{f+g∘L}的邻近算法，并在ROF/非负ROF/有界ROF去噪上验证；较大步长与松弛参数通常加速收敛，约束模型质量略优于无约束"
+    ],
+    "theoretical_guarantee": "在γ∈(0,2/‖B‖²)、λ_k∈(0,(4−γ‖B‖²)/2)且Σλ_k(1−(2/(4−γ‖B‖²))λ_k)=+∞时，{y_k}弱收敛到Fix(Q)；若再有inf λ_k>0，则{x_k}强收敛到J_{S+B^*TB}(u)。全文未给出收敛速率。",
+    "experiments_or_examples": "对Barbara、Lena、Boat、Goldhill加入均值0、标准差30的高斯噪声；比较ROF、N-ROF、B-ROF；报告SNR、PSNR与迭代次数，并系统扫描γ∈{1/4,1/8,1/16}与多种λ_k。",
+    "limitations": "依赖S与T的预解/邻近可计算及S+B^*TB极大单调；未分析收敛速率；结论明确指出尚未与Chambolle–Pock、ADMM、预条件原始–对偶等作数值对比。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对Moudafi的B^*TB预解与对偶前向–后向路线，本文将问题提升到S+B^*TB并补强原序列强收敛与松弛参数范围，形成面向约束TV的完整理论–实验链条；但算法对偶上可归入已知松弛FB，不宜视为全新分裂范式。",
+    "inherited_foundations": [
+      "极大单调算子、预解与邻近算子的标准理论",
+      "Krasnoselskii–Mann与averaged算子复合",
+      "Micchelli等对φ∘B邻近的固定点思路",
+      "Moudafi对J_{B^*TB}的固定点迭代",
+      "Combettes等对偶前向–后向及Bauschke–Combettes的Dykstra/DR预解算法"
+    ],
+    "incremental_advances": [
+      "将Moudafi设定由S=0扩展到一般极大单调S，覆盖约束指示函数情形",
+      "相对Moudafi扩大λ_k容许范围，并证明原序列{x_k}强收敛",
+      "相对Combettes等常数步长对偶FB，给出更弱的λ_k求和型条件",
+      "对B=I给出异于Dykstra/DR的J_{S+T}迭代，并系统对比初始化与调参差异"
+    ],
+    "core_innovations": [
+      "为预解J_{S+B^*TB}建立统一固定点表征与KM型算法，并给出原–对偶解释与参数条件"
+    ],
+    "implementation_or_experimental_changes": [
+      "将算法落实为约束/无约束TV去噪流程，系统报告步长与松弛参数对SNR/PSNR/迭代次数的影响"
+    ],
+    "comparison_basis": [
+      "A50（2018）《Convergence Analysis of an Inexact Three-Operator Splitting Algorithm》",
+      "A54（2017）《Bounded perturbation resilience of extragradient-type methods and their applications》",
+      "目标全文Existing Work与Remark中的Moudafi、Micchelli、Combettes、Bauschke–Combettes相关论述"
+    ],
+    "evidence_boundary": "overview与理论/实验/局限均来自A46全文Abstract、§3定理与推论、§4应用、§5数值与§6结论的原文对照；创新比较仅相对本地A50、A54及目标文自引前序工作。A46未引用A50/A54，三者问题设定不同：A50为含误差的三算子分裂，A54为变分不等式外梯度型有界扰动韧性，A46为复合结构预解的精确固定点/对偶FB型方法。未覆盖更广文献中可能更近的同期结果，故“是否为领域首创”不作断言。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于唐玉超团队Hilbert空间分裂算法脉络中：A54处理VI外梯度扰动韧性，A50处理三算子不可精确预解的误差分析；A46转向成像中常见的复合结构预解J_{S+B^*TB}，在Moudafi–Micchelli固定点线与对偶FB线上做结构扩展，并落到约束全变差去噪。",
+  "keywords": [
+    "预解算子",
+    "极大单调算子",
+    "复合算子",
+    "固定点迭代",
+    "Krasnoselskii–Mann",
+    "邻近算子",
+    "前向–后向分裂",
+    "全变差去噪"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.628Z",
+  "comparison_ids": [
+    "A50",
+    "A54"
+  ]
+}

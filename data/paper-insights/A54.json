@@ -1,0 +1,66 @@
+{
+  "id": "A54",
+  "title": "Bounded perturbation resilience of extragradient-type methods and their applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在实Hilbert空间变分不等式设定下，证明外梯度与次梯度外梯度方法的有界扰动韧性，并据此构造可求和惯性型算法且给出O(1/t)遍历收敛率。",
+    "research_problem": "对VI的外梯度与次梯度外梯度迭代，在可求和外扰动/有界扰动下是否仍弱收敛，从而支撑非精确实现并为superiorization做准备。",
+    "core_method": "在单调与Lipschitz条件下，分析带Armijo步长的外扰动EG/SEG；按BPR定义建立有界扰动形式；将惯性项识别为特殊扰动以构造惯性EG/SEG。",
+    "main_findings": [
+      "外扰动EG（Alg.3.5）与SEG（Alg.5.4）在可求和扰动下弱收敛到SOL(C,F)（Thm.3.7、5.5）",
+      "EG与SEG满足BPR，有界扰动形式亦弱收敛（Thm.4.3、5.7）",
+      "扰动算法的加权平均y_t具有O(1/t)间隙界（Thm.3.8、4.4、5.6、5.8）",
+      "由BPR可导出两类惯性EG/SEG，在可求和惯性参数下弱收敛（Thm.4.5、4.7、5.9、5.10）"
+    ],
+    "theoretical_guarantee": "解集非空、F单调且L-Lipschitz（EG在C上，SEG在全空间）时，序列弱收敛；对任意x∈C有⟨F(x),y_t−x⟩≤(1/(2Υ_t))(‖x−x^0‖²+M(x))，Υ_t=∑γ_k≳(t+1)γ̲，故为O(1/t)。",
+    "experiments_or_examples": "三组算例：稀疏信号恢复LASSO（m=240,n=1024，无噪/无噪）；二维强单调映射；球约束线性映射（n=100）。比较EG、SEG及iEG/iEG1/iEG2/iSEG1/iSEG2的迭代数、目标值与误差。",
+    "limitations": "仅证明弱收敛；惯性参数要求∑β_k<∞，惯性力度弱于常值/非减惯性方案；文中明确未真正实施superiorization，仅完成BPR预备；速率为遍历平均而非最后迭代。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对经典EG/SEG与BPR框架，系统补全外扰动分析、BPR证明、遍历速率与惯性构造；相对A91的罚方法存在性理论属不同技术支线，并非其直接推广。",
+    "inherited_foundations": [
+      "Korpelevich/Antipin外梯度与Censor等次梯度外梯度投影框架",
+      "变分不等式单调+L-Lipschitz标准假设及Hilbert空间投影性质",
+      "Censor等BPR/superiorization定义与方法论",
+      "Nemirovski/Tseng类O(1/t)外梯度速率分析思想"
+    ],
+    "incremental_advances": [
+      "将Armijo自适应步长EG/SEG扩展到可求和外扰动情形并证弱收敛",
+      "为扰动EG/SEG补全带扰动余项的遍历O(1/t)间隙界",
+      "把惯性差分识别为特殊有界/可求和扰动，从而由BPR导出惯性EG/SEG"
+    ],
+    "core_innovations": [
+      "对EG与SEG建立完整的BPR结论，使非精确与superiorization路径在理论上合法",
+      "统一“外扰动收敛—BPR—惯性构造”链条，覆盖EG与SEG两条算法线"
+    ],
+    "implementation_or_experimental_changes": [
+      "信号处理稀疏恢复与低维/中等维合成VI上的惯性与非惯性对照实验",
+      "ℓ1球投影附录实现与迭代数/目标/误差表格展示"
+    ],
+    "comparison_basis": [
+      "A91（2010）《The Penalty Method for a New System of Generalized Variational Inequalities》",
+      "A54正文相关工作：Korpelevich外梯度、Censor次梯度外梯度、superiorization/BPR文献、Nemirovski/Tseng速率结果"
+    ],
+    "evidence_boundary": "overview、定理保证、实验与局限均锚定A54全文Abstract/§3–7可定位内容；创新比较仅相对本地A91及A54自引相关工作。A91为SGVI罚方法存在性，不含EG/BPR，故相对更广EG文献的“首创性”无法由本地语料完全核验；文中未给出superiorization数值，故“可获得更优解”仅停留在BPR预备层面。",
+    "confidence": 0.9
+  },
+  "lineage_position": "A91走罚算子+强单调/强制条件下的SGVI解存在性；A54则沿投影型EG/SEG算法线，把BPR与可求和扰动嵌入单值VI求解，并旁生惯性变体与信号处理算例，二者同属Hilbert空间VI大类但方法谱系分叉明显。",
+  "keywords": [
+    "外梯度",
+    "次梯度外梯度",
+    "有界扰动韧性",
+    "变分不等式",
+    "superiorization",
+    "惯性方法",
+    "O(1/t)收敛率",
+    "Hilbert空间",
+    "Armijo步长"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.649Z",
+  "comparison_ids": [
+    "A91"
+  ]
+}

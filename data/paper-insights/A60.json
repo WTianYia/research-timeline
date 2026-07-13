@@ -1,0 +1,61 @@
+{
+  "id": "A60",
+  "title": "Solving odd even sudoku puzzles by binary integer linear programming",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将奇数/偶数数独表述为二元整数线性规划，并用MATLAB分支定界求解。",
+    "research_problem": "如何在标准数独规则之外，把灰格/白格必须填奇或偶数的奇数/偶数数独严格建成可求解的0-1整数线性规划模型。",
+    "core_method": "沿用标准数独的三维0-1变量与行列宫、线索等式约束，再增加灰格、白格上奇偶集合的线性等式约束，形成BILP后用MATLAB的bintprog求解。",
+    "main_findings": [
+      "给出奇数/偶数数独的完整BILP可行性模型（标准约束+奇偶约束）",
+      "在easy/medium/hard/evil四级各一例上，BILP均得到正确解，而ℓ1最小化均失败",
+      "报告求解时间约0.27–2.06秒，难度越高通常更耗时"
+    ],
+    "theoretical_guarantee": "全文无独立收敛性定理或复杂度证明；实质是可行性/BILP建模，依赖分支定界求0-1可行解，并说明去掉0-1后可退化为ℓ1稀疏松弛。",
+    "experiments_or_examples": "在Intel i7-4712MQ、MATLAB 2013a上，对网站四道谜题（k1310/k2598/k390/k4889）分别用BILP与ℓ1对照，给出盘面与CPU时间。",
+    "limitations": "仅四级各一例、样本极小；未与回溯、模拟退火等其他求解器系统比较；奇偶约束相对直接，未讨论大规模统计与不可行实例。"
+  },
+  "innovation": {
+    "classification": "应用迁移",
+    "score": 2,
+    "verdict": "相对A65面向标准数独的稀疏优化与热启动改进，本文将已有数独BILP建模框架迁移到奇数/偶数数独变体，增量主要是补上奇偶格线性约束并用算例验证。",
+    "inherited_foundations": [
+      "标准数独三维0-1编码及行列宫、单格、线索的线性等式约束",
+      "将数独可行性问题写成BILP并用整数规划求解器求解的路线（文中明确受Bartlett等启发）",
+      "以Ax=b下ℓ1最小化近似稀疏解作为对照基线的建模语境"
+    ],
+    "incremental_advances": [
+      "定义灰格集合Ig、白格集合Iw及奇/偶数字集合，写出奇偶约束(9)及其向量形式(10)(11)",
+      "把标准BILP约束与奇偶约束合并，得到Odd/Even专用BILP模型",
+      "备注可与Sudoku X等规则叠加"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "采用MATLAB bintprog对四个难度实例求解并报告时间",
+      "直接对比同一约束系统上的ℓ1最小化，观察正确性差异"
+    ],
+    "comparison_basis": [
+      "A65（2015）An improved strategy for solving Sudoku by sparse optimization methods",
+      "A60所引Bartlett等整数规划数独模型[6]",
+      "A60所引Babu等及Tang等稀疏优化数独工作[8]–[10]"
+    ],
+    "evidence_boundary": "overview、理论表述、实验时间与结论均来自A60全文Abstract/§II–V；创新性仅相对本地A65及A60自引相关工作判断，未核验“尚无Odd/Even专用方法”的外部优先权，亦未覆盖更早整数规划数独变体文献全集。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处在“数独的数学规划求解”支线：A65改进标准数独的稀疏优化与重启动；A60转向变体奇数/偶数数独，把BILP可行性建模加奇偶约束后做小规模对照实验。",
+  "keywords": [
+    "奇数偶数数独",
+    "二元整数线性规划",
+    "组合优化",
+    "数独",
+    "可行性问题",
+    "奇偶约束",
+    "MATLAB bintprog",
+    "ℓ1最小化"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.665Z",
+  "comparison_ids": [
+    "A65"
+  ]
+}

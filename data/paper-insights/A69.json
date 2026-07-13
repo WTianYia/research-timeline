@@ -1,0 +1,64 @@
+{
+  "id": "A69",
+  "title": "A motion attention model based on rarity weighting and motion cues in dynamic scenes",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出融合稀有性加权与运动矢量场线索的生物启发运动注意模型，用于动态场景显著性与注意转移建模。",
+    "research_problem": "既有注意模型多面向静态图像低层特征，难以系统刻画动态场景中新出现运动目标的注意分配，且运动矢量中的稀有性因子缺乏有效提取与融合方式。",
+    "core_method": "从运动矢量场提取强度、空间相干与时间相干三类运动线索；以多级分割区域定义稀有性R(mi)（基于帧间区域频率与全局差异）；经非负约束最小二乘回归学习通道权重并线性融合为显著性图。",
+    "main_findings": [
+      "在冲浪、跳伞、收费站、车辆逼近、自行车等五类动态视频上，引入稀有性加权后正确检测率总体超过80%，跳伞序列达100%。",
+      "去掉稀有性后多数序列正确率明显下降（如车辆逼近87%→69%），收费站序列因稀有性不突出而变化不大。",
+      "相对Itti类自底向上模型及Bruce–Tsotsos信息最大化，本模型更聚焦新出现/运动目标，注意区域更集中并可随时间转移。",
+      "纹理丰富、背景杂乱时虚警上升，与人类对比敏感的感知特性一致。"
+    ],
+    "theoretical_guarantee": "全文为计算模型与特征融合框架，给出稀有性与相干熵的闭式定义及带非负约束的权重优化式，未建立收敛定理、误差界或复杂度证明。",
+    "experiments_or_examples": "在未压缩AVI及公开基准相关视频集上评测；报告含/不含稀有性的Good、Miss、False Detection（表1–2），并与Bruce–Tsotsos等可视化对比；涉及高速公路车辆逼近等场景。",
+    "limitations": "仅处理自底向上线索，未融合自上而下任务驱动；背景杂乱时性能下降；运动矢量对微弱运动敏感可致注意抖动；机器人避碰与人机交互等应用留待后续。"
+  },
+  "innovation": {
+    "classification": "应用迁移",
+    "score": 3,
+    "verdict": "相对A79随机Kaczmarz松弛指数收敛与A75基于TDOA的传感网自建图，本文几乎不继承其定理或测距定位算法，而将计算建模与特征融合迁移到动态视觉注意与感知系统；领域内对Itti/时空线索/信息最大化注意模型的增量主要体现在面向新出现运动目标的稀有性定义与加权融合，属跨领域应用迁移加方法适配，而非核心理论突破。",
+    "inherited_foundations": [
+      "特征整合理论及Itti等自底向上显著性图通道结构（颜色/强度/朝向等）",
+      "运动矢量场与时空相干类运动注意建模思路",
+      "信息论视角下与稀有/自信息相关的显著性思想（如Bruce–Tsotsos），但本文出发点改为帧间新出现目标",
+      "多级分割得到的对象级区域表示"
+    ],
+    "incremental_advances": [
+      "将稀有性定义为面向连续帧新出现/运动分割区域的权重R(mi)，并以difference与frequency构造p(mi)，强调“新目标优先”而非最大Shannon自信息",
+      "在强度、空间相干、时间相干线索上统一引入稀有性加权，并用非负约束最小二乘回归学习融合权重",
+      "在动态视频上系统做有/无稀有性消融及与信息最大化模型的注意区域形态对比"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "16×16宏块运动估计、相位直方图熵、中值滤波窗口选择及帧窗长度对显著性保真的影响测试",
+      "五类动态场景（含公路车辆逼近）的检测率统计与可视化评测"
+    ],
+    "comparison_basis": [
+      "A79（2012）Exponential Convergence of a Randomized Kaczmarz Algorithm with Relaxation",
+      "A75（2012）Self-map building in wireless sensor network based on TDOA measurements",
+      "目标文相关工作：Itti/Koch显著性模型、Bruce–Tsotsos信息最大化、Zhai–Shah时空线索视频注意等"
+    ],
+    "evidence_boundary": "概述、实验数值与局限均来自A69全文Abstract、第2–6节及表1–2；创新性相对比较仅依据本地A79、A75全文与目标文related work，未覆盖更早运动注意或稀有性模型全集，故“领域内是否为首次提出稀有性加权运动注意”仅能在本地与文内引用范围内判断；A79/A75与A69无直接算法传承，跨域“应用迁移”判断有作者谱系与问题域对照支持，但无共同技术链路的原文声明。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于唐玉超等前序数值优化（A79）与传感网定位应用（A75）之后的感知计算分支：由线性系统/定位建模转向生物启发动态视觉注意，服务机器人避碰与人机交互等后续应用，与A79/A75并行分流而非定理级延续。",
+  "keywords": [
+    "视觉注意模型",
+    "稀有性加权",
+    "动态场景",
+    "运动矢量场",
+    "显著性图",
+    "时空相干",
+    "特征融合",
+    "感知系统"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.689Z",
+  "comparison_ids": [
+    "A79",
+    "A75"
+  ]
+}

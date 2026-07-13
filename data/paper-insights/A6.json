@@ -1,0 +1,71 @@
+{
+  "id": "A6",
+  "title": "A novel Retinex model for low-light image enhancement based on non-local and plug-and-play",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在非对数域Retinex框架下，联合非凸Lq收缩、PnP混合引导滤波与分数阶自适应加权，实现低光图像的光照—反射分解与增强。",
+    "research_problem": "低光成像导致对比度低、噪声与细节损失；Retinex分解病态，凸正则易使光照残留纹理，反射层又易过平滑或放大噪声，且对数域处理会在极暗区引入数值不稳与梯度畸变。",
+    "core_method": "构造原域乘性保真的变分Retinex模型：光照用分数阶Lq正则与PnP混合自引导滤波（线性/对数域融合）实现保边平滑；反射用方差—梯度像素权调制的分数阶二次正则抑噪保细节；ADMM分解子问题（PCG、Lq收缩、引导滤波），分解后对光照Gamma校正并在HSV的V通道完成增强。",
+    "main_findings": [
+      "Lq与混合域引导滤波互补，可在保留主边缘的同时增强光照片状平滑，并减轻单一滤波的光晕或纹理残留。",
+      "方差—梯度联合权WR在暗区抑噪与弱纹理保留之间优于无权重或单一权重。",
+      "在自建100张无参考低光集与Adobe FiveK的MIT子集500张上，多指标平均排名与PSNR/SSIM均优于多种传统及部分学习方法。",
+      "分数阶相对整数阶梯度更能借助非局部性保留纹理细节；关键正则参数在经验邻域内较稳健。"
+    ],
+    "theoretical_guarantee": "全文未给出原创收敛定理或不动点/KKT证明；仅引用分数阶TV相关引理，并推导ADMM各子问题更新式与相对残差/最大迭代停止准则。",
+    "experiments_or_examples": "MATLAB实验：100张多源低光图（LIME/DICM/VV/NASA/MEF/CC等筛选）用BTMQI、ARISMC、NIQMC、NIQE；FiveK #4501–#5000用PSNR/SSIM；对比LIME、RRM、WLS、EFF、Hao、LR3M及RUAS、Zero-DCE、URetinex-Net等；含滤波对比、权重消融、整数阶对照与参数敏感性。",
+    "limitations": "缺少算法全局/局部收敛的形式化保证；超参数与WR需经验设定，δ等过大易过平滑；结论侧重应用前景而少失败案例分析；引言贡献中数据集表述与第5节实验集不完全一致。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对A15的分数阶非凸复原与A16的收缩算子框架，本文并非全新数学范式，而是把Lq收缩、分数阶梯度与PnP保边滤波重组进非对数域Retinex低光增强，属任务导向的显著方法扩展。",
+    "inherited_foundations": [
+      "Retinex乘性分解与变分估计光照/反射",
+      "分数阶梯度/分数阶TV的非局部纹理刻画（与A15同源工具链）",
+      "非凸Lq及其收缩近似近端映射（Chartrand型，与A16同属收缩算子路线）",
+      "PnP-ADMM与引导滤波等保边平滑算子"
+    ],
+    "incremental_advances": [
+      "坚持原域乘性保真，规避对数域极暗区数值奇异与对比度压缩",
+      "光照上Lq与混合域自引导滤波的联合正则及阈值融合策略",
+      "反射层方差—梯度像素权与分数阶项耦合",
+      "面向低光增强的参数设置、消融与多数据集验证"
+    ],
+    "core_innovations": [
+      "针对低光Retinex的Lq–GF复合光照正则与PnP混合引导滤波嵌入方式",
+      "将分数阶非凸/加权思想具体化为可交替求解的增强能量（而非简单套用去模糊模型）"
+    ],
+    "implementation_or_experimental_changes": [
+      "HSV-V通道处理与Gamma光照校正流程",
+      "PCG求解大规模线性子问题及固定经验参数的可复现设置",
+      "无参考/全参考指标与学习方法的对比实验及敏感性表"
+    ],
+    "comparison_basis": [
+      "A15（2024）《A Novel Fractional-Order Non-Convex TVα,p Model in Image Deblurring》",
+      "A16（2024）《A novel shrinkage operator for tensor completion with low-tubal-rank approximation》",
+      "目标全文相关工作：LIME、Cai JIEP、Hao、RRM/LR3M、PnP-ADMM、Lq收缩等"
+    ],
+    "evidence_boundary": "overview与理论/实验/局限均仅据A6全文；创新分级仅相对本地A15/A16及文内引用链，未对照更广低光Retinex/PnP文献，故不排除外部已有相近组合；作者“novel/substantial”表述未直接采信。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处在分数阶非凸变分图像复原（A15）与收缩算子正则（A16）同一工具谱系的下游：由去模糊/张量补全转向低光Retinex增强，用Lq+PnP保边滤波与自适应权完成任务化重组，理论深度弱于A15/A16的收敛证明，工程建模与实验验证更强。",
+  "keywords": [
+    "低光图像增强",
+    "Retinex",
+    "分数阶梯度",
+    "非凸Lq范数",
+    "Plug-and-Play",
+    "ADMM",
+    "引导滤波",
+    "自适应权重",
+    "图像处理",
+    "优化模型"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.525Z",
+  "comparison_ids": [
+    "A16",
+    "A15"
+  ]
+}

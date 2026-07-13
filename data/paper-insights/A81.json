@@ -1,0 +1,66 @@
+{
+  "id": "A81",
+  "title": "Strong Convergence of Hybrid Algorithm for Asymptotically Nonexpansive Mappings in Hilbert Spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在 Hilbert 空间中为有限族渐近非扩张映射提出循环 Mann 与循环 Halpern 两类混合投影算法，并证明序列强收敛到公共不动点集上对初值的度量投影。",
+    "research_problem": "传统 Mann 型迭代即使在 Hilbert 空间也通常仅弱收敛；既有混合（CQ）算法多针对单个（渐近）非扩张映射，需构造并分析可求有限族公共不动点的循环混合投影迭代及其强收敛性。",
+    "core_method": "将 Kim–Xu 与 Zhang–Chen 的混合投影框架推广为循环形式：以 T_{i(n)}^{k(n)} 循环调用有限族映射，分别构造 Halpern 型 y_n=α_n x_0+(1-α_n)T_{i(n)}^{k(n)} x_n 与 Mann 型 y_n=α_n x_n+(1-α_n)T_{i(n)}^{k(n)} x_n，再经半空间型集合 C_n、Q_n 投影更新 x_{n+1}=P_{C_n∩Q_n}x_0。",
+    "main_findings": [
+      "定理3.1：有界闭凸集上有限族渐近非扩张映射在 α_n→0 下，循环 Halpern 混合算法强收敛到 P_F x_0。",
+      "定理3.2：在 α_n∈(0,a)（0<a<1）下，循环 Mann 混合算法同样强收敛到 P_F x_0。",
+      "将单映射混合算法结果推广到有限族公共不动点；定理3.2 在 λ=0 时直接归结为 Osilike–Shehu 与 Qin 等已有结论。",
+      "证明中建立 F⊆C_n∩Q_n、||x_{n+j}-x_n||→0、||x_n-T_j x_n||→0，并结合 demi-closed 与 Opial 条件得到强收敛。"
+    ],
+    "theoretical_guarantee": "在 Hilbert 空间、C 有界闭凸、公共不动点集 F 非空及相应参数条件下，两算法生成的序列均强收敛到度量投影 P_F x_0；依据 demi-closed 原理、投影刻画、有界性与 Opial 条件完成证明。",
+    "experiments_or_examples": "全文为纯理论证明，无数值实验、算例或应用仿真；引言仅提及凸可行性、分裂可行性及图像恢复等背景应用，未给出具体计算验证。",
+    "limitations": "空间限于 Hilbert；集合 C 需有界以控制 θ_n 中的 diam C；映射限于有限族渐近非扩张；定理3.2 的证明实质退化为既有结果特例，增量有限；未处理无限族、无界域或更一般伪压缩类映射。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对混合投影经典结果，将单映射 CQ 格式扩展为有限族循环 Mann/Halpern 混合算法并给出强收敛，属明确但幅度中等的增量改进；相对 A86/A87 的 Banach 空间伪压缩 Ishikawa/Mann 条件研究，属于同作者群固定点迭代线中的方法转向而非直接继承式突破。",
+    "inherited_foundations": [
+      "Nakajo–Takahashi 混合（CQ）投影思想与强收敛框架",
+      "Kim–Xu 对渐近非扩张映射的修正 Mann 混合算法",
+      "Zhang–Chen 的 Halpern 型混合算法",
+      "Bauschke 循环 Halpern 及 Qin、Osilike–Shehu 等循环 Mann/渐近严格伪压缩混合结果",
+      "demi-closed 原理、度量投影刻画、Opial 条件等标准工具"
+    ],
+    "incremental_advances": [
+      "把单映射混合算法推广为有限族渐近非扩张映射的循环调用 T_{i(n)}^{k(n)}",
+      "给出循环 Halpern 型混合算法（定理3.1）的完整 C_n 构造（含 α_n 交叉项与 θ_n）及强收敛证明",
+      "统一写出循环 Mann 型混合算法（定理3.2）在渐近非扩张（λ=0）情形的强收敛结论"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现或实验对比变化；定理3.2 证明直接引用既有定理而非新推导路径"
+    ],
+    "comparison_basis": [
+      "A87（2011）《Strong Convergence Theorems of the Ishikawa Process with Errors for Strictly Pseudocontractive Mapping of Browder-Petryshyn Type in Banach Spaces》",
+      "A86（2011）《A necessary and sufficient condition for the strong convergence of Lipschitzian pseudocontractive mapping in Banach spaces》",
+      "目标文相关工作：Nakajo–Takahashi (2003)、Kim–Xu (2006)、Zhang–Chen (2008)、Qin et al. (2009)、Osilike–Shehu (2009)、Bauschke (1996)"
+    ],
+    "evidence_boundary": "overview 与定理表述均对照 A81 全文 Abstract、§1 目的段、定理3.1–3.2 及证明；创新比较仅相对本地 A86、A87 及目标文自引相关工作，未覆盖同期全部混合算法文献；未把 A86/A87 的伪压缩 Ishikawa/Mann 充要条件结论写入目标文贡献；定理3.2 的新颖性按原文“直接归结”表述从宽计为增量而非核心创新。",
+    "confidence": 0.88
+  },
+  "lineage_position": "承接 A86/A87 所在固定点迭代强收敛研究脉络，但由 Banach 空间 Lipschitz/严格伪压缩映射的 Ishikawa–Mann（含误差、充要条件）转向 Hilbert 空间混合投影（CQ）路线；在 Kim–Xu、Zhang–Chen 单映射渐近非扩张混合算法与 Qin/Osilike 循环算法之间，补足有限族循环 Halpern/Mann 混合格式的强收敛环节。",
+  "keywords": [
+    "不动点",
+    "迭代法",
+    "渐近非扩张映射",
+    "混合算法",
+    "强收敛",
+    "Hilbert空间",
+    "循环Mann迭代",
+    "循环Halpern迭代",
+    "公共不动点",
+    "度量投影"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.712Z",
+  "comparison_ids": [
+    "A87",
+    "A86"
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "A9",
+  "title": "Evaluating Mushroom-Body–Based Visual Homing in an Embodied Ant Robot",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在I2Bot具身蚂蚁仿真中移植蘑菇体视觉归巢模型，定量评估Kenyon细胞规模与连接稀疏性对归巢性能的影响。",
+    "research_problem": "蘑菇体（MB）模型在具身、物理约束条件下能否实现稳健视觉归巢，以及KC数量与连接稀疏性哪些神经结构参数起关键作用，此前缺乏系统验证。",
+    "core_method": "基于I2Bot构建100×100 m沙漠场景与全景视觉；用Zernike矩提取旋转不变特征输入VPN–KC–MBON蘑菇体网络，经抗Hebbian单次学习后，由新奇度信号驱动CX转向控制完成视觉归巢。",
+    "main_findings": [
+      "KC规模与归巢性能呈非单调关系，约3000–4000个KC时成功率最高（约74%）",
+      "PN–KC连接稀疏性呈倒U型，约8 PN/KC（约9.9%密度）时成功率约75%",
+      "最优参数（KC=3700、PN/KC=8）在100次验证中成功率达81%，平均归巢时间约26.8 s",
+      "过稀或过密连接均严重损害场景编码与泛化，支持稀疏编码在具身归巢中的作用"
+    ],
+    "theoretical_guarantee": "全文无收敛定理、稳定性或误差界证明；性能仅由具身仿真中的成功率、归巢时间与路径效率等实验指标表征。",
+    "experiments_or_examples": "固定起点、随机朝向的100次重复归巢试验；系统扫描KC=1000–8000与每KC连接2–16；成功判据为进入巢穴3 m内；并做最优参数验证与失败超时分析。",
+    "limitations": "仅视觉通道、静态环境；依赖仿真平台而非实体机器人；失败多为超时；未建模多模态与在线增量适应。"
+  },
+  "innovation": {
+    "classification": "应用迁移",
+    "score": 3,
+    "verdict": "相对前序数值PDE与组合优化工作，本文将建模—计算范式迁至昆虫启发的视觉感知与具身机器人归巢评估，属跨域应用迁移；MB电路本身主要继承已有模型，增量在于具身参数量化实验。",
+    "inherited_foundations": [
+      "昆虫蘑菇体视觉归巢与稀疏编码电路框架（文中引用Ardin等）",
+      "I2Bot具身昆虫导航仿真平台与全景视觉—神经控制接口",
+      "Zernike矩旋转不变特征与抗Hebbian突触更新等已有组件"
+    ],
+    "incremental_advances": [
+      "在物理约束具身仿真中系统扫参KC规模与PN–KC稀疏性",
+      "给出具身条件下的参数—性能映射与工程参考区间（如约6–10 PN/KC）"
+    ],
+    "core_innovations": [
+      "未提出新的蘑菇体学习理论或全新归巢算法；贡献以移植验证与参数量化为主"
+    ],
+    "implementation_or_experimental_changes": [
+      "Webots沙漠场景、21张巢周全景单次学习协议",
+      "成功率/时间/路径效率指标体系与100次重复试验设计"
+    ],
+    "comparison_basis": [
+      "A14_2024《High-Accuracy Positivity-Preserving Finite Difference Approximations of the Chemotaxis Model for Tumor Invasion》",
+      "A60_2016《Solving odd even sudoku puzzles by binary integer linear programming》",
+      "目标文相关工作：Ardin等MB路由记忆、I2Bot平台、视觉归巢文献"
+    ],
+    "evidence_boundary": "overview与实验结论均可在A9全文Abstract/Methods/Results/Discussion定位；创新性判断仅相对本地A14、A60及文内引用，未覆盖更广MB/昆虫导航文献，故不采信“领域首次”类表述。",
+    "confidence": 0.9
+  },
+  "lineage_position": "相对A14的肿瘤趋化高阶保正差分与A60的奇偶数独BILP，A9将同一作者脉络中的数学建模与计算方法迁移到视觉感知与具身蚂蚁机器人归巢评估，属计算—感知—机器人应用支线。",
+  "keywords": [
+    "视觉归巢",
+    "蘑菇体",
+    "Kenyon细胞",
+    "具身智能体",
+    "昆虫导航",
+    "稀疏编码",
+    "智能计算",
+    "感知系统"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.534Z",
+  "comparison_ids": [
+    "A14",
+    "A60"
+  ]
+}

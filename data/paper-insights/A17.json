@@ -1,0 +1,64 @@
+{
+  "id": "A17",
+  "title": "A Relaxed Inertial Method for Solving Monotone Inclusion Problems with Applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三算子单调包含提出松弛惯性前向–后向–半前向（RIFBHF）算法，由连续时间动力系统离散导出并证弱收敛，再经原对偶用于复合包含与图像去模糊。",
+    "research_problem": "在Hilbert空间求解0∈Ax+Bx+Cx（A极大单调、B单调L-Lipschitz、C为β-余强制），并处理复合单调包含与结构凸优化。",
+    "core_method": "对FBHF型二阶动力系统作中心/后向离散，得到含惯性外推α_k与松弛凸组合λ_k的RIFBHF迭代（变步长γ_k），并用原对偶产品空间改写处理复合算子。",
+    "main_findings": [
+      "在α_k、γ_k与λ_k满足给定极限上界时，迭代弱收敛到zer(A+B+C)",
+      "惯性与松弛参数存在可量化权衡，且在一定范围内允许过松弛(λ_k>1)",
+      "原对偶改写后可覆盖复合单调包含与凸最小化",
+      "图像去模糊中RIFBHF在部分场景优于FBHF，但未必快于一阶原对偶算法"
+    ],
+    "theoretical_guarantee": "Theorem 1：α_k非减且0≤α_k≤α<1，γ_k∈[η,χ−η]，lim λ_k=λ满足关于α,γ,L,ε的上界时，{z_k}弱收敛到zer(A+B+C)；Corollary 1–2将结论迁移到复合包含与凸最小化。",
+    "experiments_or_examples": "Barbara（512×512）约束TV去模糊，四种模糊–噪声场景；分析α、γ、λ与μ敏感性；与FBHF及Chambolle–Pock原对偶比较目标误差、SNR与去模糊效果。",
+    "limitations": "仅有弱收敛、未给收敛速率；数值上PD常更快，相对FBHF优势依赖场景；复合应用与实验设置较常规；过松弛充分条件偏技术化。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在FBHF上同时引入单步惯性与松弛，并给出连续时间离散化与α–λ权衡，相对A28的多步惯性路径及已有松弛惯性FBF工作，属系统化但幅度有限的增量改进。",
+    "inherited_foundations": [
+      "FBHF三算子分裂及步长界χ（Briceño-Arias–Davis）",
+      "惯性/松弛惯性与连续动力系统离散思路（Alvarez–Attouch、Attouch–Cabot、Boţ–Csetnek及松弛惯性FBF）",
+      "原对偶产品空间改写（Briceño-Arias–Combettes）",
+      "与A28相同的0∈A+B+C设定及图像去模糊验证范式"
+    ],
+    "incremental_advances": [
+      "将松弛λ_k与单步惯性α_k并入FBHF得到RIFBHF",
+      "由二阶连续动力系统离散导出迭代并建立弱收敛条件",
+      "刻画α与λ的上界权衡及过松弛存在区间"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "变步长与α–λ联动的参数讨论",
+      "Barbara约束TV去模糊及与FBHF、PD的对比实验"
+    ],
+    "comparison_basis": [
+      "A28（2023）Multi-step inertial forward-backward-half forward algorithm for solving monotone inclusion",
+      "目标文FBHF：Briceño-Arias–Davis (2018)",
+      "目标文松弛惯性FBF：Boţ–Sedlmayer–Vuong",
+      "目标文惯性FBHF（Optimization, 2024）"
+    ],
+    "evidence_boundary": "overview与理论/实验均锚定A17全文Abstract、§3–§6及Theorem 1/Corollary 1–2；创新性仅相对本地A28全文与A17自引相关工作比较，未覆盖更广文献与引用网络，不排除存在更早平行结果。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于Briceño-Arias–Davis的FBHF主线上，与A28的多步惯性扩展并行，将松弛惯性FBF的参数耦合模式移植到半前向结构，形成“松弛+单步惯性”分支。",
+  "keywords": [
+    "单调包含",
+    "惯性方法",
+    "前向-后向-半前向",
+    "松弛参数",
+    "连续时间动力系统",
+    "原对偶分裂",
+    "弱收敛",
+    "图像去模糊"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.554Z",
+  "comparison_ids": [
+    "A28"
+  ]
+}

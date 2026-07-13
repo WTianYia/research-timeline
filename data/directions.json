@@ -4,5 +4,5 @@
   {"id":"primal-dual","label":"原始对偶与算子分裂","color":"#2E7D66","description":"原始对偶、ADMM、Douglas-Rachford 与三算子分裂"},
   {"id":"monotone-vi","label":"单调包含与变分不等式","color":"#8A5A9A","description":"单调包含、FBHF、外梯度与 Banach 空间推广"},
   {"id":"statistics","label":"统计与空间建模","color":"#C08A2E","description":"变量选择、函数型回归与空间自回归模型"},
-  {"id":"intelligent-systems","label":"智能感知与计算应用","color":"#5A6978","description":"机器人视觉、运动注意、传感网络与组合计算"}
+  {"id":"intelligent-systems","label":"智能感知与计算应用","color":"#5A6978","description":"机器人视觉、传感网络、数值计算、数值 PDE 与组合优化"}
 ]

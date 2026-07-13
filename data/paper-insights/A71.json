@@ -1,0 +1,62 @@
+{
+  "id": "A71",
+  "title": "Approximation to minimum-norm common fixed point of a semigroup of nonexpansive operators",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在Hilbert空间中为一致渐近正则的非扩张算子半群构造投影—Mann混合迭代，并证明其强收敛到最小范数公共不动点。",
+    "research_problem": "当闭凸集C可能不含原点时，如何用可计算迭代逼近非扩张算子半群公共不动点集F上的最小范数元x^*=P_F0。",
+    "core_method": "融合Aleyner–Censor半群迭代与Liu–Cui投影技巧，采用格式x_{n+1}=(1−α_n)x_n+α_n P_C((1−t_n)T_{r_n}x_n)，在一致渐近正则半群与参数条件下分析强收敛。",
+    "main_findings": [
+      "所提混合迭代在t_n→0、∑t_n=∞且0<liminf α_n≤limsup α_n<1时强收敛到x^*=P_F0。",
+      "证明中得到||x_{n+1}−x_n||→0及对每个固定s有||T_s x_n−x_n||→0。",
+      "相对Aleyner–Censor可去掉∑|α_{n+1}−α_n|<∞条件。",
+      "相对Liu–Cui有限族结果，可处理无穷或不可数指标半群，并放宽t_n的差分/比值条件。"
+    ],
+    "theoretical_guarantee": "Theorem 1：若Γ={T_t}为C上一致渐近正则非扩张半群且F=∩Fix(T_t)≠∅，则算法(14)在上述参数条件下强收敛到F的最小范数公共不动点。",
+    "experiments_or_examples": "全文无数值实验或具体算例，仅有理论证明与相关工作比较。",
+    "limitations": "依赖一致渐近正则半群与Hilbert空间结构；未给出隐式格式、应用推广或数值验证；r_n取法依赖半群渐近正则性。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A70的单映射最小范数投影—Mann格式，A71将算子对象换为半群元T_{r_n}并补上一致渐近正则估计，属同一算法骨架上的对象扩展与条件放宽，而非新范式。",
+    "inherited_foundations": [
+      "最小范数公共不动点x^*=P_F0与P_C拉回技巧",
+      "非扩张半群、一致渐近正则性及Aleyner–Censor半群迭代",
+      "Liu–Cui有限族最小范数序列/并行投影算法思想",
+      "与A70显式格式同构的KM混合结构x_{n+1}=(1−α_n)x_n+α_n P_C((1−t_n)·)",
+      "demiclosedness、Suzuki型有界序列引理与Xu引理等标准工具"
+    ],
+    "incremental_advances": [
+      "将单映射/有限族最小范数逼近推进到一致渐近正则非扩张半群的公共不动点",
+      "在0∉C时仍用P_C保证迭代良定并收敛到最小范数元",
+      "相对半群Halpern型结果去掉α_n差分可和条件，相对有限族结果放宽t_n差分或比值条件"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现变化；全文仅为理论收敛分析"
+    ],
+    "comparison_basis": [
+      "A70（2013）《Iterative algorithms for finding minimum-norm fixed point of nonexpansive mappings and applications》",
+      "A71文中Aleyner and Censor (2005)、Liu and Cui (2010)、Yang–Liou–Yao (2011)、Yao–Xu (2011)"
+    ],
+    "evidence_boundary": "研究问题、算法、Theorem 1与Remark 3均直接对照A71全文；相对A70的“同构扩展”判断基于两篇全文算法对照；更广半群/最小范数文献未本地覆盖，故不宣称领域首创。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于最小范数不动点迭代线：承接A70单非扩张映射的投影—Mann强收敛框架，向一致渐近正则非扩张半群的公共不动点最小范数逼近作对象扩展。",
+  "keywords": [
+    "公共不动点",
+    "最小范数",
+    "非扩张算子半群",
+    "一致渐近正则",
+    "强收敛",
+    "度量投影",
+    "Hilbert空间",
+    "Krasnoselskii-Mann迭代"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.694Z",
+  "comparison_ids": [
+    "A70"
+  ]
+}

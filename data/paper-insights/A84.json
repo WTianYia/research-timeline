@@ -1,0 +1,60 @@
+{
+  "id": "A84",
+  "title": "Strong convergence of shrinking projection methods for a family of pseudocontractive mappings in Hilbert spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在 Hilbert 空间中构造有限族 Lipschitz 伪压缩映射的 Ishikawa 型收缩投影算法，证明其强收敛于公共不动点，并据此给出一族单调算子公共零点的强收敛结果。",
+    "research_problem": "Mann/Ishikawa 型迭代对伪压缩映射通常仅有弱收敛，已有收缩投影结果多针对单个 Lipschitz 伪压缩映射；如何对有限族映射建立可证明强收敛到公共不动点的收缩投影格式，并用于一族单调算子的公共零点问题。",
+    "core_method": "采用循环选取 T_{[n]}=T_{n(mod N)} 的 Ishikawa 型收缩投影：由 z_n、y_n 与不等式定义嵌套闭凸集 C_{n+1}，再取 x_{n+1}=P_{C_{n+1}}x_0；证明 F⊆C_n、序列有界、‖x_{n+1}-x_n‖→0 与 ‖x_n-T_i x_n‖→0，结合 demiclosedness 与投影引理得到强收敛。",
+    "main_findings": [
+      "定理 3.1：在 α_n、β_n 满足给定条件下，算法 (1.11) 生成的 {x_n} 强收敛于 P_F x_0，其中 F=∩_{i=1}^N F(T_i)。",
+      "定理 3.2：将主结果用于一族 Lipschitz 单调算子，对应算法强收敛于公共零点集 Ω 上关于 x_0 的度量投影。",
+      "将 Yao 等与作者先前关于单个 Lipschitz 伪压缩映射的收缩/混合投影结果推广到有限族公共不动点逼近。"
+    ],
+    "theoretical_guarantee": "设 {T_i}_{i=1}^N 为 Lipschitz 常数 L_i≥1 的伪压缩自映射且 F≠∅，L=max L_i；若 b≤α_n<α_n(1+L)^2<a（a,b∈(0,1)）且 lim β_n=0，则 {x_n} 强收敛于 P_F x_0。单调算子情形由 T_i=I-A_i 直接归结为主定理。",
+    "experiments_or_examples": "全文为理论证明，无数值算例、仿真或应用实验。",
+    "limitations": "限于实 Hilbert 空间与有限族 Lipschitz 伪压缩映射；参数上界依赖整体 Lipschitz 常数 L；算法每步需求解投影到构造凸集；未给出数值验证与无限族/更弱连续性情形。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对前序 A90，本文把单映射 Ishikawa 型收缩投影循环推广到有限族伪压缩映射并附单调算子族应用，技术路线与证明结构高度平行，属在已有框架上的有意义增量而非新范式。",
+    "inherited_foundations": [
+      "收缩投影/单集混合投影框架（Takahashi 等、Yao 等）及伪压缩映射 demiclosedness、投影特征引理",
+      "A90 中单个 Lipschitz 伪压缩映射的 Ishikawa 型收缩投影格式与 C_{n+1} 不等式构造思路",
+      "伪压缩与单调算子的标准对应关系 T=I-A"
+    ],
+    "incremental_advances": [
+      "将单映射算法改为循环指标 T_{[n]}，目标由单个不动点集扩展为有限族公共不动点集",
+      "补充对全体 T_l 同时有 ‖x_n-T_l x_n‖→0 的循环论证，并给出一族单调算子公共零点的强收敛定理",
+      "参数条件改写为依赖 L=max L_i 的形式，以适应有限族"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现或实验设计变化；全文仍为纯理论证明"
+    ],
+    "comparison_basis": [
+      "A90（2010）《Strong convergence theorem for pseudo-contractive mappings in Hilbert spaces》",
+      "目标文自引相关工作：Yao–Liou–Marino (2009) 单映射混合算法；Takahashi–Takeuchi–Kubota 收缩投影；Zhou、Zhang–Cheng 等 hybrid/有限族结果"
+    ],
+    "evidence_boundary": "overview、定理条件与结论均来自 A84 全文 Abstract、§1 算法 (1.11)、Theorem 3.1–3.2 与 Remark 3.1；创新性比较仅相对本地前序 A90 及目标文引用表述，未对照 Yao 等、Zhang–Cheng 等原文全文，故“相对更广文献是否首创有限族收缩投影”不能越界断言。",
+    "confidence": 0.9
+  },
+  "lineage_position": "承接 A90 对单个 Lipschitz 伪压缩映射的 Ishikawa 型收缩投影强收敛结果，将同一作者线推进到有限族公共不动点及一族单调算子公共零点的强收敛逼近。",
+  "keywords": [
+    "不动点",
+    "迭代法",
+    "伪压缩映射",
+    "收缩投影",
+    "公共不动点",
+    "强收敛",
+    "Hilbert 空间",
+    "单调算子",
+    "Ishikawa 迭代"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.717Z",
+  "comparison_ids": [
+    "A90"
+  ]
+}

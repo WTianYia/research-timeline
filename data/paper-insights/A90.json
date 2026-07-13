@@ -1,0 +1,60 @@
+{
+  "id": "A90",
+  "title": "Strong convergence theorem for pseudo-contractive mappings in Hilbert spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在Hilbert空间中将Yao等的单凸集混合算法由Mann型推广到Ishikawa型，对L-Lipschitz伪压缩映射证明迭代序列强收敛到不动点集上的度量投影。",
+    "research_problem": "Mann型与经典混合投影算法对伪压缩映射的强收敛结果已有，如何把Yao等仅含一个闭凸集的混合算法推广到Ishikawa型迭代，并在L-Lipschitz伪压缩条件下得到强收敛。",
+    "core_method": "取C_1=C、x_1=P_{C_1}x_0，构造Ishikawa型混合迭代：先以β_n生成z_n，再以α_n生成y_n，用含伪压缩与Lipschitz常数L的不等式定义嵌套闭凸集C_{n+1}，并令x_{n+1}=P_{C_{n+1}}x_0。",
+    "main_findings": [
+      "定理3.1：在α_n、β_n满足指定上下界与β_n→0时，算法(1.11)强收敛到P_{F(T)}x_0",
+      "β_n≡0时算法退化为Yao等(2009)的(1.10)，故其结果为特例",
+      "推论给出非扩张映射与L-Lipschitz单调算子零点问题的相应强收敛格式",
+      "C_n为嵌套闭凸且F(T)⊆C_n，序列有界并满足||x_n−Tx_n||→0"
+    ],
+    "theoretical_guarantee": "定理3.1：H为实Hilbert空间，T:C→C为L-Lipschitz伪压缩(L≥1)且F(T)≠∅；α_n、β_n∈(0,1)满足b≤α_n且α_n(L+1)(1+β_n L)<a<1（a,b∈(0,1)）及β_n→0，则{x_n}强收敛到P_{F(T)}x_0。证明用投影特征、伪压缩的内积刻画、I−T在0处半闭性及弱ω极限集论证。",
+    "experiments_or_examples": "全文为纯理论证明，无数值实验、算例或仿真。",
+    "limitations": "限于Hilbert空间与L-Lipschitz伪压缩；参数条件较技术；需F(T)非空；未讨论非Lipschitz或一般Banach情形；无数值验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对Yao等单凸集混合算法与Zhou等伪压缩混合投影工作，本文将Mann型格式推广为Ishikawa型并给出相应参数与收敛证明，属同一技术路线上的实质增量，而非新框架。",
+    "inherited_foundations": [
+      "伪压缩/严格伪压缩与非扩张映射的不动点迭代框架（Browder–Petryshyn、Ishikawa等）",
+      "Nakajo–Takahashi及后续的hybrid/CQ混合投影思想",
+      "Yao–Liou–Marino(2009)仅含一个闭凸集C_n的伪压缩混合算法",
+      "投影刻画、I−T半闭性与Hilbert空间强收敛论证工具"
+    ],
+    "incremental_advances": [
+      "将Yao等的Mann型混合算法推广为含z_n、y_n的Ishikawa型混合算法(1.11)",
+      "在C_{n+1}定义中引入由β_n与Lipschitz常数L产生的附加误差项并完成强收敛证明",
+      "给出非扩张映射与单调算子零点问题的推论，统一表述投影型强收敛"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A95（2006）Note on some results for asymptotically pseudocontractive mappings and asymptotically nonexpansive mappings",
+      "Yao et al. (2009) A hybrid algorithm for pseudo-contractive mappings（目标文定理1.4与算法(1.10)）",
+      "Zhou (2008)、Martinez-Yanes–Xu (2006)、Nakajo–Takahashi (2003) 等目标文引言中的混合投影相关工作"
+    ],
+    "evidence_boundary": "overview、定理、推论与局限均直接对照A90全文Abstract、§1算法(1.11)、定理3.1、Remark 3.1与推论3.2–3.3；创新性相对比较主要依据A95全文及A90所引Yao/Zhou等，本地未覆盖2010年前全部伪压缩混合算法文献，故不作“核心创新”判定。A95为Banach空间渐近伪压缩的带误差Ishikawa/Mann结果，与A90的Hilbert混合投影路线仅属广义谱系相关。",
+    "confidence": 0.9
+  },
+  "lineage_position": "处于Hilbert空间伪压缩映射混合投影强收敛谱系：在Nakajo–Takahashi、Zhou及Yao等单凸集算法之后，将后者由Mann型推进到Ishikawa型；相对A95的Banach渐近伪压缩带误差迭代，属于后续、空间与方法均不同的平行分支。",
+  "keywords": [
+    "伪压缩映射",
+    "混合算法",
+    "Ishikawa迭代",
+    "强收敛",
+    "Hilbert空间",
+    "不动点",
+    "度量投影",
+    "Lipschitz映射"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.728Z",
+  "comparison_ids": [
+    "A95"
+  ]
+}

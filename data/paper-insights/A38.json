@@ -1,0 +1,63 @@
+{
+  "id": "A38",
+  "title": "Dual three-operator splitting algorithms for solving composite monotone inclusion with applications to convex minimization",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对含复合与平行和结构、且复合算子预解通常无闭式的单调包含问题，用原对偶前向–后向迭代逼近预解，并嵌套非精确三算子分裂给出两类对偶算法及其收敛分析。",
+    "research_problem": "求解形如 0∈Ax+∑L_i^*((B_i□D_i)(L_i x−r_i))+Cx 的复合单调包含：其中一项为余强制算子，复合/平行和算子的预解通常不可显式计算，因而精确三算子分裂难以直接使用。",
+    "core_method": "先把复合算子预解对偶化为乘积空间中的两算子包含并用前向–后向迭代求解；再以该内层迭代逼近预解，外层套用非精确三算子分裂，分别得到交换 A/B 次序的两类对偶三算子算法（优化情形对应 Algorithm 3/4）。",
+    "main_findings": [
+      "对偶前向–后向迭代可计算复合预解，并在适当条件下给出线性收敛率 O(β̂^n)。",
+      "两类对偶三算子算法在可和误差与步长条件下弱收敛到原包含解；在一致单调或半正则等附加条件下可强收敛。",
+      "对应三类凸函数和的复合凸极小化，Algorithm 3 被作者视为现有算法未直接覆盖的新格式；Algorithm 4 相对 PD3O 放宽部分步长并引入松弛。",
+      "约束 TV 图像去模糊实验中，在相近 SNR/NMSD 下外层迭代次数常少于 PDFP、PD3O 与 Condat。"
+    ],
+    "theoretical_guarantee": "定理3.1–3.2给出预解子内层迭代的弱/强收敛与先验/后验误差界；定理4.1–4.2与5.1–5.2给出外层算法弱收敛，并在一致单调或 demiregular 等条件下给出强收敛。",
+    "experiments_or_examples": "将模型具体化为非负约束 TV 去模糊；在 Barbara、Goldhill、Boat、Aerial（512×512）上与 PDFP、PD3O、Condat 比较 SNR、NMSD 与外层迭代数，并检验内层迭代次数敏感性。",
+    "limitations": "整体为内外双层结构，非完全分裂；Algorithm 3 在内层仅一步时的收敛性被明确列为开放问题；理论依赖 D_i 强单调、误差绝对可和及解集非空等假设；数值仅覆盖 TV 去模糊场景。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对 A45 的“标准三算子+惯性加速”路线，A38 转向复合/平行和结构下不可显式预解的对偶化与非精确嵌套，属于同一谱系上的显著扩展，而非全新范式或对 A45 惯性机制的直接增量。",
+    "inherited_foundations": [
+      "Davis–Yin 三算子分裂及其固定点刻画",
+      "非精确三算子分裂（Zong–Tang–Cho, 2018）的外层框架与可和误差分析",
+      "原对偶复合/平行和单调包含的问题表述与算子分解传统"
+    ],
+    "incremental_advances": [
+      "将复合预解转为对偶两算子包含，用前向–后向给出可计算内层迭代及线性收敛率",
+      "交换 A 与复合算子次序，形成两类对偶三算子算法及对应优化形式",
+      "相对 Tang et al.（2019）内–外迭代：引入松弛策略，并将弱收敛表述推进到无穷维 Hilbert 空间"
+    ],
+    "core_innovations": [
+      "在精确三算子分裂因预解无闭式而失效时，系统建立“对偶预解逼近 + 非精确三算子外层”的对偶三算子算法结构"
+    ],
+    "implementation_or_experimental_changes": [
+      "应用场景由 A45 的核范数约束修复转为 TV 去模糊",
+      "对比基线改为 PDFP、PD3O、Condat，并报告内层次数与外层迭代的关系"
+    ],
+    "comparison_basis": [
+      "A45（2019）《An inertial three-operator splitting algorithm with applications to image inpainting》",
+      "目标文相关工作：Davis–Yin 三算子分裂、非精确三算子分裂、Yan 的 PD3O、Tang et al. 的内–外迭代"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均仅依据 A38 全文 Abstract、§3–§7 及定理/算法框；创新性仅相对 A45 与 A38 自引相关工作判断，未系统对照本地库外全部原对偶分裂文献。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于三算子分裂主线中：A45 沿“标准三算子包含 + 惯性 KM 加速”分支；A38 则沿“复合/平行和结构 + 对偶预解 + 非精确嵌套”分支，把可应用范围从易算预解情形推向预解难算的复合包含。",
+  "keywords": [
+    "三算子分裂",
+    "单调包含",
+    "原对偶",
+    "平行和",
+    "复合算子",
+    "非精确分裂",
+    "凸极小化",
+    "图像去模糊"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.608Z",
+  "comparison_ids": [
+    "A45"
+  ]
+}

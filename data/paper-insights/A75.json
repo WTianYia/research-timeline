@@ -1,0 +1,64 @@
+{
+  "id": "A75",
+  "title": "Self-map building in wireless sensor network based on TDOA measurements",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出基于TDOA距离差与少量种子节点的无线传感器网络自构图方法，用相对坐标系构建与线性方程组估计未知节点绝对位置。",
+    "research_problem": "在不宜全网配备GPS、仅有少量已知位置种子节点的条件下，如何利用TDOA距离差测量实现WSN节点绝对定位并在线构建节点地图。",
+    "core_method": "对IEEE 802.15.4信号用直接互相关估计TDOA；在仅知距离差时用四点建立相对坐标系并数值求解；再由距离差恒等式平方消元得到未知节点坐标的线性方程组。",
+    "main_findings": [
+      "SNR=20 dB时，TDOA时间差平均误差约3.81 ns、最大约10 ns（对应距离差约3 m）",
+      "100 m×100 m内约20节点、距离差误差3 m时，平均定位误差7.06 m、最大14.55 m",
+      "距离差平均误差1.14 m时，平均定位误差2.32 m、最大4.70 m",
+      "仅需少量种子节点即可完成自构图，仿真表明方法可行，作者称平均精度高于文内对比的RSSI自构图路线"
+    ],
+    "theoretical_guarantee": "无收敛定理或定位误差界证明；给出互相关时延关系式（式1–3）及由距离差平方、消元得到的未知节点线性定位方程组（式4–9），解的存在唯一性与数值稳定性未作理论分析。",
+    "experiments_or_examples": "仿真：48 MHz采样下802.15.4基带序列在不同SNR的互相关峰与20次随机时差误差统计；约20个随机节点、2个种子节点，考察距离差误差0–5 m时的最大定位误差，并给出误差3 m时的定位结果图。",
+    "limitations": "仅仿真、未在真实传感器网络实测；直接互相关在低SNR下易出现假峰；定位误差随距离差测量误差增大；依赖种子节点先验位置；与多种基准算法的系统定量对比不足。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 2,
+    "verdict": "在已有自构图与无GPS相对定位框架上，将测量模态换为TDOA，并把三点距相对坐标系改写为四点距离差坐标系及线性求解步骤，属方法组合与公式适配层面的增量改进，非新问题范式。",
+    "inherited_foundations": [
+      "自构图思想及RSSI自映射路线（文内述及[9]）",
+      "无GPS相对定位与相对坐标系构建思路（文内述及[10]）",
+      "TDOA测距定位原理及相对TOA更易实现、可抑制公共误差的论述（文内[14,16,17]）",
+      "互相关时延估计与IEEE 802.15.4信号/协议模型"
+    ],
+    "incremental_advances": [
+      "将文内[10]基于节点间距的三点相对坐标系改为仅已知距离差时的四点构建，并用非线性数值求解（fsolve）",
+      "由TDOA距离差恒等式平方后消元，得到未知节点二维坐标的线性方程组（式9）",
+      "把TDOA互相关测量与少量种子节点绝对定位的自构图流程衔接，并仿真刻画802.15.4场景时差精度"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "直接互相关、48 MHz采样及不同SNR下时差误差分布仿真",
+      "20节点正方形区域的自定位误差曲线与示例定位图"
+    ],
+    "comparison_basis": [
+      "[9] LaMarca et al., Self-mapping in 802.11 location systems",
+      "[10] Capkun et al., GPS-free positioning in mobile ad hoc networks",
+      "[14] Luo et al., Geometric location based on TDOA for wireless sensor networks",
+      "目标论文Introduction与§IV中对RSSI/TOA/自构图相关工作的陈述"
+    ],
+    "evidence_boundary": "overview、理论表述、实验数值与局限均来自A75全文Abstract、§II–V及图3–6；创新性相对比较仅依据文内对[9][10][14]等的引用与作者对比表述，本地无前序全文，故分类与分值置信度下调；作者“高于[9]”等自述不作为独立新颖性证据。",
+    "confidence": 0.52
+  },
+  "lineage_position": "处于WSN节点定位与自构图技术线：承接RSSI自映射与无GPS相对定位，引入TDOA测量并改写距离差情形下的坐标系与线性定位步骤，属于测量模态切换与算法适配的增量节点。",
+  "keywords": [
+    "无线传感器网络",
+    "TDOA",
+    "自构图",
+    "节点定位",
+    "互相关",
+    "种子节点",
+    "IEEE 802.15.4",
+    "距离差测量",
+    "智能计算",
+    "感知系统"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.700Z",
+  "comparison_ids": []
+}

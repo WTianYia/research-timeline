@@ -1,0 +1,70 @@
+{
+  "id": "A15",
+  "title": "A Novel Fractional-Order Non-Convex TValpha,p Model in Image Deblurring",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出分数阶非凸TV^{α,p}去模糊模型，并用迭代支撑收缩近端线性化算法求解，给出全局收敛与梯度下界（边缘保持）分析。",
+    "research_problem": "图像去模糊f=Ku+n不适定；经典TV难兼顾边缘，局部正则难保留纹理，需融合分数阶梯度与非凸指数的正则化框架。",
+    "core_method": "建立min_u ∑_i||D_i^α u||_2^p+(λ/2)||Ku−f||_2^2（0<p<1，α∈(1,2)）；设计ISSA/ISSAPL保持分数阶梯度支撑集非扩张，子问题经近端线性化后由ADMM求解并可借助FFT实现。",
+    "main_findings": [
+      "ISSAPL在Assumption 1且φ为o-minimal结构时，迭代序列全局收敛至约束问题F̄的一阶驻点",
+      "支撑集有限步嵌套稳定，梯度幅值具正下界，支撑不扩张，利于边缘与细节保持",
+      "相对FastTVMM等基线，文中报告平均PSNR/SSIM约提升0.9733/0.0111，多模糊核下可取得细节—边缘—去模糊的较好折中",
+      "强噪声与极端暗场场景效果变差，参数与效率仍需改进"
+    ],
+    "theoretical_guarantee": "Proposition 1给出局部极小点的梯度下界；Lemma 3–7建立支撑集有限步稳定、目标下降、序列有界与下界性质；Theorem 1在Assumption 1与o-minimal/KL条件下证明ISSAPL全局收敛至F̄的一阶最优点。",
+    "experiments_or_examples": "8幅测试图与6类模糊核；对比FastTVMM、WFBM、NNTGV、QDSV、TV^{p,q(x)}、D-TGV；报告PSNR/SSIM/FSIM、收敛曲线、迭代耗时与噪声/暗场敏感性实验。",
+    "limitations": "σ≥4×10^{-3}时噪声易被放大；主要在自然图像上验证，医学/遥感等域未充分覆盖；极端低光照恢复不佳；计算偏慢；参数需手工，未来拟做自适应分数阶、加速与盲噪声推广。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "相对A24/A23属不同技术支线：以分数阶非凸正则为主轴而非低秩+l0保真或混合噪声原始对偶；相对文内TV^p与FOTV及Zeng支撑收缩框架，属二者融合与分数阶化扩展，非全新范式。",
+    "inherited_foundations": [
+      "ROF/TV去模糊与二次数据保真",
+      "TV^p非凸正则（Hintermüller等）",
+      "分数阶TV/FOTV（Bai等）及GL分数阶离散",
+      "非Lipschitz情形的迭代支撑收缩与近端线性化思想（Zeng等[16]）",
+      "ADMM与FFT类快速实现"
+    ],
+    "incremental_advances": [
+      "将非凸p指数与分数阶梯度统一为TV^{α,p}模型",
+      "把ISSA/ISSAPL推广到分数阶算子D^α并给出相应收敛与下界论证",
+      "面向多类模糊核的去模糊数值验证与参数/噪声敏感性讨论"
+    ],
+    "core_innovations": [
+      "面向去模糊的分数阶非凸非光滑非Lipschitz TV^{α,p}变分模型",
+      "保持分数阶梯度支撑集非扩张的ISSAPL求解路径及其全局收敛闭环"
+    ],
+    "implementation_or_experimental_changes": [
+      "线性化子问题的ADMM实现与FFT加速",
+      "与多种经典及近年方法的PSNR/SSIM/视觉对比及复杂度统计"
+    ],
+    "comparison_basis": [
+      "A24_2023 Low-Rank and Total Variation Regularization with l0 Data Fidelity Constraint for Image Deblurring under Impulse Noise",
+      "A23_2023 First-order primal-dual algorithm for image restoration corrupted by mixed Poisson-Gaussian noise",
+      "目标全文相关工作：ROF、TV^p、FOTV、NNTGV、WFBM及Zeng等支撑收缩算法"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均来自A15全文Abstract、贡献列表、§3–4定理/引理、§6实验与§6.3/§7讨论结论；创新定位仅相对本地A24/A23及文内引用，未覆盖更广分数阶/非凸TV文献；算法主体对[16]继承较强，故‘核心创新’主要体现在分数阶算子与TV^{α,p}模型组合层面。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于TV正则化去模糊谱系：由ROF分出TV^p与FOTV两支后合流为TV^{α,p}，算法上承接非Lipschitz支撑收缩（[16]）而非A23的PDCP或A24的PADMM+核范数；相对A24（脉冲噪声下低秩+检测l0TV）与A23（混合泊松–高斯下TV-IC的一阶原始对偶求解）更强调正则项的分数阶非凸设计本身。",
+  "keywords": [
+    "图像处理",
+    "优化模型",
+    "分数阶梯度",
+    "非凸正则化",
+    "TV^{α,p}",
+    "图像去模糊",
+    "迭代支撑收缩",
+    "全局收敛",
+    "边缘保持",
+    "ADMM"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.549Z",
+  "comparison_ids": [
+    "A24",
+    "A23"
+  ]
+}

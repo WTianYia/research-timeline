@@ -1,0 +1,64 @@
+{
+  "id": "A5",
+  "title": "The multi-parameter inertial subgradient extragradient method for variational inequalities with applications to image restoration problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出带三个常参数（惯性系数α与不等步长β、γ）的惯性次梯度外梯度算法，在实Hilbert空间求解伪单调Lipschitz变分不等式，并给出弱/强收敛及图像复原数值验证。",
+    "research_problem": "在实Hilbert空间求解变分不等式VIP：求p*∈C使⟨𝒜p*,p−p*⟩≥0对一切p∈C成立；经典SEGM与惯性SEGM常强制两步投影步长相同，参数可调空间有限，且需在单调/伪单调设定下建立可验证的弱、强收敛。",
+    "core_method": "Algorithm 1：惯性外推r_j=t_j+α(t_j−t_{j−1})，s_j=P_C(r_j−β𝒜r_j)，半空间T_j上投影t_{j+1}=P_{T_j}(r_j−γ𝒜s_j)；允许β∈(0,1/L)与γ>0相互独立（γ<2β/(1+βL)），惯性α为常参数；并给出黏性迭代变体以在伪单调下获强收敛。",
+    "main_findings": [
+      "伪单调且L-Lipschitz、解集非空时，在α、β、γ满足文中显式范围下迭代序列弱收敛到Ω中一点（Theorem 3.1）。",
+      "若算子改为η-强伪单调，同一算法在相同参数框架下强收敛到唯一解（Theorem 3.2）；黏性迭代Corollary 3.1在伪单调下强收敛到P_Ω∘f的不动点。",
+      "数值上三参数均影响收敛速度，且常出现γ>β优于β=γ；与经典SEGM、Thong–Hieu惯性SEGM、Halpern型及黏性SEGM对比时迭代与CPU更优。",
+      "将图像复原写成最小二乘等价VIP后，Peppers与Flamingos上SNR高于对比算法，显示工程可用性。"
+    ],
+    "theoretical_guarantee": "Lemma 3.1给出关于‖t_{j+1}−p‖²的下降估计（分γ<β与γ≥β两情形）；Lemma 3.2为半闭性/解集刻画；Theorem 3.1：C1–C3且0<γ<2β/(1+βL)、0≤α<(2τ−3+√(9−8τ))/(2τ)（τ按γ与β关系取值）时弱收敛；Theorem 3.2：C2–C4时强收敛；Corollary 3.1：C1–C3+C5黏性格式强收敛到p=P_Ω∘f(p)。全文未给出O(1/t)类收敛速率。",
+    "experiments_or_examples": "MATLAB R2021a；例4.1在L²([0,1])上伪单调Volterra型算子做α/β/γ敏感性（Tables 1–3，Figures 1–3）；例4.2有限维单调仿射VIP，New1/2对比Censor SEGM、Thong–Hieu惯性SEGM、Kraikaew–Saejung Halpern SEGM及Thong黏性算法（Tables 4–5）；例4.3将模糊+噪声图像复原化为VIP，报告Peppers/Flamingos的SNR与重构图（Table 6，Figures 6–8）。",
+    "limitations": "步长选取依赖已知Lipschitz常数L，参数为常数而非自适应线搜索；Algorithm 1的强收敛依赖强伪单调，一般伪单调需改黏性格式；无显式收敛速率；对比基线有限且最优β–γ关系主要靠数值观察；应用限于盒约束最小二乘型图像复原。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对经典SEGM与Thong型惯性SEGM，核心增量是解除两步步长必须相等的限制并给出α–β–γ耦合的弱/强收敛条件，再配黏性强收敛与图像复原实验；算法骨架与证明路线均属既有惯性次梯度外梯度脉络上的参数与算子假设细化，宜判为增量改进而非范式级核心创新。",
+    "inherited_foundations": [
+      "Censor等次梯度外梯度（第二投影改为半空间投影）框架",
+      "Thong等将惯性项嵌入SEGM的迭代结构与弱收敛分析思路",
+      "伪单调+L-Lipschitz VIP的基本设定与投影恒等式",
+      "Yao等将惯性中序列参数改为常参数的技术路线；Thong等黏性迭代强收敛模式"
+    ],
+    "incremental_advances": [
+      "引入彼此独立的常数步长β、γ，并在γ<β与β≤γ两分支下统一下降估计与α上界（τ依赖γ/β）",
+      "将适用算子从常见单调设定推进到伪单调（弱收敛）与强伪单调（强收敛）",
+      "给出与不等步长相容的黏性惯性SEGM强收敛推论",
+      "数值系统展示三参数效应，并指出γ>β时常优于传统β=γ"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "L²伪单调算子与有限维仿射VIP上的参数扫描与多算法对比",
+      "将图像复原LS问题化为𝒜=Bᵀ(Bx−y)的VIP并比较SNR与重构质量"
+    ],
+    "comparison_basis": [
+      "A54（2017）《Bounded perturbation resilience of extragradient-type methods and their applications》",
+      "目标文引用的Censor等SEGM[15]、Thong–Hieu惯性SEGM[22]、Thong黏性加速SEGM[24]、Kraikaew–Saejung Halpern SEGM[31]、Yao等双惯性SEGM[23]"
+    ],
+    "evidence_boundary": "overview中问题、算法、Theorem 3.1/3.2、Corollary 3.1、例4.1–4.3与结论均对照A5全文Abstract、§1贡献列表、§3主结果与§4–5实验/结论核实；创新性比较仅相对本地可读的A54及A5自引相关工作，未把A54的BPR、O(1/t)速率或信号处理实验写入目标贡献；A5参考文献未直接引用A54，故二者关系属主题谱系比较而非直接继承链；更广的不等步长/自适应惯性SEGM文献未全覆盖，分类置信受此限制。",
+    "confidence": 0.88
+  },
+  "lineage_position": "A5处于SEGM→惯性SEGM主线上：在Thong等惯性SEGM与Censor半空间投影基础上，以多常参数（尤其β≠γ）拓宽步长制度并覆盖伪单调/强伪单调与黏性强收敛，再落到图像复原。相对A54，二者同属Hilbert空间外梯度型VIP与惯性思想、且共享唐玉超合作谱系，但A54主攻有界扰动韧性、可和误差与由BPR导出的惯性EG/SEG及O(1/t)速率（单调+Lipschitz，信号恢复算例），A5并不延续BPR/superiorization，而是做不等步长惯性SEGM的收敛细化与图像应用，故为旁支参数—算子扩展而非A54的直接后继。",
+  "keywords": [
+    "变分不等式",
+    "次梯度外梯度法",
+    "惯性方法",
+    "多参数步长",
+    "伪单调算子",
+    "弱收敛",
+    "强收敛",
+    "黏性迭代",
+    "图像复原"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.522Z",
+  "comparison_ids": [
+    "A54"
+  ]
+}

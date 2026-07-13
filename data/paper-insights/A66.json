@@ -1,0 +1,69 @@
+{
+  "id": "A66",
+  "title": "Cyclic and simultaneous iterative methods to matrix equations of the form A_i X B_i = F_i",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对方程组 A_i X B_i = F_i，提出基于增量/并行次梯度思想的循环与同时梯度（及最小二乘）迭代，并证明更宽步长下的收敛。",
+    "research_problem": "如何迭代求解相容线性矩阵方程组 A_i X B_i = F_i（i=1..N），并在较 Ding 等梯度迭代更宽的步长范围内保证收敛。",
+    "core_method": "将问题化为 F(X)=½∑‖A_i X B_i−F_i‖_F² 的最小化；构造循环梯度/最小二乘迭代（每次只用一个方程）与同时梯度/最小二乘迭代（各方程并行更新再凸组合），步长上界取 L=max{ρ(A_i A_i^T)ρ(B_i^T B_i)}；并给出约束问题 min_{X∈C}‖AXB−F‖_F 的梯度投影算法。",
+    "main_findings": [
+      "相容且唯一解时，循环与同时迭代在 0<μ<2/L（L 为各方程谱半径乘积的最大值）下 Fejér 单调并收敛到真解",
+      "同一算例中 Algorithm 1 的 μ_up 为 0.0236，大于 Ding 等 (1.5) 的 0.0061，收敛域更宽",
+      "256×256 大规模算例中，取各自最大允许 μ 时 Algorithm 1 收敛最快，Algorithm 3 与 (1.5) 相近",
+      "梯度投影算法可嵌入非负或 [0,1] 盒约束，图像去模糊重建背景优于无约束 GPA 及文中对比的 TSVD/Tikhonov"
+    ],
+    "theoretical_guarantee": "Thm 3.1：约束 GPA 在梯度 Lipschitz 常数 L=ρ(A^T A)ρ(BB^T) 与步长 liminf/limsup 条件下收敛到 (1.3) 的极小点；Thm 4.1/4.2：Algorithm 1/2 在相容唯一解时收敛；Thm 5.1：Algorithm 3 在相容唯一解时 Fejér 单调并收敛；Remark 5.1 允许变步长满足 0<liminf μ_k ≤ limsup μ_k <2/L。",
+    "experiments_or_examples": "Ex.6.1：可分离 PSF 图像去模糊（Challenge 2/[15]），GPA 与 TSVD、Tikhonov 及非负/[0,1] 约束对比；Ex.6.2：取自 [16] 的二维耦合小规模方程，比较 μ_up 与相对误差曲线；Ex.6.3：256×256 随机矩阵大规模方程，比较残差 r_k=∑‖A_i X(k)B_i−F_i‖_F。",
+    "limitations": "主收敛定理依赖相容性与唯一解；未给出指数收敛速率；去模糊 GPA 存在半收敛需提前停；结论明确对称/反对称/双对称/广义中心对称等结构约束下的推广仍为后续工作；数值实验主要为常步长小规模与中等规模矩阵。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在 Ding 等矩阵方程梯度/最小二乘迭代与增量、并行次梯度框架上，给出循环/同时两类算法并放宽步长上界，属有理论证明支撑的增量改进，而非新问题范式或全新理论。",
+    "inherited_foundations": [
+      "Ding–Chen 及 Ding 等关于 AXB=F 与耦合矩阵方程的梯度/最小二乘迭代与分层辨识思想",
+      "增量次梯度与并行次梯度方法框架",
+      "梯度投影算法及其 Lipschitz 步长收敛理论",
+      "矩阵方程唯一解的 Kronecker/vec 刻画（文中 Lemma 2.3）",
+      "与作者 A79 弱相关：按方程（行）循环使用与松弛参数分析的投影/迭代求解线性方程思想"
+    ],
+    "incremental_advances": [
+      "循环梯度迭代：每步只使用一个方程 A_{[k]}XB_{[k]}=F_{[k]}，L 取各方程谱半径乘积的最大值而非全体之和或块矩阵谱半径积",
+      "同时梯度迭代：各方程并行更新后以凸组合 w_i 融合，并给出 Fejér 单调收敛证明",
+      "相应最小二乘型循环/同时格式（μ∈(0,2)）",
+      "用更大收敛域解释并验证 Ding 等实验中“超出原 μ 上界仍收敛”的现象",
+      "将 GPA 用于带凸约束的 AXB=F 图像去模糊"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "MATLAB 算例复现 [16] 小系统并比较 μ_up 与相对误差",
+      "256×256 随机大规模矩阵残差曲线对比",
+      "去模糊中加入非负与 [0,1] 盒约束的重建对比"
+    ],
+    "comparison_basis": [
+      "A79（2012）《Exponential Convergence of a Randomized Kaczmarz Algorithm with Relaxation》",
+      "A69（2013）《A motion attention model based on rarity weighting and motion cues in dynamic scenes》",
+      "目标文相关工作：Ding et al. 梯度迭代 (1.5) 与最小二乘迭代 (1.6)；Ding–Chen 矩阵方程迭代；Huang/Liang/Peng 等结构约束矩阵方程迭代"
+    ],
+    "evidence_boundary": "overview、定理、实验与局限均仅依据 A66_2014/full.md 的 Abstract、§1–§7 与 Thm 3.1/4.1/4.2/5.1 及 Ex.6.1–6.3；创新性相对判断仅对照本地 A79、A69 与目标文引用的 Ding 等工作，未覆盖更广矩阵方程迭代文献；用户所给摘要锚点与全文 Abstract 不一致，事实以全文为准，未按错误锚点写入。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于矩阵方程梯度型迭代谱系：上承 Ding 等对 A_i X B_i=F_i 的块梯度/最小二乘迭代，并引入增量/并行次梯度的循环与同时实现以放宽步长域；与作者 A79 的 Kaczmarz 松弛指数收敛同属线性方程迭代但对象与证明技术不同（向量方程组投影 vs 矩阵方程梯度更新）；与 A69 运动注意模型无方法继承，仅时间线上并存、部分共同作者。",
+  "keywords": [
+    "矩阵方程",
+    "数值线性代数",
+    "循环迭代",
+    "同时迭代",
+    "梯度投影",
+    "增量次梯度",
+    "并行次梯度",
+    "收敛域",
+    "图像去模糊"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.681Z",
+  "comparison_ids": [
+    "A69",
+    "A79"
+  ]
+}

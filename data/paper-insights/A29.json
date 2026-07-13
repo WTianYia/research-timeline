@@ -1,0 +1,60 @@
+{
+  "id": "A29",
+  "title": "Relaxed Variable Metric Primal-Dual Fixed-Point Algorithm with Applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对两函数复合凸问题提出可超松弛的变度量原始对偶不动点算法 Rv_PDFP²O，统一若干已有 PDFP²O 型算法并建立弱收敛与速率结果。",
+    "research_problem": "求解 Hilbert 空间中的复合凸极小化 min f(x)+h(Lx)，其中 f 凸可微且梯度 Lipschitz 连续，h 为真闭凸函数，L 为有界线性算子；既有 PDFP²O 族算法的松弛参数多限于 (0,1]，步长/度量形式分散，希望在变度量框架下扩大松弛范围并加速迭代。",
+    "core_method": "将问题写为鞍点包含 0∈Au+Bu，构造预条件前向–后向分裂，得到变度量原始对偶迭代 Rv_PDFP²O：对偶步用尺度邻近算子 prox_{h*}^{P_k}，原步用度量矩阵 Q_k 处理 ∇f，再以松弛参数 ρ_k 作凸组合更新 (v,x)；适当选取 P_k、Q_k 可分别退化为 PDFP²O_AM、PDFP²O_DS 与经典 PDFP²O。",
+    "main_findings": [
+      "在假设 (A1)–(A4) 下，迭代序列关于 U_k^{-1} 度量到鞍点集单调下降，残差趋于零，并弱收敛到鞍点集 Ω 中的点（定理 1）。",
+      "在更大松弛参数下给出部分原始对偶间隙的 O(1/k) 遍历收敛率（定理 2），并在强单调等附加条件下得到线性收敛（定理 3）。",
+      "L2+TV 图像去模糊数值实验中，相对 ADMM、PDS、PDFP²O、PDFP²O_AM，Rv_PDFP²O 在相近 SNR 下通常以更少迭代达到相同相对误差阈值。"
+    ],
+    "theoretical_guarantee": "定理 1：在度量相容与 ρ_k 上界依赖 (4β−∥Q_k^{-1}∥_2)/(2β) 等条件下弱收敛；定理 2：部分原始对偶间隙的 O(1/k) 遍历界；定理 3：固定 P、Q 且 ∂h* 与 ∇f 强单调（或压缩型假设 (A7)）时线性收敛到唯一鞍点。",
+    "experiments_or_examples": "对平均模糊核加高斯噪声的 L2+TV 去模糊，测试 Text(256×256)、Barbara 与 Goldhill(512×512)，比较 ADMM、PDS、PDFP²O、PDFP²O_AM 与 Rv_PDFP²O；以相对误差 10^{-4}/10^{-6}/10^{-8} 为停机，报告 SNR 与迭代次数，并给出复原图像对比。",
+    "limitations": "结论明确指出尚未引入自适应步长与惯性加速；线性收敛需强单调或额外压缩假设；实验限于去模糊、以迭代次数与 SNR 为主，未系统报告 CPU 时间与更广应用。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对 PDFP²O/变度量谱系与前序 A40，本文主增量是在两函数设定下把超松弛与变度量（P_k,Q_k）并入统一迭代，扩大 ρ 的可行范围并补速率证明；框架与分析路径继承明显，不宜评为核心创新。",
+    "inherited_foundations": [
+      "PDFP²O 及邻近算子原始对偶不动点格式（Chen 等）",
+      "适应度量 PDFP²O_AM、动态步长 PDFP²O_DS 与变度量前向–后向分裂思想",
+      "鞍点包含的预条件 FBS 推导与平均算子收敛分析工具",
+      "遍历原始对偶间隙与强条件下线性速率的证明结构（与 A40 同类）"
+    ],
+    "incremental_advances": [
+      "给出允许 ρ 大于 1 的松弛区间，突破表 1 中多数 PDFP²O 型算法 ρ∈(0,1] 的设定",
+      "同时引入对偶侧 P_k 与原侧 Q_k 的变度量，并在统一格式下恢复 PDFP²O、PDFP²O_AM、PDFP²O_DS",
+      "在可超松弛参数下建立弱收敛、O(1/k) 遍历率与线性收敛"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "去模糊算例中沿用 Q=A^T A+ζL^T L 等度量选择，与 ADMM/PDS/PDFP²O/PDFP²O_AM 在相同相对误差阈值下比较 SNR 与迭代次数"
+    ],
+    "comparison_basis": [
+      "A40（2020）《Primal-dual fixed point algorithm based on adapted metric method for solving convex minimization problem with application》",
+      "目标文 Table 1 及 §3.2 所列 PDFP²O [19]、PDFP²O_AM [26]、PDFP²O_DS [27]、VMPD [23]、PAPC [24]、IPDFP²O [29]"
+    ],
+    "evidence_boundary": "overview、定理编号、实验设置与局限均来自 A29 全文 Abstract、§1、§3–§5；与 A40 的相对判断仅用于 innovation/lineage_position：A40 面向 f+g+h∘B 三函数 PDFP_AM（固定适应度量 Q），A29 面向 f+h∘L 两函数并可超松弛变度量。本地仅对照 A40 与目标全文，未覆盖更广 PDFP 文献全集；未把 A40 的三函数定理或数值写成 A29 结果。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于 PDFP²O→适应/变度量→速率分析这一谱系：A40 将适应度量 PDFP 推至三函数并给间隙与线性速率；A29 回到两函数 PDFP²O 线，用预条件 FBS 统一变度量并主打超松弛，是同谱系上的参数–度量扩展而非问题维数扩展。",
+  "keywords": [
+    "原始对偶",
+    "变度量",
+    "松弛参数",
+    "邻近算子",
+    "前向–后向分裂",
+    "原始对偶间隙",
+    "线性收敛",
+    "全变差去模糊"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.584Z",
+  "comparison_ids": [
+    "A40"
+  ]
+}

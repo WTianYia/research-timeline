@@ -1,0 +1,63 @@
+{
+  "id": "A35",
+  "title": "一种超松弛原始对偶不动点算法及其应用",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对两个凸函数和的复合优化问题，提出允许松弛参数大于1的超松弛原始对偶不动点算法Or-PDFP²O，并建立弱收敛、遍历收敛率与线性收敛率。",
+    "research_problem": "求解min f(x)+φ(Lx)，其中f可微凸且∇f满足Lipschitz连续，φ为正则下半连续凸函数，L为有界线性算子；原PDFP²O的松弛参数仅取(0,1]，限制了加速空间。",
+    "core_method": "构造与问题解等价的不动点算子T，在乘积空间M_G范数下证明T为(2β)/(4β−γ)-平均算子，据此将松弛参数上界由1扩大至(4β−γ)/(2β)，得到超松弛迭代Or-PDFP²O。",
+    "main_findings": [
+      "当γ∈(0,2β)时松弛参数可超过1，且γ越小可选超松弛区间越大。",
+      "在无穷维Hilbert空间证明迭代弱收敛，并给出鞍点间隙函数的遍历收敛率O(1/N)。",
+      "在∂φ*与∇f强单调假设下证明算子压缩及全局线性收敛。",
+      "全变分图像复原数值显示γ固定时松弛越大收敛越快，超松弛常优于α_k≤1，且在多种情形下迭代次数少于ADMM、PDS与PDFP²O。"
+    ],
+    "theoretical_guarantee": "定理1：α_k∈[0,(4β−γ)/(2β)]且满足发散条件时，序列关于不动点Fejér单调并弱收敛；定理2：遍历间隙O(1/N)；定理3–4：强单调条件下T压缩，固定松弛时线性收敛。",
+    "experiments_or_examples": "L2+TV图像去模糊复原（模型(44)）：实验1固定γ比较不同α_k；实验2与ADMM、PDS、PDFP²O、PDFP²O_AM比较SNR/SSIM与迭代次数，测试文本/人像/风景/静物及不同模糊核与噪声。",
+    "limitations": "步长依赖∇f的Lipschitz常数，未知时需经验选取；线性收敛需较强强单调假设；部分情形迭代次数多于需周期边界的PDFP²O_AM。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在Chen等PDFP²O框架上，以平均算子分析将松弛参数扩展至可超松弛区间，并补充遍历率与无穷维弱收敛，属同问题同范式上的有实质理论增量，但非新问题类或新分裂范式。",
+    "inherited_foundations": [
+      "复合模型min f(x)+φ(Lx)及PDFP²O原始对偶邻近迭代格式（Chen等）。",
+      "邻近算子、非扩张/平均算子不动点理论与Moreau恒等式。",
+      "与不精确前向-后向分裂、Condat原始对偶分裂等的联系。",
+      "A44同属PDFP²O谱系，亦含松弛Mann型迭代，但松弛仍限于(0,1)且主推动态步长。"
+    ],
+    "incremental_advances": [
+      "将α_k上界由1扩至(4β−γ)/(2β)>1，允许超松弛。",
+      "证明T在M_G范数下为(2β)/(4β−γ)-平均，支撑更大松弛。",
+      "在无穷维Hilbert空间给出弱收敛，并给出对PDFP²O族较新的遍历收敛率。",
+      "强单调条件下给出含超松弛情形的全局线性收敛。"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "全变分图像复原中系统比较α_k>1与α_k≤1及与ADMM/PDS/PDFP²O/PDFP²O_AM的迭代效率。",
+      "强调算法不依赖周期边界，应用范围宽于PDFP²O_AM。"
+    ],
+    "comparison_basis": [
+      "A44（2019）Efficient primal-dual fixed point algorithms with dynamic stepsize for composite convex optimization problems（目标文称PDFP²O_DS，文[20]）",
+      "目标文相关工作：Chen等PDFP²O[7]、PDFP²O_AM[19]、Condat PDS[24]、ADMM[21]、Wu等与不精确FB分裂的联系[25]"
+    ],
+    "evidence_boundary": "overview与定理/实验/局限均据A35全文Abstract、创新点归纳、第2节定理1–4与第3–4节核对；innovation相对比较仅对照本地A44全文及A35相关工作表述。未覆盖Chen2013等PDFP²O原文，故“遍历率对PDFP²O全新”等表述采目标文自述并限定为相对本地前序的增量判断；未把A44的动态步长定理或CT实验写入目标内容。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于Chen等PDFP²O主线：A44沿动态步长与(0,1)松弛扩展，A35沿固定步长下超松弛参数与平均性证明扩展，并补遍历率与无穷维分析，二者并行增量而非互相包含。",
+  "keywords": [
+    "原始对偶方法",
+    "不动点算法",
+    "邻近算子",
+    "超松弛",
+    "复合凸优化",
+    "平均算子",
+    "遍历收敛率",
+    "图像复原"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.600Z",
+  "comparison_ids": [
+    "A44"
+  ]
+}

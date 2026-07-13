@@ -1,0 +1,66 @@
+{
+  "id": "A7",
+  "title": "A Bregman Projection Algorithm Combining Korpelevich's Extragradient Method With Tseng's Extragradient Method for Solving Variational Inequality Problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在自反 Banach 空间中，将 Korpelevich 外梯度与 Tseng 外梯度结合，并配置双自适应步长、惯性外推与 Halpern 型更新，得到伪单调变分不等式的强收敛 Bregman 投影算法。",
+    "research_problem": "在自反 Banach 空间中求解伪单调且 Lipschitz 连续算子诱导的变分不等式，并在不预先精确已知 Lipschitz 常数的情形下获得强收敛。",
+    "core_method": "Algorithm 2：先作 Bregman 意义下的惯性外推，再以两次 Bregman 投影实现 Korpelevich 外梯度步，随后用 Tseng 型校正步更新；对两套步长做自调整，最后以 Halpern 型凸组合强制强收敛。",
+    "main_findings": [
+      "在 (a1)–(a7) 及 α、β、ε、ν 与 ρ_n/σ_n 等参数条件下，迭代序列强收敛到解集上的 Bregman 投影点",
+      "Hilbert 与 p 一致凸一致光滑 Banach 情形分别给出可直接实现的特例（Corollary 1–2）",
+      "L² 伪单调算例、不同 Bregman 距离、图像复原及 ℓ₃ 非 Hilbert 算例中，新算法在误差衰减、迭代次数或 SNR 上优于若干对比方法"
+    ],
+    "theoretical_guarantee": "Theorem 1：在解集非空、F 伪单调且 L-Lipschitz、弱序列连续，以及 h 为满足强强制性、一致凸等条件的 Legendre 函数时，若 lim δ_n/a_n=0 且参数满足 α/ε<1、νβ<1、εα+β/ν<1 与 lim ρ_n/σ_n<1−νβ，则 {s_n} 强收敛到 r=Π_{VI(D,F)}(u)；并给出序列有界与步长极限引理。",
+    "experiments_or_examples": "四组数值实验：例1 在 L²([0,1]) 上对 Volterra 型伪单调算子与四种初值比较 Xie 等及另一算法；例2 在单纯形上比较平方 Mahalanobis 与欧氏 Bregman 距离；例3 图像去模糊以 SNR 对比；例4 在 ℓ₃ 上比较迭代次数（约 21/39/51）。",
+    "limitations": "依赖伪单调、Lipschitz 与弱序列连续性；每步通常两次 Bregman 投影；强收敛依赖 Halpern 参数与多组步长约束；未给收敛速率；结论自述算例较简单；与扰动韧性/superiorization 等议题未衔接。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对 Hilbert 空间外梯度型工作，本文在自反 Banach–Bregman 框架下把 Korpelevich 与 Tseng 结构、双自适应与惯性外推整合并证明强收敛，属方法层面的显著扩展；核心构件多可溯至既有外梯度与 Xie 等 Hilbert 结果，不宜判为全新范式。",
+    "inherited_foundations": [
+      "Korpelevich 双投影外梯度骨架",
+      "Tseng 型单投影/校正外梯度思想",
+      "变分不等式伪单调–Lipschitz 分析框架",
+      "Bregman 距离与 Bregman 投影基本工具",
+      "惯性外推与自适应步长设计传统（Hilbert 情形外梯度文献，含 A54 所涉惯性/自适应外梯度脉络）"
+    ],
+    "incremental_advances": [
+      "将 Xie 等 Hilbert 空间双自适应 Korpelevich–Tseng 型格式推广到自反 Banach 空间",
+      "用 Bregman 投影替代正交投影，并在步长规则中引入 Bregman 距离与可调参数 ν、ε",
+      "以 Halpern 型迭代取代粘性型映射以获取强收敛，并给出 p-一致凸与 Hilbert 特例"
+    ],
+    "core_innovations": [
+      "面向伪单调 VIP 的 Korpelevich–Tseng 融合 Bregman 投影算法（Algorithm 2）及其在自反 Banach 空间中的强收敛定理"
+    ],
+    "implementation_or_experimental_changes": [
+      "相对对比算法调整双自适应初值与惯性/Halpern 参数",
+      "比较不同 Bregman 距离（SMD/SED）与图像复原 SNR、ℓ₃ 迭代次数等实现层表现"
+    ],
+    "comparison_basis": [
+      "A54（2017）《Bounded perturbation resilience of extragradient-type methods and their applications》",
+      "目标全文对 Korpelevich、Tseng 及 Xie et al. [22] Algorithm 的相关工作陈述（Remark 3、Introduction）"
+    ],
+    "evidence_boundary": "overview、定理条件、算例与局限均来自 A7 全文 Abstract/§3–§5；创新性仅相对本地前序 A54 及文内自述基线 Xie et al. 作比较，未系统覆盖更广外梯度–Bregman 文献；A54 的 BPR、O(1/t) 与信号处理实验不得记为目标论文结果。",
+    "confidence": 0.9
+  },
+  "lineage_position": "位于外梯度求解变分不等式谱系：A54 侧重 Hilbert 空间中 extragradient/subgradient extragradient 的有界扰动韧性、弱收敛与 O(1/t) 及惯性构造；A7 则沿 Korpelevich–Tseng 融合与双自适应惯性路线，转向自反 Banach 空间 Bregman 投影与强收敛算法设计，与 A54 同属外梯度家族但问题设定与技术目标分叉。",
+  "keywords": [
+    "变分不等式",
+    "外梯度",
+    "Bregman 投影",
+    "伪单调映射",
+    "强收敛",
+    "自反 Banach 空间",
+    "惯性外推",
+    "自适应步长",
+    "Tseng 外梯度",
+    "Korpelevich 方法"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.528Z",
+  "comparison_ids": [
+    "A54"
+  ]
+}

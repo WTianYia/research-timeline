@@ -1,0 +1,61 @@
+{
+  "id": "A61",
+  "title": "Several iterative algorithms for solving the split common fixed point problem of directed operators with applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对有向算子的分裂公共不动点问题，提出同步与两类循环-同步混合迭代算法，证明弱收敛并用于多集分裂可行性问题与数值比较。",
+    "research_problem": "在实 Hilbert 空间中，如何构造求解有向算子分裂公共不动点问题（SCFPP）的同步与循环-同步混合迭代格式，并在较弱假设下建立收敛保证；作为应用还需对应给出多集分裂可行性问题（MSSFP）的迭代方案。",
+    "core_method": "以有向算子性质为核心，构造同步权重平均格式（Algorithm 1）及内同步外循环、外同步内循环两类混合格式（Algorithm 2、3）；用 Fejér 单调性与 I−T 在 0 处 demiclosedness 证明弱收敛，并将算子取为正交投影得到 MSSFP 算法。",
+    "main_findings": [
+      "提出同步迭代（(3.1)），在 0<a≤γ_n≤b<2/λ 与 demiclosedness 下弱收敛到 SCFPP 解集",
+      "提出内同步外循环与外同步内循环两类混合迭代，同样得弱收敛",
+      "作为应用给出 MSSFP 的同步与混合投影迭代格式",
+      "数值例中两类混合算法迭代次数明显少于纯循环与纯同步方法"
+    ],
+    "theoretical_guarantee": "在解集非空、有向算子且 {U_i−I}、{T_j−I} 在 0 处 demiclosed、步长 0<a≤γ_n≤b<2/λ（λ=ρ(A*A)）及权重求和为 1 等条件下，Theorem 3.1、4.1、4.2 证明相应迭代序列弱收敛到 SCFPP 解；对应 Corollary 给出 MSSFP 的弱收敛。全文为弱收敛，未给强收敛。",
+    "experiments_or_examples": "第 5 节针对随机生成的 MSSFP（球与盒约束），在 MATLAB 下比较 Wang–Xu 循环法、同步法与两类混合法；停止准则 f(x)<10^{-5}，给出不同初值与规模下迭代次数表，结论为混合法表现更优。",
+    "limitations": "仅得弱收敛；需解集非空与 demiclosedness；算子限于有向算子；数值仅针对 MSSFP 投影特例且规模有限，未给收敛速率估计。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对 A67 已建立的多重分裂公共不动点问题上循环/同步迭代与弱收敛分析主线，A61 将算子类收窄为有向算子，主要增量在于提出循环与同步的混合组合格式并配套 MSSFP 数值比较，属同一技术线索上的结构组合与实验完善，而非新问题框架或收敛范式的核心突破。",
+    "inherited_foundations": [
+      "SCFPP/MSCFPP 问题形式与 Censor–Segal、Wang–Xu 等有向算子迭代思路",
+      "有向算子（cutter）定义、Fejér 单调性与 demiclosedness 证明工具",
+      "A67 已对 demicontractive 映射的多重 SCFPP 给出纯循环与纯同步两类格式及弱收敛"
+    ],
+    "incremental_advances": [
+      "针对有向算子的同步权重平均格式（无需 A67 中 Mann 型 α_n 松弛）",
+      "提出内同步外循环、外同步内循环两种混合迭代（A67 未给混合结构）",
+      "将上述格式特化为 MSSFP 的投影迭代并给出相应弱收敛推论"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "针对随机 MSSFP 算例系统比较循环、同步与两类混合算法的迭代次数与初值敏感性",
+      "停止准则与参数取值（如 γ_n=0.95/ρ(A*A)、f(x)<10^{-5}）属实验层设计"
+    ],
+    "comparison_basis": [
+      "A67（2014）《A cyclic and simultaneous iterative algorithm for the multiple split common fixed point problem of demicontractive mappings》",
+      "A61 自述前序：Censor–Segal 并行法、Wang–Xu 循环法及凸可行性问题中的同步/循环思想"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均仅依据 A61 full.md（Abstract、第3–5节定理/Corollary、Tables 1–8、Conclusion）；innovation 与 lineage_position 仅相对 A67 full.md 以及 A61 引言中的 Censor–Segal/Wang–Xu 等相关工作。未将 A67 定理或算法写入 A61 overview。判断受本地仅提供 A67 一篇前序的覆盖限制；若还有其他同期混合迭代文献，新颖性评级可能需下调。A61 参考文献未直接引用 A67，比较为用户指定的相对线索对照。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处于分裂公共不动点问题迭代算法线索：在 Censor–Segal、Wang–Xu 的有向算子 SCFPP 与 A67 的 demicontractive 循环/同步格式之后，A61 回到 directed 类并将循环与同步组合为混合迭代，再落地到 MSSFP 应用与数值验证。",
+  "keywords": [
+    "分裂公共不动点问题",
+    "有向算子",
+    "同步迭代",
+    "循环-同步混合迭代",
+    "多集分裂可行性问题",
+    "弱收敛",
+    "Fejér单调",
+    "demiclosedness"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.667Z",
+  "comparison_ids": [
+    "A67"
+  ]
+}

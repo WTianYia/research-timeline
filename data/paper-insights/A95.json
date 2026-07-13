@@ -1,0 +1,60 @@
+{
+  "id": "A95",
+  "title": "Note on some results for asymptotically pseudocontractive mappings and asymptotically nonexpansive mappings",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在Banach空间中研究带误差的修正Ishikawa与Mann迭代对渐近伪压缩与渐近非扩张映射的收敛性，并去掉定义域与值域有界性假设以推广Chang的结果。",
+    "research_problem": "对渐近伪压缩与渐近非扩张映射，如何在不要求定义域与值域有界的条件下，建立带误差的修正Ishikawa与Mann迭代序列的收敛定理，从而推广Chang的相应结果。",
+    "core_method": "采用带误差的修正Ishikawa迭代（及Mann特例），利用一致L-Lipschitz与渐近伪压缩性质、正规对偶映射及Kato型不等式估计距离递推，再结合非负序列引理证明极限存在与强收敛。",
+    "main_findings": [
+      "在sum(k_n−1)<∞及步长条件（含sum γ_n<∞、sum α_n²<∞等）下，对任意不动点q，||x_n−q||的极限存在（Lemma 2.1）。",
+      "在一致光滑Banach空间中，带误差修正Ishikawa迭代强收敛于不动点q当且仅当存在满足条件(*)的严格增函数φ（Theorem 2.2）。",
+      "相对Chang的定理，可去掉定义域D有界的限制；相应Mann型与渐近非扩张情形亦可类似去掉有界性。",
+      "全文为纯理论注记，无数值实验。"
+    ],
+    "theoretical_guarantee": "Lemma 2.1保证||x_n−q||极限存在；Theorem 2.2在一致光滑空间与φ条件(*)下给出强收敛及其必要性；Remark 2.3说明可去掉Chang结果中D有界假设。",
+    "experiments_or_examples": "无数值实验与算例，全文为定理—证明型理论工作。",
+    "limitations": "属注记型推广，Theorem 2.2证明后半部分直接援引Chang；需F(T)非空、sum(k_n−1)<∞及较强步长可和条件；未处理投影/可行性型约束问题。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 2,
+    "verdict": "在Chang的渐近伪压缩/非扩张迭代框架上，主要增量是去掉定义域与值域有界性并补全带误差迭代的估计，属条件放宽型增量改进而非新算法或新映射类的核心突破。",
+    "inherited_foundations": [
+      "渐近非扩张、渐近伪压缩与一致L-Lipschitz映射定义及它们之间的蕴含关系",
+      "带误差的修正Ishikawa/Mann迭代格式",
+      "Chang关于渐近伪压缩与渐近非扩张映射的收敛定理结构与证明思路",
+      "正规对偶映射、Kato不等式及非负序列极限引理"
+    ],
+    "incremental_advances": [
+      "在sum(k_n−1)<∞与步长条件下，证明||x_n−q||极限存在且不依赖D有界",
+      "将Chang型强收敛充要条件推广到定义域不必有界的情形",
+      "明确与Osilike–Akuchu关于一族映射公共不动点工作的问题设定差异"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "Chang S. S. (2001), Some results for asymptotically pseudo-contractive mappings and asymptotically nonexpansive mappings, Proc. Amer. Math. Soc. 129:845–853（目标文[1]，被直接推广）",
+      "Osilike & Akuchu (2004), Common fixed points of a finite family of asymptotically pseudo-contractive maps, Fixed Point Theory Appl.（目标文[3]，用于划界比较）",
+      "目标文Abstract与Remark 2.3关于去掉有界性、推广Chang定理的自述（本地无前序全文）"
+    ],
+    "evidence_boundary": "overview、定理与无实验等判断均直接对照A95_2006/full.md的Abstract、§1–§2与References；创新幅度主要依据目标文对Chang[1]与Osilike–Akuchu[3]的陈述及“rest of the proof is the same as Chang”的写法，因本地无前序全文，相对新颖性置信度受限，未把作者自述单独当作核心创新证据。",
+    "confidence": 0.74
+  },
+  "lineage_position": "处于Banach空间中渐近伪压缩/渐近非扩张映射的Ishikawa–Mann迭代谱系，定位为对Chang(2001)结果的有界性条件放宽与带误差情形注记推广。",
+  "keywords": [
+    "不动点",
+    "迭代法",
+    "渐近伪压缩映射",
+    "渐近非扩张映射",
+    "修正Ishikawa迭代",
+    "修正Mann迭代",
+    "带误差迭代",
+    "一致L-Lipschitz",
+    "强收敛",
+    "Banach空间"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.736Z",
+  "comparison_ids": []
+}

@@ -1,0 +1,66 @@
+{
+  "id": "A40",
+  "title": "Primal-dual fixed point algorithm based on adapted metric method for solving convex minimization problem with application",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三项复合凸最小化，构造带适应度量的原始对偶不动点算法 PDFP_AM，并给出全局收敛与两类收敛速率。",
+    "research_problem": "求解 min f(x)+g(x)+h(Bx)，其中 f 可微且梯度 Lipschitz，g、h 为真下半连续凸函数、邻近友好，B 为线性算子；目标是在原始对偶不动点框架中引入适应度量以利用二阶信息并加速迭代。",
+    "core_method": "建立含正定矩阵 Q 的新不动点刻画，给出算法 PDFP_AM：在度量诱导范数下对 g∘Q^{-1} 做两次邻近映射，对偶步用 I−prox_{(1/λ)h}；以 (Q^{-1})² 近似 f 的二阶信息，使迭代可分析且在 g=0 时退化为 PDFP²O_AM、Q 取标量时退化为 PDFP。",
+    "main_findings": [
+      "提出 PDFP_AM，在乘积空间范数 ||·||_{λ,Q²} 下证明不动点算子准非扩张并得全局收敛",
+      "给出原始对偶间隙意义下的遍历速率 O(1/N)，并在附加假设下得线性收敛",
+      "约束 TV 图像去模糊中，与 Combettes–Pesquet、Condat–Vũ、PDFP、PD³O 相比，在相近 SNR/SSIM 下通常迭代次数更少"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：在 0<λ<1/λ_max(B(Q^{-1})²Bᵀ)、||Q^{-1}||₂<√(2β) 下，序列 Fejér 单调并收敛到 T 的不动点，原变量收敛到 (1.1) 的解。Theorem 4.1：在更严的 ||Q^{-1}||₂≤√β 下，遍历对 (Xᴺ,Vᴺ) 的原始对偶间隙 ≤(1/(2N))(||x⁰−x||_{Q²}²+(1/λ)||v⁰−v||²)。Theorem 4.2：在条件 (A1) 且 h* 强凸时，加权范数下线性收敛。",
+    "experiments_or_examples": "约束 TV 去模糊（平均模糊核+高斯噪声），测试图 Text/Barbara/Boat；指标 SNR、SSIM 与相对误差停机；Q=KᵀK+ζBᵀB（ζ=0.1，周期边界 FFT）；Table 2 显示高精度下 Algorithm 1 迭代数常最少。",
+    "limitations": "尺度邻近映射 prox_{g∘Q^{-1}} 一般难闭式计算、实践需近似；Q 为固定矩阵而非逐次变度量；线性速率依赖 (A1) 与 h* 强凸；实验以迭代次数为主，SNR/SSIM 与对比算法接近。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "在 PDFP/PDFP²O_AM 谱系上将适应度量推广到含 g 的三项模型，并以新不动点与准非扩张分析补齐全局收敛及遍历/线性速率，相对动态步长两函数 PDFP 线为显著扩展而非全新范式。",
+    "inherited_foundations": [
+      "三项问题与 PDFP 双邻近结构（Chen 等）",
+      "g=0 时的适应度量 PDFP²O_AM 思想",
+      "邻近算子、cocoercivity 与原始对偶鞍点框架",
+      "Condat–Vũ、PD³O 等一阶原始对偶分裂背景"
+    ],
+    "incremental_advances": [
+      "用 (Q^{-1})² 近似二阶信息，使显式适应度量迭代可作准非扩张与收敛分析",
+      "统一退化为 PDFP 与 PDFP²O_AM 并给出参数对应",
+      "相对两函数动态步长路线，转向三项模型的度量预处理"
+    ],
+    "core_innovations": [
+      "含 Q 的三项问题新不动点方程（Lemma 3.1）及 ||·||_{λ,Q²} 下准非扩张不等式（Lemma 3.2）",
+      "该算法类上原始对偶间隙的遍历速率（Theorem 4.1，文中称此前未见）"
+    ],
+    "implementation_or_experimental_changes": [
+      "去模糊实验与 Q=KᵀK+ζBᵀB 的 FFT 实现",
+      "与多种一阶原始对偶算法在迭代数、SNR、SSIM 上对比"
+    ],
+    "comparison_basis": [
+      "A44（2019）Efficient primal-dual fixed point algorithms with dynamic stepsize for composite convex optimization problems",
+      "Chen 等 PDFP / PDFP²O / PDFP²O_AM",
+      "Condat–Vũ、Combettes–Pesquet、Yan PD³O 等文中相关工作"
+    ],
+    "evidence_boundary": "overview 与理论/实验均来自 A40 全文 Abstract、§1 贡献、Algorithm 1、Lemma 3.1–3.2、Theorem 3.1/4.1/4.2、§5–§6；创新比较仅相对 A44 与 A40 自述相关工作。本地未覆盖全部 PDFP 变体原文，未核对作者自述“遍历速率全新”的外部优先权；A40 与 A44 为同谱系并行扩展（三项+度量 vs 两项+动态步长），非直接父子继承。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于 Chen 等 PDFP/PDFP²O_AM 的适应度量与三项分裂主线上：将 g=0 的度量加速推广到 f+g+h∘B 并补全收敛与速率；与 A44 的 PDFP²O 动态步长/Mann 松弛线并行，同属原始对偶不动点族但问题维与加速机制不同。",
+  "keywords": [
+    "原始对偶",
+    "变度量",
+    "适应度量",
+    "邻近算子",
+    "不动点算法",
+    "复合凸优化",
+    "前向后向分裂",
+    "图像去模糊",
+    "遍历收敛速率"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.613Z",
+  "comparison_ids": [
+    "A44"
+  ]
+}

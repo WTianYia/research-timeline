@@ -1,0 +1,63 @@
+{
+  "id": "A27",
+  "title": "A fast inertial primal-dual algorithm to composite optimization models with application to image restoration problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出融合 Condat 原始对偶分裂与 MFISTA 型惯性加速的 FIPD，求解光滑项加两非光滑项的三函数复合问题，并证明目标函数残差可达 o(1/k²)。",
+    "research_problem": "求解 min F(x)+G(x)+H(Bx)：F 光滑且梯度 Lipschitz，G、H 为可邻近的非光滑凸函数，B 为有界线性算子；已有 Condat/Vu 等分裂法收敛偏慢，需在保持全分裂的同时加速。",
+    "core_method": "FIPD（Algorithm 3）：用 t_k=(p+√(q+r t_{k-1}²))/2 生成惯性系数 α_k=(t_{k-1}-1)/t_k，对原始—对偶变量做惯性外推后执行 prox_τG 与 prox_σH* 的 PDS 型更新并加松弛；α_k=0 退化为 Condat PDS，H=0 退化为 MFISTA。",
+    "main_findings": [
+      "在 r=4 及 p、q 等条件下，目标残差 Ψ(x_k)−Ψ(x*) 具有 O(1/k²) 界，并可加强为 o(1/k²)。",
+      "在步长与松弛、惯性上界满足惯性 Krasnosel'skii–Mann 型条件下，{x_k} 收敛到问题(1.1)的解。",
+      "TV 去噪与约束 l₂+TV 去模糊中，FIPD 相对 PDS 通常以更少迭代与更短 CPU 时间达到相近 SNR/SSIM。"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：在 1/τ−σ‖B‖²>β/2 及 r=4、p∈(0,1]、q 满足相应条件时给出 Ψ(x_k)−Ψ(x*)≤(2β/(p²(k+1)²))‖x_0−x*‖²，并可证 o(1/k²)；Theorem 3.2：同型步长下结合 α_k 有界与松弛区间条件，证 {x_k} 收敛到解（证明将迭代写成 Z_P 上平均/非扩张算子的惯性松弛格式）。",
+    "experiments_or_examples": "约束 TV 去噪（Lena/Boat，噪声 0.05/0.1）与 7×7 均值模糊+高斯噪声去模糊（Lena/Barbara，512×512）；对照 Condat PDS；停机为相对迭代差≤ε（10⁻³/10⁻⁴）或达最大迭代；指标为时间、迭代数、SNR（去模糊另报 SSIM）；参数 p=0.05、q=0.7 等。",
+    "limitations": "步长依赖 ‖B‖ 与 Lipschitz 常数；数值仅与 PDS 对比，未对照其他加速原始对偶法；大噪声时 PDS 偶可获更高 SNR；速率分析依赖 FISTA 型参数与特定松弛设定；引言对 B 的可逆/酉型表述与实验中离散梯度算子不完全一致。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对 A32/A47 的惯性原始对偶谱系，A27 的实质增量是把 MFISTA 型 t_k 惯性嵌入 Condat 三函数 PDS，并补上目标函数 o(1/k²) 速率；分裂骨架与弱收敛工具仍沿 Condat 与惯性 KM，故属增量改进而非核心新框架。",
+    "inherited_foundations": [
+      "Condat PDS（及 Chambolle–Pock、Vu 等）对 F+G+H(Bx) 的原始对偶邻近分裂与 Z_P 平均算子结构",
+      "Liang 等 MFISTA 的 t_k 惯性规则与 o(1/k²) 目标残差分析技巧",
+      "惯性 Krasnosel'skii–Mann/非扩张算子收敛框架（A32、A47 同线亦用）"
+    ],
+    "incremental_advances": [
+      "在 Condat 型三函数模型上给出 FISTA/MFISTA 式单惯性原始—对偶外推（FIPD），使 α_k=0 退化为 PDS、H=0 退化为 MFISTA",
+      "相对 A32/A47 仅弱收敛，补证目标函数值 O(1/k²)/o(1/k²) 最坏情形速率",
+      "相对 A47 的双惯性（α_k,β_k）与 PD3O 基干，改为单惯性+显式加速参数日程并面向 Condat 速率分析"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "去噪与去模糊数值设定及与 PDS 的时间/迭代/SNR(SSIM) 对照",
+      "p、q、τ、σ 等参数选取（参照 Liang 与 Wen 等）"
+    ],
+    "comparison_basis": [
+      "A32（2022）《An inertial primal-dual fixed point algorithm for composite optimization problems》",
+      "A47（2019）《A Two-Step Inertial Primal-Dual Algorithm for Minimizing the Sum of Three Functions》",
+      "目标文相关工作与特例：Condat PDS、Chambolle–Pock、Liang MFISTA"
+    ],
+    "evidence_boundary": "overview、定理与实验均据 A27 full.md 摘要/§3–§5 与 Table 1–2；创新比较仅相对本地 A32、A47 全文及目标文自引分裂法，未覆盖该线全部加速原始对偶文献；MinerU 算法框与定理处有排版错位，速率条件中松弛参数表述以正文证明为主解读，未外推未出现的更强结论。",
+    "confidence": 0.86
+  },
+  "lineage_position": "处于 A47（双惯性+PD3O，仅收敛）—A32（多复合非光滑惯性固定点+预条件，仅收敛）之后：回到 Condat 光滑+两非光滑模型，用 MFISTA 型惯性换取 o(1/k²) 目标速率与相对 PDS 的加速实证。",
+  "keywords": [
+    "原始对偶",
+    "图像复原",
+    "惯性方法",
+    "快速惯性",
+    "邻近算子",
+    "复合优化",
+    "收敛速率",
+    "全变差",
+    "FIPD"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.579Z",
+  "comparison_ids": [
+    "A32",
+    "A47"
+  ]
+}

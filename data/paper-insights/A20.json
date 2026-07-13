@@ -1,0 +1,63 @@
+{
+  "id": "A20",
+  "title": "An accelerated forward-backward-half forward splitting algorithm for monotone inclusion with applications to image restoration",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "对三算子单调包含提出单步惯性前向-后向-半前向分裂算法，建立弱收敛，并经原对偶推广至复合包含与TV图像去模糊。",
+    "research_problem": "在Hilbert空间中求0∈Ax+Bx+Cx，其中A极大单调，B单值单调（Lipschitz或仅连续），C为β-余强制，并处理含L*BL的复合包含及复合凸优化。",
+    "core_method": "Algorithm 1（IFBHF）：惯性外推w_k=z_k+α_k(z_k−z_{k−1})，再做FBHF步x_k=J_{γ_k A}(w_k−γ_k(B+C)w_k)、z_{k+1}=x_k+γ_k(Bw_k−Bx_k)；B仅连续时用线搜索取步长；复合问题经原对偶改写为同结构后迭代（29）（31）。",
+    "main_findings": [
+      "B为L-Lipschitz且γ_k∈[η,χ−η]、α_k非减并满足显式上界时，{z_k}弱收敛到zer(A+B+C)",
+      "B仅连续且线搜索选γ_k时，在liminf γ_k>0或B在弱紧集上一致连续条件下亦弱收敛",
+      "原对偶形式给出复合包含（26）与min f+g(Lx)+h的弱收敛迭代",
+      "TV约束去模糊实验中IFBHF相对FBHF迭代更少、SNR更高、NMSD更低"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：两种B设定下弱收敛；Theorem 4.1与Corollary 4.1将结论迁至复合包含与复合凸优化。未给出收敛速率或强收敛。",
+    "experiments_or_examples": "四幅512×512图、四种模糊噪声情景；α多取0.8（Boat取0.7），γ∈{0.01,0.03,0.05,0.07}，与FBHF对比NMSD/SNR/迭代/CPU；相对误差≤5×10^{-4}或最多4000步。",
+    "limitations": "仅弱收敛、无速率；实验只对照原FBHF；α=1数值失败；复合应用与实验场景较窄；全文未与多步惯性FBHF系统对照。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在FBHF上嵌入标准单步惯性并给出α上界型弱收敛与原对偶应用，属同脉络增量推进；相对A28，算法对应其s=1特例，主要增量在非可和性条件下的单步分析与更集中的去模糊验证，未构成框架级核心创新。",
+    "inherited_foundations": [
+      "Briceño-Arias–Davis的FBHF算子分裂与固定点估计",
+      "惯性外推（Alvarez–Attouch/Lorenz–Pock/Padcharoen等）",
+      "原对偶全分裂改写复合包含（Briceño-Arias–Combettes）",
+      "A28将多步惯性与FBHF结合，并已把单步惯性FBHF列为特例"
+    ],
+    "incremental_advances": [
+      "系统给出单步IFBHF，并在α非减且有显式上界（依赖μ或κ）下证弱收敛，避免经典∑α_k‖z_k−z_{k−1}‖²可和性条件",
+      "同步覆盖B仅连续时的线搜索步长情形",
+      "将结果专用于较简复合模型A+L*BL+C及min f+g(Lx)+h"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "TV去模糊上系统扫α、γ，报告相对FBHF的SNR/NMSD/迭代/时间优势",
+      "实验基线仅FBHF，未纳入A28等多步或其他原对偶加速法"
+    ],
+    "comparison_basis": [
+      "A28（2023）Multi-step inertial forward-backward-half forward algorithm for solving monotone inclusion",
+      "目标文所依FBHF：Briceño-Arias & Davis",
+      "目标文相关惯性与原对偶文献：Lorenz–Pock、Boţ–Csetnek、Padcharoen等、Briceño-Arias–Combettes"
+    ],
+    "evidence_boundary": "overview与理论/实验事实均锚定A20全文Abstract、§3–§6及Theorem 3.1/4.1、Corollary 4.1、Tables 2–6；创新比较仅对照本地A28全文（含Remark 3.1(ii)单步特例与可和性条件Theorem 3.5）。未核对两文互引/预印本时序，也未覆盖领域全部FBHF–惯性文献，故不声称全局首创。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于FBHF三算子分裂与惯性加速谱系：以单步惯性强化FBHF；相对同作者更早的多步惯性A28，相当于其s=1分支，但用α上界条件替代可和性条件，并走向复合凸优化与TV图像复原应用。",
+  "keywords": [
+    "前向-后向-半前向分裂",
+    "惯性加速",
+    "单调包含",
+    "余强制算子",
+    "原对偶方法",
+    "复合凸优化",
+    "线搜索",
+    "全变差图像去模糊"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.561Z",
+  "comparison_ids": [
+    "A28"
+  ]
+}

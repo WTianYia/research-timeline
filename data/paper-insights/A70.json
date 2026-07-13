@@ -1,0 +1,63 @@
+{
+  "id": "A70",
+  "title": "Iterative algorithms for finding minimum-norm fixed point of nonexpansive mappings and applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在Hilbert空间一般闭凸集上，将Krasnoselskii–Mann迭代与投影型最小范数格式结合，给出隐式与显式两类算法并证明强收敛到非扩张映射的最小范数不动点，进而应用于约束凸优化与分裂可行性问题。",
+    "research_problem": "当非扩张映射可能有多个不动点时，如何在一般闭凸集C上构造迭代序列，强收敛地逼近其唯一最小范数不动点x^*=P_{Fix(T)}0，并用于约束凸优化与分裂可行性问题的最小范数解。",
+    "core_method": "提出两类算法：隐式格式x_t=(1-α)x_t+αP_C((1-t)Tx_t)；显式格式x_{n+1}=(1-α_n)x_n+α_nP_C((1-t_n)Tx_n)。将Krasnoselskii–Mann凸组合与Yao–Xu/Cui–Liu型投影收缩相结合，用半闭原理、有界序列引理与Xu型不等式证明强收敛。",
+    "main_findings": [
+      "隐式网{x_t}在t→0+时强收敛到非扩张映射T的最小范数不动点",
+      "显式迭代在lim t_n=0、∑t_n=∞及α_n有正上下界远离0与1时，强收敛到同一最小范数不动点",
+      "将结果迁移到梯度投影框架，得到约束凸优化问题最小范数解的隐式/显式逼近",
+      "对分裂可行性问题给出可变步长的KM–CQ型迭代，并强收敛到最小范数解"
+    ],
+    "theoretical_guarantee": "Theorem 3.1：C闭凸、T:C→C非扩张且Fix(T)≠∅时，隐式不动点网{x_t}强收敛到x^*=P_{Fix(T)}0。Theorem 3.2：显式迭代在参数条件(i) lim t_n=0且∑t_n=∞、(ii) 0<liminf α_n≤limsup α_n<1下强收敛到x*。Theorem 4.1–4.2将上述结论分别用于∇f为L-Lipschitz的约束凸最小化及一致的SFP，得到相应最小范数解的强收敛。",
+    "experiments_or_examples": "全文无数值实验或算例；第4节以约束凸优化与分裂可行性问题作为理论应用，给出相应迭代格式与强收敛推论，无具体数据或数值比较。",
+    "limitations": "框架限于实Hilbert空间与非扩张自映射；显式算法要求α_n有严格正上下界且t_n满足发散与趋于零；应用部分依赖梯度Lipschitz或算子谱半径已知型步长条件；无数值验证，实际收敛速度与参数选取效果未检验。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A78及已有投影型最小范数格式，A70的主要增量是在一般闭凸集上把KM组合与P_C((1-t)Tx)结合，并给出更灵活的非定常参数与应用推论；问题设定、证明工具与应用对象高度沿袭既有路线，尚不构成核心创新或显著理论跃迁。",
+    "inherited_foundations": [
+      "最小范数不动点问题及x^*=P_{Fix(T)}0的几何刻画",
+      "非扩张映射半闭原理、Suzuki有界序列引理与Xu递推引理等标准收敛工具",
+      "Yao–Xu、Cui–Liu的投影修正Browder/Halpern型最小范数格式及Yang等的松弛形式",
+      "约束凸优化的梯度投影不动点刻画与Byrne CQ算法及其Halpern/KM型强收敛变体"
+    ],
+    "incremental_advances": [
+      "相对A78的闭凸锥（或0∈C）设定，A70在一般闭凸集C上用投影保证迭代良定",
+      "算法结构改为KM凸组合+P_C((1-t)Tx)，投影作用位置与Yang等格式不同，并允许非定常α_n",
+      "显式算法参数分离为{α_n}与{t_n}，条件表述为α_n远离0、1而t_n承担正则化角色",
+      "SFP应用中强化到最小范数解并允许可变步长，同时去掉部分|α_{n+1}-α_n|型条件"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实验；应用部分是把主定理直接替换为P_C(I-μ∇f)或CQ算子后的理论推论"
+    ],
+    "comparison_basis": [
+      "A78（2012）Iterative algorithms for minimum-norm fixed point of non-expansive mapping in Hilbert space",
+      "目标文引言与主结果中对Yao–Xu、Cui–Liu、Yang et al. 算法(1.5)–(1.8)的对比定位",
+      "目标文Remark 4.1对Xu、Wang–Xu、Dang–Gao关于SFP结果的改进说明"
+    ],
+    "evidence_boundary": "overview、定理条件、应用与局限均直接对照A70全文Abstract、§1算法(1.9)(1.10)、§3 Theorem 3.1–3.2、§4 Theorem 4.1–4.2与Remark 4.1；创新性比较仅相对本地A78全文及A70自引相关工作，未系统覆盖更早Halpern/Browder线及同期全部最小范数不动点文献，故“核心创新”判定持保守态度。",
+    "confidence": 0.9
+  },
+  "lineage_position": "处于Hilbert空间非扩张映射最小范数不动点强收敛迭代这一支线：在Yao–Xu/Cui–Liu投影型格式与Yang等松弛格式之后，与作者同年前后的A78（锥域无投影缩放格式）构成并行拓展；A70侧重一般闭凸集上的KM–投影混合格式，并将同一思路下推至约束凸优化与分裂可行性问题的最小范数解。",
+  "keywords": [
+    "最小范数不动点",
+    "非扩张映射",
+    "Krasnoselskii–Mann迭代",
+    "投影算子",
+    "强收敛",
+    "约束凸优化",
+    "分裂可行性问题",
+    "Hilbert空间"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.692Z",
+  "comparison_ids": [
+    "A78"
+  ]
+}

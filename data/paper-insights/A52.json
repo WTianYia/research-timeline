@@ -1,0 +1,64 @@
+{
+  "id": "A52",
+  "title": "L. Dong, Y. C. Tang, Y. J. Cho, Th. M. Rassias. \"Optimal\" choice of the step length of the projection and contraction methods for solving the split feasibility problem",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "利用分裂可行性问题底层算子的逆强单调性，改进投影收缩法的“最优”步长，提出修正投影收缩法及其松弛变体，并建立收敛定理与数值验证。",
+    "research_problem": "将一致的分裂可行性问题等价为变分不等式后，经典投影收缩法中由单调Lipschitz假设导出的步长ρ_k对SFP未必最优，如何利用算子结构放大可行步长并保证收敛。",
+    "core_method": "以F=A^T(I−P_Q)A为梯度算子，采用预测—校正两步投影收缩框架；预测步线搜索确定α_k，校正步用含残差项的放大步长ρ_k更新，并给出半空间松弛变体。",
+    "main_findings": [
+      "在ρ_k分子中引入α_k‖(I−P_Q)A(y^k)‖^2项，得到比一般变分不等式最优步长更大且仍可证明的SFP专用“最优”步长",
+      "修正投影收缩法I/II在解集非空时，迭代序列在有限维空间中收敛到SFP的某个解，并具有更强的Fejér收缩性",
+      "当C、Q为凸函数水平集时，半空间松弛修正投影收缩法I/II在(A1)(A2)下同样收敛",
+      "随机球—盒SFP与LASSO算例中，修正/松弛修正方法在迭代次数与精度上显著优于原投影收缩法及若干CQ类算法"
+    ],
+    "theoretical_guarantee": "定理4.1–4.2：解集Γ非空时，修正PC法I/II生成序列Fejér单调并收敛到SFP解；定理5.1–5.2：在C、Q为水平集且子梯度可计算的(A1)(A2)下，松弛修正PC法I/II同样收敛。收敛为有限维意义下到某一解的收敛，非指定最近点投影。",
+    "experiments_or_examples": "例6.1随机矩阵球约束—盒约束SFP，比较MPCM I/II与PCM、LMWX直接步长CQ、Armijo型CQ及下降投影法；例6.2将LASSO写成SFP并用子梯度投影实现MRPCM I/II，报告不同稀疏度K与容差下的误差与内外迭代次数。",
+    "limitations": "理论设定在有限维R^N×R^M，且假设解集非空；所得为到某一解的收敛而非最小范数/最佳逼近解；精确投影难算时依赖水平集结构与子梯度；文末指出最优步长策略向其他SFP变分不等式形式及一般逆强单调问题的推广仍待研究。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 4,
+    "verdict": "相对一般变分不等式投影收缩框架，本文针对SFP算子的逆强单调结构给出可证明更大的校正步长，并配套松弛变体与数值比较，属对既有PC方法在SFP上的显著扩展，而非全新算法范式。",
+    "inherited_foundations": [
+      "SFP的CQ/投影梯度表述及F=A^T(I−P_Q)A的Lipschitz与1/L-逆强单调性",
+      "He–Sun投影收缩两步框架及Cai等对一般单调Lipschitz变分不等式“最优”步长ρ_k的分析",
+      "线搜索型步长条件与半空间松弛投影技术（C、Q为水平集时）",
+      "外梯度法、Tseng法及既有SFP下降—投影类迭代的比较背景"
+    ],
+    "incremental_advances": [
+      "将校正步长由一般VI的ρ_k放大为含可行性残差α_k‖(I−P_Q)A(y^k)‖^2的SFP专用形式",
+      "据此建立修正PC法I/II的收缩不等式与收敛证明，并建议γ∈[1,2)",
+      "给出水平集设定下的修正松弛PC法I/II及相应收敛定理"
+    ],
+    "core_innovations": [
+      "利用SFP底层算子逆强单调性，严格导出比Cai型“最优”步长更大的可行校正步长，并证明由此获得更强Fejér收缩性"
+    ],
+    "implementation_or_experimental_changes": [
+      "球—盒随机SFP与LASSO稀疏恢复算例中系统对比修正/松弛修正PC与原PC、直接步长CQ及Armijo型方法",
+      "报告外迭代、线搜索内迭代与重构误差等计算指标"
+    ],
+    "comparison_basis": [
+      "A59（2016）Iterative methods of strong convergence theorems for the split feasibility problem in Hilbert spaces",
+      "目标全文对He/Sun PC法、Cai等最优步长、Byrne CQ、López等直接步长、Qu–Xiu Armijo型、Bnouhachem下降投影法及Yang/Zhao松弛外梯度等相关工作的综述与对照"
+    ],
+    "evidence_boundary": "overview与定理、算例、局限均来自A52_2018/full.md全文；创新性比较主要对照指定前序A59_2016/full.md及目标文内已引用的PC/CQ相关工作。A59属无限维Hilbert空间上强收敛至P_Ωu的Mann–Halpern–CQ型路线，与A52的有限维投影收缩加速路线并行，二者算法骨架不直接继承；更广未收录文献未纳入比较，故对“领域内绝对新颖性”的判断受本地文献覆盖限制。",
+    "confidence": 0.9
+  },
+  "lineage_position": "同属分裂可行性迭代求解谱系：A59沿CQ算子与Halpern/Mann混合追求无限维强收敛与最佳逼近解；A52转向变分不等式投影收缩框架，聚焦SFP结构下校正步长的可放大“最优”选取及半空间松弛实现，是SFP数值型投影方法支线上的步长强化工作。",
+  "keywords": [
+    "分裂可行性",
+    "投影收缩法",
+    "修正投影收缩法",
+    "最优步长",
+    "逆强单调",
+    "松弛投影",
+    "CQ方法",
+    "变分不等式"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.644Z",
+  "comparison_ids": [
+    "A59"
+  ]
+}

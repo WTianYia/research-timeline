@@ -1,0 +1,53 @@
+{
+  "id": "A12",
+  "title": "A novel adaptive non-convex TV^{p,q} model in image restoration",
+  "source_mode": "abstract_only",
+  "overview": {
+    "one_sentence_contribution": "在仅有标题、期刊元数据与高度概括摘要的条件下，该文面向图像重建/复原/去噪或增强，研究优化模型与数值算法，标题指向自适应非凸 TV^{p,q} 图像复原模型。",
+    "research_problem": "如何将优化模型与数值算法用于图像重建、复原、去噪或增强（摘要仅给出任务层面描述，未展开具体退化模型或病态反问题设定）。",
+    "core_method": "摘要仅表明采用优化模型与数值算法；由标题可知研究对象为自适应非凸 TV^{p,q} 模型，但参数自适应机制、正则项构造与求解算法均无法在本地目标全文中核对。",
+    "main_findings": [
+      "可确认的主题为图像复原语境下的自适应非凸 TV^{p,q} 建模（来自标题与元数据）。",
+      "摘要只陈述优化模型与数值算法用于图像重建/复原/去噪或增强，未给出可核对的定量结论。",
+      "本地无目标全文，无法核实相对既有 TV 型模型的具体优势表述。"
+    ],
+    "theoretical_guarantee": "本地无目标全文，无法定位适定性、收敛性、误差界或相关定理的任何原文表述。",
+    "experiments_or_examples": "本地无目标全文，无法核对实验设置、对比方法、数据集、评价指标或数值结果。",
+    "limitations": "目标论文无本地全文；可用信息仅限标题、作者与期刊卷期页码，以及高度概括的摘要和既有关键词“图像复原”，故方法细节、理论结果与实验表现均无法基于原文核验。"
+  },
+  "innovation": {
+    "classification": "证据不足",
+    "score": 2,
+    "verdict": "相对前序 A15 的分数阶非凸 TV^{α,p} 去模糊路线，A12 标题提示转向自适应非凸 TV^{p,q} 与更广义图像复原，但因目标全文缺失、摘要过粗，无法核实其相对前序工作的真实增量，创新性只能判为证据不足。",
+    "inherited_foundations": [
+      "非凸 TV 型正则化用于图像反问题的研究范式（由前序 A15 与 A12 标题主题共同提示）",
+      "以优化模型与数值算法处理图像复原任务的基本框架（目标摘要层面）"
+    ],
+    "incremental_advances": [
+      "仅在标题层面可观察到相对 A15 的表述差异：由分数阶 TV^{α,p}/去模糊转向自适应 TV^{p,q}/图像复原；该差异未经目标全文验证，不能视为已证实增量"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A15（2024）《A Novel Fractional-Order Non-Convex TValpha,p Model in Image Deblurring》",
+      "A12 标题：adaptive non-convex TV^{p,q} / image restoration"
+    ],
+    "evidence_boundary": "overview 仅依据 A12 标题、期刊元数据（Inverse Problems and Imaging, 19(4), 734-763；作者 Bao Chen, Yuchao Tang, Xiaohua Ding）及用户给出的概括摘要，未读目标全文；innovation 与 lineage_position 仅相对本地 A15 全文作外部比较，不把 A15 的定理、算法或实验写成 A12 内容；因 source_mode=abstract_only，不编造定理、实验、数值与具体创新点，confidence 不超过 0.65。",
+    "confidence": 0.42
+  },
+  "lineage_position": "A12 与 A15 同属非凸 TV 型图像复原谱系，且作者团队高度重叠；A15 已建立分数阶非凸 TV^{α,p} 去模糊模型并讨论全局收敛与边缘保持，A12 标题指向自适应非凸 TV^{p,q} 与更广义复原设定，但因 A12 全文缺失，其在谱系中的精确推进幅度无法由本地材料证实。",
+  "keywords": [
+    "图像复原",
+    "非凸 TV",
+    "TV^{p,q}",
+    "自适应正则化",
+    "优化模型",
+    "数值算法",
+    "反问题成像"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.542Z",
+  "comparison_ids": [
+    "A15"
+  ]
+}

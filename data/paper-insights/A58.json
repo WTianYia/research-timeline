@@ -1,0 +1,63 @@
+{
+  "id": "A58",
+  "title": "Iterative algorithms for finding minimum-norm fixed point of a finite family of nonexpansive mappings and applications",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "本文对有限族非扩张映射提出带松弛因子的循环与同步迭代格式，并在适当参数条件下证明强收敛到最小范数公共不动点，进而给出多集分裂可行问题的新强收敛定理。",
+    "research_problem": "如何构造更灵活的迭代格式，逼近有限族非扩张映射的最小范数公共不动点，并用于求解多集分裂可行问题的最小范数解。",
+    "core_method": "在Hilbert空间中构造四类松弛迭代：复合型与真循环型循环算法，以及权重和置于投影内/外的两类同步算法；利用有界性、半闭原理与Xu型不等式证明强收敛。",
+    "main_findings": [
+      "复合循环算法（3.1）在t_n→0、∑t_n=∞且α_n有界远离0与1时强收敛到最小范数公共不动点",
+      "真循环算法（3.2）在α_n→1及循环步参数差分可和或比值趋于1等条件下同样强收敛",
+      "两类同步算法（3.7）（3.8）在权重下界正且相邻权重总变差趋于0等条件下强收敛，并减弱了Liu–Cui型参数假设",
+      "将上述结果迁移到一致MSSFP，得到最小范数解的强收敛定理（Thm 4.1–4.3）"
+    ],
+    "theoretical_guarantee": "在公共不动点集非空且等于复合映射不动点集（循环情形）等假设下，所提迭代序列强收敛到x^*=P_F 0，即最小范数公共不动点；MSSFP一致时强收敛到其最小范数解。",
+    "experiments_or_examples": "全文为理论推导与应用转化，未见数值算例或仿真实验。",
+    "limitations": "依赖参数极限/可和性及映射非扩张与公共不动点非空；循环算法需Fix(T_N…T_1)=∩Fix(T_i)；应用限于MSSFP的理论等价转化，未给出计算实现与数值验证。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对A70的单映射松弛最小范数框架，A58在对象（有限族公共不动点）、算法结构（循环/同步）与应用（MSSFP最小范数解）上做了系统扩展，但主迭代骨架与证明路线明显继承自A70，属显著扩展而非全新范式。",
+    "inherited_foundations": [
+      "A70的显式松弛格式x_{n+1}=(1-α_n)x_n+α_n P_C((1-t_n)Tx_n)及其最小范数强收敛分析",
+      "非扩张映射半闭原理、有界序列引理与Xu型递推收敛引理",
+      "最小范数不动点即原点到不动点集的度量投影这一目标刻画",
+      "将分裂类可行问题转化为非扩张（平均）映射不动点问题的思路"
+    ],
+    "incremental_advances": [
+      "将单映射格式直接提升为复合映射U=T_N…T_1的情形（Thm 3.1，近乎A70的特化）",
+      "相对Liu–Cui型同步算法，放宽权重差分可和与t_n差分/比值条件（Remark 3.6）",
+      "把应用场景从A70的约束凸优化与标准SFP推进到多集分裂可行问题"
+    ],
+    "core_innovations": [
+      "为有限族构造并证明真循环松弛算法（3.2）的强收敛（Thm 3.2）",
+      "给出投影内外两种同步松弛格式（3.7）（3.8）及相应强收敛定理",
+      "据此导出MSSFP最小范数解的循环/同步强收敛迭代（Thm 4.1–4.3）"
+    ],
+    "implementation_or_experimental_changes": [],
+    "comparison_basis": [
+      "A70（2013）《Iterative algorithms for finding minimum-norm fixed point of nonexpansive mappings and applications》",
+      "A58引言与Remark 3.3/3.6中对Cui–Liu、Yao–Xu、Yang et al.、Liu–Cui、Zegeye–Shahzad、Xu、He et al.等最小范数与MSSFP迭代结果的对照"
+    ],
+    "evidence_boundary": "overview、定理条件、应用与局限均直接依据A58全文定位；创新性比较主要对照本地A70全文，并参考A58对[11]等的自述改进点。未覆盖全部相关前序文献，故不对领域首创作断言；作者“extend and improve”表述仅作线索，不单独作为新颖性证据。",
+    "confidence": 0.9
+  },
+  "lineage_position": "A58是A70单映射最小范数松弛迭代线的直接下游工作：保留A70的KM型松弛与P_C((1-t)T·)结构，将其扩展到有限族公共不动点的循环/同步框架，并把应用重心由凸优化与SFP转向MSSFP的最小范数解。",
+  "keywords": [
+    "最小范数公共不动点",
+    "有限族非扩张映射",
+    "循环迭代",
+    "同步迭代",
+    "松弛因子",
+    "强收敛",
+    "多集分裂可行问题",
+    "Hilbert空间"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.659Z",
+  "comparison_ids": [
+    "A70"
+  ]
+}

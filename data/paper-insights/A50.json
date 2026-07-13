@@ -1,0 +1,63 @@
+{
+  "id": "A50",
+  "title": "Convergence Analysis of an Inexact Three-Operator Splitting Algorithm",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将Davis–Yin三算子分裂推广为允许预解式与cocoercive算子同时含误差的非精确格式，并在Hilbert空间给出弱/强收敛及FB、DR特例。",
+    "research_problem": "求解0∈Ax+Bx+Cx（A、B极大单调，C为β-cocoercive）时，原三算子分裂中预解式往往无闭式，需在可和误差下设计非精确迭代并证明收敛。",
+    "core_method": "Algorithm 1：以含误差eA^k、eB^k、eC^k的JγB、JγA与C构成非精确KM型迭代z^{k+1}=z^k+λ_k(x_A^k−x_B^k)，借助α-平均算子T与非精确Krasnosel’skiĭ–Mann框架分析。",
+    "main_findings": [
+      "在γ∈(0,2βε)、λ_k∈(0,1/α)且Σλ_k(1/α−λ_k)=∞、三类误差绝对可和时，{z^k}对Fix(T) Fejér单调并弱收敛，Tz^k−z^k→0",
+      "λ_k≥λ>0时{x_A^k}、{x_B^k}弱收敛到zer(A+B+C)中点；A或B一致单调或C demiregular时强收敛，并给出与C相关的可和型估计",
+      "B≡0得非精确前向–后向，C≡0得非精确Douglas–Rachford，并部分扩大松弛参数范围、推广既有精确/非精确结果"
+    ],
+    "theoretical_guarantee": "Theorem 1：T=I−JγB+JγA(2JγB−I−γCJγB)为α-平均（α=1/(2−ε)）时的弱/强收敛与误差可和估计；Corollary 1–2给出非精确FB与DR在对应参数下的弱/强收敛。",
+    "experiments_or_examples": "全文无数值实验或算例，属纯理论收敛分析；结论仅展望后续收敛速率研究。",
+    "limitations": "未讨论不动点残差与目标函数的遍历/非遍历速率；要求误差绝对可和且zer(A+B+C)非空；无数值验证；未覆盖随机、自适应步长等变体。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对Davis–Yin精确三算子分裂，系统纳入双预解与cocoercive算子三类可和误差并统一给出弱/强收敛与FB/DR推论，属算子分裂非精确化上的显著扩展而非全新问题框架。",
+    "inherited_foundations": [
+      "Davis–Yin三算子分裂算子T及其α-平均性与精确情形收敛结构",
+      "Combettes非精确Krasnosel’skiĭ–Mann与α-平均算子不动点迭代框架",
+      "经典非精确前向–后向、Douglas–Rachford及极大单调/cocoercive算子基本性质"
+    ],
+    "incremental_advances": [
+      "将精确三算子迭代改写为含合成误差e^k的非精确KM形式并证明Σ‖e^k‖<∞",
+      "给出‖CJγBz^k−Cx*‖等可和型估计及一致单调/demiregular下的强收敛条件",
+      "Corollary 1相对Combettes等放宽常数步长下松弛参数可选范围；Corollary 2将精确DR结果推广至非精确设定"
+    ],
+    "core_innovations": [
+      "面向三极大单调/cocoercive和的非精确三算子分裂（同时允许JγA、JγB与C的计算误差）及其在一般Hilbert空间的完整收敛定理"
+    ],
+    "implementation_or_experimental_changes": [
+      "本文无实现细节或数值实验层面的改动"
+    ],
+    "comparison_basis": [
+      "A54（2017）Bounded perturbation resilience of extragradient-type methods and their applications",
+      "A91（2010）The Penalty Method for a New System of Generalized Variational Inequalities",
+      "目标全文所依Davis–Yin三算子分裂[25]及Combettes非精确KM/FB、Bauschke–Combettes DR等相关工作"
+    ],
+    "evidence_boundary": "overview与理论结论均来自A50全文Abstract、Algorithm 1、Theorem 1、Corollary 1–2与第4节Conclusions，可逐条对照；创新性相对比较仅基于本地A54、A91全文及目标文参考文献脉络，未覆盖更广三算子/非精确分裂文献，故不能排除同期或更早类似非精确三算子结果。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于Davis–Yin三算子分裂的非精确化支线：相对A54（外梯度/次梯度外梯度的有界扰动回弹性与优超化、面向VI且含数值）为并行的“可和误差/非精确迭代”研究，问题与算法族不同；相对A91（广义变分不等式组的罚方法与解的存在性）仅同属单调/变分不等式大类，方法与结论几乎无直接继承。",
+  "keywords": [
+    "三算子分裂",
+    "非精确分裂算法",
+    "单调包含",
+    "极大单调算子",
+    "cocoercive算子",
+    "Krasnosel'skiĭ-Mann迭代",
+    "前向-后向分裂",
+    "Douglas-Rachford分裂"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.639Z",
+  "comparison_ids": [
+    "A54",
+    "A91"
+  ]
+}

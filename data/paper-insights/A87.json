@@ -1,0 +1,66 @@
+{
+  "id": "A87",
+  "title": "Strong Convergence Theorems of the Ishikawa Process with Errors for Strictly Pseudocontractive Mapping of Browder-Petryshyn Type in Banach Spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在一般 Banach 空间中，为 Browder-Petryshyn 型严格伪压缩映射建立 Xu 意义带误差 Ishikawa 迭代的强收敛充要条件与充分条件，并回答 Zeng 等 2006 年提出的 Open Question 2。",
+    "research_problem": "对严格伪压缩映射，Xu 意义带误差 Ishikawa 迭代（1.9）能否在一般 Banach 空间中得到强收敛，并去掉对迭代序列有界性的先验假设，从而改进 Zeng 等在 q-一致光滑空间中的结果并回答其 Open Question 2。",
+    "core_method": "采用 Xu 意义带误差 Ishikawa 迭代；利用严格伪压缩的 Kato 不等式刻画与归一化对偶映象估计，先建立距离递推与渐近正则性，再在 liminf d(x_n,F(T))=0、Condition(A)、紧性或半紧性条件下推出强收敛。",
+    "main_findings": [
+      "在参数条件 β_n≤α_n、δ_n≤γ_n、Σγ_n<∞、Σα_n²<∞、Σα_n=∞ 下，带误差 Ishikawa 序列对任意不动点 q 的距离极限存在，且 liminf‖x_n−Tx_n‖=0。",
+      "强收敛到不动点当且仅当 liminf d(x_n,F(T))=0（Theorem 2.3）。",
+      "若映射满足 Condition(A)，或为紧/半紧严格伪压缩，则同一迭代格式强收敛到不动点（Theorems 2.4–2.6）。",
+      "将空间由 q-一致光滑放宽为一般 Banach 空间，去掉 {x_n} 有界性假设，并把部分误差格式扩展为完整 Xu 型误差 Ishikawa 格式。"
+    ],
+    "theoretical_guarantee": "Lemma 2.1–2.2 与 Theorem 2.3–2.6：在 F(T)≠∅ 与上述参数条件下给出强收敛的充要条件及 Condition(A)/紧/半紧三类充分条件；证明基于对偶映象不等式、可和扰动引理与 Cauchy 序列论证。",
+    "experiments_or_examples": "全文为纯理论证明，无数值算例、仿真或应用实验。",
+    "limitations": "需预先假定不动点集非空；参数须满足平方可和与发散等限制；一般情形强收敛依赖 liminf d(x_n,F(T))=0 或额外结构条件（Condition(A)/紧/半紧）；未给出收敛速率与数值验证。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对 Zeng 等与 Osilike–Udomene 的严格伪压缩迭代结果，本文在一般 Banach 空间、完整 Xu 型误差 Ishikawa 格式及去掉序列有界假设上作了扎实推进并回答 Open Question 2，但映射类与核心分析框架均属既有谱系内的增量扩展，不宜视为核心创新。",
+    "inherited_foundations": [
+      "Browder–Petryshyn 型严格伪压缩定义及其 Lipschitz 性",
+      "Ishikawa/Mann 迭代及 Liu/Xu 意义带误差格式",
+      "Zeng 等关于 q-一致光滑空间中严格伪压缩强收敛的定理与两个公开问题",
+      "Kato 不等式、归一化对偶映象估计与可和扰动引理",
+      "A95 中 Xu 型带误差 Ishikawa 的距离递推与极限存在性技术路线（同类证明骨架）"
+    ],
+    "incremental_advances": [
+      "将空间假设由 q-一致光滑放宽到一般实 Banach 空间",
+      "去掉对迭代序列 {x_n} 有界的先验要求",
+      "把 Zeng 等部分误差格式（1.14）推进为完整 Xu 型误差 Ishikawa（1.9），肯定回答 Open Question 2",
+      "给出强收敛充要条件（liminf d(x_n,F(T))=0），并补充 Condition(A)、紧性与半紧性下的充分条件定理"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现或实验设置变化；全部为分析性证明重组与条件放松"
+    ],
+    "comparison_basis": [
+      "A90（2010）《Strong convergence theorem for pseudo-contractive mappings in Hilbert spaces》",
+      "A95（2006）《Note on some results for asymptotically pseudocontractive mappings and asymptotically nonexpansive mappings》",
+      "目标全文所引 Zeng et al. 2006（Theorem 1.7/1.8 与 Open Question 1–2）",
+      "目标全文所引 Osilike and Udomene 2001"
+    ],
+    "evidence_boundary": "overview 与理论结论均来自 A87 全文 Abstract、引言目的陈述、Lemma 2.1–2.2 与 Theorem 2.3–2.6；创新性相对判断仅对照本地 A90、A95 全文及目标文内对 Zeng/Osilike–Udomene 的转述。未覆盖 Zeng 等 2006 原文、作者此前回答 Open Question 1 的 submitted 文稿 [10] 及其他同主题文献，故“相对文献场的绝对优先级”无法完全裁定；未发现数值实验证据。",
+    "confidence": 0.86
+  },
+  "lineage_position": "处于 Browder–Petryshyn 型严格伪压缩映射的误差型 Ishikawa/Mann 强收敛谱系中：承接 Osilike–Udomene（2001）与 Zeng 等（2006）并专攻其 Open Question 2；证明技术与 A95 的渐近伪压缩 Xu 型误差迭代高度同构但映射与算子幂次不同；与 A90 的 Hilbert 空间 Lipschitz 伪压缩混合投影（CQ/hybrid）路线并行而非直接前后继。",
+  "keywords": [
+    "不动点",
+    "Banach空间",
+    "严格伪压缩映射",
+    "Browder-Petryshyn型",
+    "Ishikawa迭代",
+    "带误差迭代",
+    "强收敛",
+    "充要条件"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.726Z",
+  "comparison_ids": [
+    "A90",
+    "A95"
+  ]
+}

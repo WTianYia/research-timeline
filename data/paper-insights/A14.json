@@ -1,0 +1,65 @@
+{
+  "id": "A14",
+  "title": "High-Accuracy Positivity-Preserving Finite Difference Approximations of the Chemotaxis Model for Tumor Invasion",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对二维肿瘤侵袭趋化模型，构造时间二阶、空间四阶的隐式紧致差分格式，并与线性紧致加权保正限幅耦合，形成可数值模拟侵袭演化的高阶保正算法。",
+    "research_problem": "低精度方法误差大、分辨率低，为获高分辨结果需极细网格，计算代价高；且该趋化模型要求密度/浓度非负，而现有针对该模型的高阶、紧致、无条件稳定且保正数值方法匮乏。",
+    "core_method": "将模型改写为含趋化通量的等价形式；用 Crank–Nicolson 与四阶紧致差分构造两层非线性隐式紧致格式（FOC），再对非线性项线性化得三层线性隐式紧致格式（LFOC）；边界用 Taylor–Peano 余项做四阶离散；基于二元函数高阶数值积分构造线性紧致加权平均，结合保正限幅（PPL）建立时间推进算法（ALGS 求解线性代数系统）。",
+    "main_findings": [
+      "两套格式局部截断误差均为 O(τ²+h⁴)，数值上空间约四阶、时间约二阶，误差显著小于同模型的二阶 FEM 结果",
+      "线性化后精度略降但 CPU 约可节省三成以上；大网格比下误差仍收敛，支持无条件稳定性的数值判断",
+      "PPL 可消除肿瘤细胞密度局部负值且基本保持四阶收敛；模拟显示 ECM 随时间递减并趋向平衡，与模型理论性质一致"
+    ],
+    "theoretical_guarantee": "第4节给出两套格式总局部截断误差整理，结论为时间二阶、空间四阶，即 O(τ²+h⁴)；线性化会略增大截断误差。无条件稳定性由 CN+FOC 构造说明并以数值实验验证，未见完整离散稳定性/收敛性定理。保正性通过四阶紧致积分加权与限幅算法保证“不损失四阶且消除局部负值”，属构造性论述而非最大模原理型定理。",
+    "experiments_or_examples": "三组算例：Example 1 正光滑制造解测精度/稳定性并与 Pérez-López 等（2022）对比；Example 2 含变号解析解测限幅前后精度与稳定性；Example 3 用文献初值测保正性并模拟 TC、ECM*、ECM、MDE 随时间演化（含最值曲线、剖面与等值线）。",
+    "limitations": "时间精度仍为二阶，作者将提高时间方向精度列为后续工作；稳定性与保正主要依赖构造说明和数值验证，全文未见严格能量估计或收敛定理；相关工作对比以 FEM/低阶方法为主，高阶紧致同类格式的直接对照有限。"
+  },
+  "innovation": {
+    "classification": "核心创新",
+    "score": 4,
+    "verdict": "相对给定前序 A60/A65（数独整数规划与稀疏优化）无问题、模型与方法承接，A14 在肿瘤侵袭趋化方程的高阶保正紧致差分方向上构成独立贡献；其增量主要体现在面向该耦合系统的格式与保正时间推进设计，而非对数独求解路线的扩展。",
+    "inherited_foundations": [
+      "Fujie 等修改的 Chaplain–Anderson 型肿瘤侵袭趋化模型及其质量守恒、ECM 递减等理论性质",
+      "Crank–Nicolson 时间离散与四阶紧致（FOC）空间离散及紧致差分分析框架（如 Gao–Sun 等）",
+      "保正/界保持限幅思想（Liu–Osher；Qiu 等）与 ALGS 类线性求解",
+      "同模型已有 FEM 数值工作（Pérez-López 等，2022）及其他趋化/肿瘤模型数值方法背景"
+    ],
+    "incremental_advances": [
+      "针对该四方程抛物–抛物–ODE–抛物耦合系统推导两层非线性 FOC 与三层线性化 LFOC 两套隐式紧致格式",
+      "边界与内点一致的四阶离散，使整体截断误差统一为 O(τ²+h⁴)",
+      "将二元函数高阶数值积分紧致加权与 PPL 嵌入时间推进，在保持四阶的同时抑制局部负值"
+    ],
+    "core_innovations": [
+      "在给定比较集 A60/A65 之外独立建立面向肿瘤侵袭趋化模型的高阶、紧致、隐式且可保正的有限差分数值框架",
+      "把高阶紧致格式与保正限幅在同一可推进算法中耦合，并用于该模型的侵袭动力学数值模拟"
+    ],
+    "implementation_or_experimental_changes": [
+      "Fortran 实现；精度、大网格比稳定性、限幅前后误差与 CPU 对比；与 Pérez-López 等二阶结果对照；肿瘤组分时空演化可视化分析"
+    ],
+    "comparison_basis": [
+      "A60_2016《Solving odd even sudoku puzzles by binary integer linear programming》",
+      "A65_2015《A Warm Restart Strategy for Solving Sudoku by Sparse Optimization Methods》（用户所标改进策略/稀疏优化数独工作）",
+      "目标文相关工作：Pérez-López et al. (2022) 同模型 FEM；Kolbe 等保正有限体积；高阶紧致差分与保正限幅文献"
+    ],
+    "evidence_boundary": "overview 中问题、方法、截断误差阶、算法结构、三组算例与结论局限均直接对应 A14 全文 Abstract、§3–§7 与表格/图；与 A60/A65 的“无谱系继承、领域断裂”判断有双方全文对照支持。关于“该模型此前尚无高阶紧致无条件稳定保正方法”的作者综述判断，仅能在本地 A14 参考文献范围内采信，不能外推为全域首创；稳定性与保正的严格定理证明在全文中证据不足，故不写入理论保证为已证结论。",
+    "confidence": 0.9
+  },
+  "lineage_position": "A14 与 A60/A65 的数独整数规划/稀疏优化谱系无技术承接，属于生物趋化 PDE 数值分析支线：在 Fujie 型肿瘤侵袭模型与既有低阶/FEM 数值工作之上，沿高阶紧致差分与保正限幅路线构造 FOC/LFOC 及时间推进算法，用于精度验证与侵袭演化模拟。",
+  "keywords": [
+    "数值PDE",
+    "趋化模型",
+    "保正格式",
+    "高阶紧致差分",
+    "肿瘤侵袭",
+    "有限差分",
+    "Crank-Nicolson",
+    "隐式格式"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.546Z",
+  "comparison_ids": [
+    "A60",
+    "A65"
+  ]
+}

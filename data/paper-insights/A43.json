@@ -1,0 +1,62 @@
+{
+  "id": "A43",
+  "title": "Primal-dual algorithm to solve the constrained second-order total generalized variational model for image denoising",
+  "source_mode": "abstract_only",
+  "overview": {
+    "one_sentence_contribution": "在摘要可核对范围内，该文研究含像素值约束的二阶总广义变分（TGV）图像去噪模型，并采用松弛原始对偶邻近算法求解。",
+    "research_problem": "变分去噪中如何充分计入像素取值约束，并对约束二阶 TGV 模型给出可计算的数值求解途径。",
+    "core_method": "建立以非负、有界等为特例的约束二阶 TGV 模型；借助二阶 TGV 的等价定义，将约束最小化改写为两个凸函数之和（其一复合线性变换），再用松弛原始对偶邻近算法求解。",
+    "main_findings": [
+      "摘要给出的模型为约束二阶 TGV 去噪，并将非负与有界约束作为特例。",
+      "求解路径为：TGV 等价改写 → 两凸函数结构 → 松弛原始对偶邻近迭代。",
+      "算法层面仅摘要宣称“无矩阵求逆、不需求解子问题”。",
+      "数值上仅报告约束 TGV 略优于无约束模型，无具体指标与设置可核。"
+    ],
+    "theoretical_guarantee": "摘要未给出收敛定理、步长条件或收敛速率；理论保证在本地材料中证据不足。",
+    "experiments_or_examples": "摘要仅称有数值结果且约束模型略优；未提供数据、噪声、对比算法、指标或图表。",
+    "limitations": "本地无 A43 全文，模型细节、松弛策略、收敛分析与实验协议均不可核对；相对既有 TGV/原始对偶文献的真实增量无法从摘要单独判定。"
+  },
+  "innovation": {
+    "classification": "证据不足",
+    "score": 2,
+    "verdict": "摘要显示其将约束二阶 TGV 去噪与松弛原始对偶邻近算法对接，流程上接近 A55 的“两凸函数+原始对偶邻近”与 A68 的 Chambolle–Pock 型谱系，但全文缺失，不能核实是否构成可核验的算法或模型创新，故 innovativeness 判定为证据不足。",
+    "inherited_foundations": [
+      "Chambolle–Pock/原始对偶邻近框架用于成像变分问题（A68 对 TV-CT 重建给出 PDPPM 与预条件形式）",
+      "将结构化约束优化改写为两凸函数之和并用原始对偶邻近求解（A55 对一般 PICCS 的处理范式）",
+      "二阶 TGV 作为抑制阶梯效应的高阶变分正则（题名与摘要指向，非 A55/A68 全文内容）"
+    ],
+    "incremental_advances": [
+      "相对 A68 的一阶 TV 与 CT 设定，摘要指向去噪场景下的约束二阶 TGV 模型",
+      "摘要强调非负/有界等像素约束作为特例，并比较约束与无约束 TGV",
+      "采用“松弛”原始对偶邻近，并宣称无矩阵求逆、无子问题（新颖性未由全文证实）"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "摘要未披露可核对的实现技巧、参数策略或完整实验协议；仅有“约束略优于无约束”的定性结果表述"
+    ],
+    "comparison_basis": [
+      "A68（2013）A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction",
+      "A55（2017）A new approach to solving the prior image constrained compressed sensing (PICCS) with applications in CT image reconstruction",
+      "目标论文题名、OpenAlex/清单元数据及重建摘要；既有关键词“原始对偶”"
+    ],
+    "evidence_boundary": "overview 与理论/实验/局限仅依据题名、期刊元数据与本地 OpenAlex 摘要倒排索引重建文本，未读全文。innovation/lineage 仅相对本地 A55、A68 全文作谱系比较。不采信作者自述为新颖性铁证；不编造定理编号、收敛率或定量实验。source_mode=abstract_only，confidence≤0.65。",
+    "confidence": 0.55
+  },
+  "lineage_position": "处在变分成像正则与一阶原始对偶算法谱系中：A68 代表 TV+Chambolle–Pock 型 PD 重建前序，A55 代表约束模型+原始对偶邻近/两凸函数分裂前序；A43 摘要将其延伸到约束二阶 TGV 图像去噪，更像同谱系上的模型—算法对接，增量强度因全文缺失而无法落锤。",
+  "keywords": [
+    "原始对偶",
+    "二阶总广义变分",
+    "约束 TGV",
+    "图像去噪",
+    "松弛原始对偶邻近",
+    "非负约束",
+    "有界约束",
+    "无矩阵求逆"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.621Z",
+  "comparison_ids": [
+    "A55",
+    "A68"
+  ]
+}

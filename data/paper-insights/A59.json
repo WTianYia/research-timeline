@@ -1,0 +1,62 @@
+{
+  "id": "A59",
+  "title": "Iterative methods of strong convergence theorems for the split feasibility problem in Hilbert spaces",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对Hilbert空间分裂可行性问题提出两种含变步长的Mann–Halpern型混合迭代，并证明序列强收敛到解集上对给定点的最佳逼近（含最小范数解）。",
+    "research_problem": "在SFP相容（解集Ω非空）前提下，构造无限维Hilbert空间中强收敛迭代，使极限为P_Ωu，特别地u=0时得到最小范数解。",
+    "core_method": "以U_n=I−γ_n A^*(I−P_Q)A为CQ型算子，提出(1.12) x_{n+1}=(1−α_n)x_n+α_n P_C(t_n u+(1−t_n)U_n x_n)与(1.13) x_{n+1}=(1−α_n)x_n+α_n(t_n u+(1−t_n)P_C U_n x_n)；在0<liminf α_n≤limsup α_n<1、t_n→0且∑t_n=∞、0<liminf γ_n≤limsup γ_n<2/L及|γ_{n+1}−γ_n|→0下，用有界性、Suzuki引理得‖x_{n+1}−x_n‖→0、demiclosedness与Xu递推不等式证明强收敛。",
+    "main_findings": [
+      "定理1：格式(1.12)在上述参数条件下强收敛到P_Ωu",
+      "定理2：格式(1.13)在相同参数条件下同样强收敛到P_Ωu",
+      "取u=0可得SFP最小范数解；Dang–Gao结果可视为(1.12)中u=0的特例",
+      "相对常数步长与Wang–Xu变步长条件，本文允许变步长γ_n并减弱|γ_{n+1}−γ_n|要求"
+    ],
+    "theoretical_guarantee": "定理1–2：在SFP相容及上述控制条件下，{x_n}强收敛到P_Ωu；证明依赖U_n的平均非扩张性、Fix(P_C U_n)=Ω、非扩张demiclosedness（引理2.2）、Suzuki引理（引理2.3）与Xu引理（引理2.4）。",
+    "experiments_or_examples": "全文为纯理论工作，无数值实验、算例或仿真。",
+    "limitations": "假定SFP相容；步长仍受L=ρ(A^*A)上界约束；需可计算投影P_C、P_Q；未讨论不相容情形、自适应未知谱半径或数值表现。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在既有CQ/Halpern/Mann强收敛SFP框架上，给出两种锚点u的混合格式并放宽变步长条件，属参数—格式层面的增量改进，非新原理。",
+    "inherited_foundations": [
+      "SFP的CQ固定点表述与平均非扩张U、T=P_C U（Byrne；Xu；引理2.1）",
+      "Halpern型锚点强收敛及Mann混合以克服无限维弱收敛（Xu、Wang–Xu、Dang–Gao等）",
+      "Suzuki有界序列引理与Xu递推不等式等标准强收敛工具",
+      "A78中最小范数不动点与将投影梯度/CQ算子嵌入强收敛格式求解SFP的同一作者脉络"
+    ],
+    "incremental_advances": [
+      "提出(1.12)(1.13)两种Mann外层+黏性/Halpern内层的SFP专用混合迭代，极限为一般最佳逼近P_Ωu而非仅最小范数",
+      "变步长γ_n仅需liminf/limsup界与|γ_{n+1}−γ_n|→0，弱于Wang–Xu的∑|λ_{n+1}−λ_n|<∞及部分α条件",
+      "相对Dang–Gao常数γ与u=0，统一到一般u并允许变步长",
+      "相对A78的SFP应用（常步长μ、主要最小范数、0∈C或锥），改为双格式、一般锚点u且不依赖锥结构"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "无数值实现或实验对比；改进体现为定理条件与迭代格式的解析表述"
+    ],
+    "comparison_basis": [
+      "A78（2012）《Iterative algorithms for minimum-norm fixed point of non-expansive mapping in Hilbert space》",
+      "目标文引言与Remark 3.1/结论所依据：Xu (2006, 2010)、Wang–Xu (2010)、Dang–Gao (2011)、Wang–Xu变步长结果、Yu–Shahzad–Yao (2012)等"
+    ],
+    "evidence_boundary": "overview与定理事实均来自A59全文Abstract、§1、定理1–2、Remark 3.1与§4 Conclusions；创新比较仅相对本地A78全文及A59自引相关工作。A59参考文献未列A78，二者谱系关系据作者与方法对照推断。未覆盖更广SFP文献原文，故不排除与未纳入本地文献高度相近的并行结果；无实验故不评价计算优势。",
+    "confidence": 0.86
+  },
+  "lineage_position": "位于Byrne CQ与Xu/Wang–Xu/Dang–Gao等SFP强收敛迭代线上，并承接A78最小范数不动点及SFP应用思路；将焦点从一般非扩张最小范数不动点收窄为SFP的P_Ωu，以两种变步长Mann–Halpern混合格式做条件放松与格式细化。",
+  "keywords": [
+    "分裂可行性问题",
+    "强收敛",
+    "最佳逼近",
+    "最小范数解",
+    "CQ算法",
+    "变步长",
+    "Mann-Halpern迭代",
+    "Hilbert空间"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.662Z",
+  "comparison_ids": [
+    "A78"
+  ]
+}

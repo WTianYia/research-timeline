@@ -1,0 +1,66 @@
+{
+  "id": "A28",
+  "title": "Multi-step inertial forward-backward-half forward algorithm for solving monotone inclusion",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "提出多步惯性前向-后向-半前向分裂算法（MIFBHF），在可和性条件下证明 Hilbert 空间弱收敛，并用于复合单调包含、复合凸优化与图像去模糊。",
+    "research_problem": "求解 Hilbert 空间三算子和单调包含 0∈Ax+Bx+Cx（A 极大单调，B 单值连续或单调 Lipschitz，C 为 cocoercive），并处理复合算子 resolvent 难算问题。",
+    "core_method": "在 FBHF 前加入多步惯性外推得到 MIFBHF；复合问题经原-对偶改写为三算子和后套用同一框架。",
+    "main_findings": [
+      "在惯性参数上确界和与迭代差分可和性条件下，MIFBHF 弱收敛到 zer(A+B+C)",
+      "α=0 或 s=1 时分别退化为 FBHF 与单步惯性 FBHF",
+      "原-对偶形式可处理含线性复合与 parallel-sum 的复合单调包含及对应复合凸优化",
+      "去模糊实验相对 FBHF、PDFBT、RPDFB、RTOA 在迭代次数与 NMSD/SNR 上更优"
+    ],
+    "theoretical_guarantee": "Theorem 3.5：∑_i ᾱ_i<1 且可和性条件（21）下，B 为 L-Lipschitz（配合步长区间）或仅连续（配合线搜索型步长及附加条件）时弱收敛；Corollary 4.1–4.2 给出复合包含与凸优化的弱收敛。文中未给收敛速率。",
+    "experiments_or_examples": "约束 TV 图像去模糊：四幅 512×512 图、四种模糊-噪声情景；s=2 调 α1,α2；与 FBHF/PDFBT/RPDFB/RTOA 比较 NMSD、SNR 与迭代数。",
+    "limitations": "收敛依赖基于迭代序列的可和性条件且无速率；复合 resolvent 须借助原-对偶；数值仅限去模糊场景。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "在已有 FBHF 与多步惯性技术上完成统一算法与可和性收敛分析，并作原-对偶复合应用，属显著扩展而非全新分裂范式。",
+    "inherited_foundations": [
+      "Briceño-Arias–Davis 的 FBHF 三算子分裂及相关估计",
+      "多步惯性外推与惯性可和性条件传统（Polyak、Liang、Dong 等）",
+      "Combettes–Pesquet/Vu 等原-对偶 fully splitting 改写复合 monotone inclusion 的框架",
+      "A36 同脉络中基于 FBHF 的原-对偶结构化包含处理（无惯性）"
+    ],
+    "incremental_advances": [
+      "将多步惯性嵌入 FBHF，统一涵盖 α=0 的 FBHF 与 s=1 的单步惯性情形",
+      "对 B 为 Lipschitz 与仅连续两种情形分别建立辅助估计与弱收敛证明",
+      "给出可和性条件的在线参数更新方式（Remark 3.2）",
+      "把 MIFBHF 迁移到含 C1 cocoercive、C2 单调 Lipschitz 与 parallel-sum 的复合包含及复合凸优化"
+    ],
+    "core_innovations": [
+      "MIFBHF 算法及其在可和性条件下的 Hilbert 空间收敛理论（Theorem 3.5）"
+    ],
+    "implementation_or_experimental_changes": [
+      "去模糊中的惯性参数网格搜索与相对 FBHF 等基线的 NMSD/SNR/迭代比较",
+      "复合问题中原-对偶变量的多步惯性同步更新实现"
+    ],
+    "comparison_basis": [
+      "A36（2021）《Primal-Dual Splitting Algorithms for Solving Structured Monotone Inclusion with Applications》",
+      "目标文引用的 FBHF [3]（Briceño-Arias & Davis）、多步惯性分裂 [30,31] 及原-对偶 [34,35]"
+    ],
+    "evidence_boundary": "overview/定理/实验均锚定 A28 全文 Abstract、§3–§6 与 Algorithm/Theorem/Corollary；与 A36 的比较仅用于相对谱系，不把 A36 的定理或去噪数值记为 A28 结果。未通读 FBHF 原文与 Liang/Dong 全文，故“是否首次多步惯性+FBHF”的绝对优先性仅基于 A28 自述与本地 A36 对照，存在文献覆盖边界。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于三算子 FBHF 与惯性加速交汇处：相对 A36 侧重原-对偶 FB/FBHF 参数改进与结构化包含，A28 转向多步惯性加速 FBHF 本体，再以较简原-对偶处理复合包含与凸优化，并以去模糊验证加速效果。",
+  "keywords": [
+    "前向-后向分裂",
+    "单调包含",
+    "惯性方法",
+    "前向-后向-半前向",
+    "多步惯性",
+    "原-对偶",
+    "复合单调包含",
+    "复合凸优化",
+    "图像去模糊"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.582Z",
+  "comparison_ids": [
+    "A36"
+  ]
+}

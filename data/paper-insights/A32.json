@@ -1,0 +1,64 @@
+{
+  "id": "A32",
+  "title": "An inertial primal-dual fixed point algorithm for composite optimization problems",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对全非光滑多复合凸优化，提出带惯性外推的原始对偶不动点算法（IPDFP/SIPDFP）及对角预条件变体，并在正定度量下证明弱收敛。",
+    "research_problem": "求解 min_x Σ_{i=1}^m f_i(K_i x)+g(x)，其中 f_i、g 均为真下半连续凸（可非光滑），K_i 为有界线性算子；难点在于多项非光滑结构及邻近算子可分处理。",
+    "core_method": "将问题改写为三项非光滑和 f(Kx)+ḡ(x)+h(x)（积空间一致性约束）；由一阶最优性导出含 prox_h、prox_ḡ*、prox_f* 的不动点方程；构造惯性外推+松弛的 IPDFP，并分裂为多对偶变量的 SIPDFP；再以正定映射 Σ、Y、T̃ 替换标量步长得到预条件 IPDFP2/PSIPDFP，并给出对角预条件显式构造。",
+    "main_findings": [
+      "IPDFP 在 σγ+στ‖K‖²<1 及惯性/松弛参数条件下，生成序列收敛到三项问题的解；SIPDFP 在 σγ+στΣ_i‖K_i‖²<1 下收敛到原多复合问题解。",
+      "相对 Condat 方法，f、ḡ、h 均可非光滑，无需 ḡ 可微；特殊情形可退化为 Chambolle–Pock 与 Lorenz–Pock 惯性前向–后向算法。",
+      "预条件版本在 ‖Σ^{1/2}Y^{1/2}‖²+‖Σ^{1/2}K^*T̃^{1/2}‖²<1（多算子为相应求和）下保持收敛，并给出 s∈[0,2] 的对角预条件公式以保证度量正定。",
+      "全文以理论统一若干经典分裂格式，动机指向图像复原/重建中的 L1/TV 类模型。"
+    ],
+    "theoretical_guarantee": "将迭代写成度量 P（或 P̄）下极大单调算子预解式的惯性 Krasnosel’skii–Mann 迭代；P 正定时预解式为 1/2-平均非扩张，由惯性 KM 引理得 Σ‖z^{k+1}−z^k‖_P²<∞ 且 z^k 弱收敛到 Fix(T)，从而 x^k 收敛到原问题解（定理 3.1–3.2、4.1–4.2）；对角预条件定理 4.3 保证范数条件 ≤1。",
+    "experiments_or_examples": "全文无独立数值实验或算例章节；第 5 节为结论，仅理论与算法推导。应用动机提及 L1/φ∘B、L1/TV 去噪与修复及图像复原/重建，但未给出具体数值比较。",
+    "limitations": "仅给弱收敛，未建立收敛速率；惯性加速与预条件的实际收益无数值验证；要求各函数邻近算子可算且步长/惯性参数满足较严条件；与 Tang 等算法“参数范围更大”的断言未在实验中量化。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在 Condat/Chambolle–Pock 原始对偶与 Pock–Chambolle 型预条件框架上，将惯性外推、全非光滑三项结构、多算子分裂与对角预条件作系统组合与度量论证，技术增量明确但范式仍属既有分裂路线的延伸，且无实验支撑。",
+    "inherited_foundations": [
+      "Condat 原始对偶三项分裂与 P-度量/预解式不动点写法",
+      "Chambolle–Pock 一阶原始对偶及 Pock–Chambolle 对角预条件思想",
+      "Nesterov 型惯性外推与惯性 Krasnosel’skii–Mann（Bot–Csetnek 等）收敛引理",
+      "多复合问题的积空间一致性改写及邻近算子全分裂思路（文中对照 Tang 等）"
+    ],
+    "incremental_advances": [
+      "将 ḡ 的梯度步改为 prox_ḡ*，使三项均可非光滑，从而直接覆盖全非光滑复合模型",
+      "在原始与对偶变量上同步施加惯性外推并配合松弛，形成 IPDFP/SIPDFP",
+      "把预条件从两块鞍点结构扩展为含 Σ、Y、T̃ 的三块正定度量，并适配多算子 SIPDFP",
+      "统一说明 α_k=0 或去掉 ḡ 等特殊情形与经典算法的包含关系"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "全文未开展相对 A44/A56 或基线算法的数值实现与实验对比"
+    ],
+    "comparison_basis": [
+      "A44（2019）《Efficient primal-dual fixed point algorithms with dynamic stepsize for composite convex optimization problems》",
+      "A56（2017）《A Preconditioning Technique for First-Order Primal-Dual Splitting Method in Convex Optimization》",
+      "目标文引用/对照：Condat (2013)、Chambolle–Pock (2011)、Pock–Chambolle (2011)、Lorenz–Pock (2015)、Tang et al. (2017)"
+    ],
+    "evidence_boundary": "算法形式、定理条件与弱收敛论证均可在 A32 全文 Abstract、§1 贡献、§3–4 定理与 §5 结论定位；与 A44/A56 的相对创新判断仅基于本地三篇全文的问题设定与方法对比。A44 侧重光滑项+动态步长 PDFP 及 CT 数值，A56 侧重 Condat 型（含光滑项）预条件及去噪数值；A32 的惯性增益、参数范围优势与成像效果无法从目标全文实验核验，故不升格为“显著扩展/核心创新”。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处于原始对偶邻近分裂主线上：A56 将预条件引入 Condat 型（含光滑项）PDS，A44 为光滑+单复合结构发展动态步长 PDFP；A32 转向全非光滑多复合模型，叠加惯性外推与三块对角预条件，形成 IPDFP/SIPDFP 族，是同作者群在原始对偶–不动点框架上的后续增量整合而非新范式起点。",
+  "keywords": [
+    "原始对偶",
+    "不动点",
+    "惯性方法",
+    "复合优化",
+    "邻近算子",
+    "预条件",
+    "算子分裂",
+    "弱收敛"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.593Z",
+  "comparison_ids": [
+    "A44",
+    "A56"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "A21",
+  "title": "A Simplified Convex Optimization Model for Image Restoration with Multiplicative Noise",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在ZWN乘性噪声凸复原模型上，将l1数据保真改为等式约束Fw=Au，得到仅含一个TV正则参数的简化凸模型，并用ADMM高效求解。",
+    "research_problem": "乘性噪声（含模糊）图像复原中，ZWN等凸模型需调节两个正则参数，选参困难，且需在保边去噪与计算可行性之间取得更好折中。",
+    "core_method": "保留ZWN的解耦变量w与二次项1/2||w−μe||²及TV正则，将||Fw−Au||₁改为等式约束Fw=Au；引入p=Du后用ADMM交替更新：w对角闭式、u在周期边界下FFT求解、p为各向同性/异性软阈值，并更新乘子。",
+    "main_findings": [
+      "合成去噪中整体优于AA与RLO；L=20时多数图像PSNR高于ZWN，L=10/6时与ZWN互有胜负，未必全面占优。",
+      "高斯模糊加乘性噪声的去模糊任务中，PSNR总体最高或具竞争力，但多数情形运行时间长于ZWN。",
+      "Sentinel SAR真实斑点图像上，相对AA/RLO更保边、过平滑更少，与ZWN视觉接近，且可用统一正则参数处理多幅图。"
+    ],
+    "theoretical_guarantee": "全文未给出独立收敛定理或收敛速率；直接采用标准ADMM求解凸约束模型，理论保证依赖ADMM既有结果，未提供新证明。",
+    "experiments_or_examples": "256×256合成图（Cameraman、Parrot、House、Square）在Gamma噪声L=20/10/6下去噪，以及7×7、σ=2高斯模糊叠加同噪声下的去模糊；对比AA、RLO、ZWN的PSNR、时间与迭代次数；另在Sentinel-1/2 SAR真实图像上做斑点去噪视觉比较。",
+    "limitations": "高噪声去噪未必稳定优于ZWN；去模糊计算更耗时；真实图仅主观视觉、无PSNR；无新收敛分析；TV固有阶梯伪影，作者拟在后续用高阶TV/TGV/ICTV改进。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对直接前序ZWN，将l1数据项硬化为等式约束以减少正则参数并增强Fw与Au一致性，属问题驱动的模型简化增量；求解为标准ADMM实现，非新算法范式，亦非相对A55/A68的核心突破。",
+    "inherited_foundations": [
+      "ZWN解耦建模（Fw=Au、w≈1/η）及二次项保证严格凸性的结构",
+      "TV（各向同性/异性）保边正则的经典图像复原框架",
+      "ADMM/增广拉格朗日求解约束凸变分问题的标准技术",
+      "AA、RLO等乘性噪声变分建模背景"
+    ],
+    "incremental_advances": [
+      "将ZWN中||Fw−Au||₁改为等式约束Fw=Au，正则参数由两个减为一个",
+      "给出该约束凸模型的完整ADMM子问题推导与闭式/FFT实现",
+      "在合成去噪、去模糊与真实SAR上系统对比AA、RLO、ZWN"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "w对角闭式更新、u的FFT线性系统、p软阈值的具体实现",
+      "实验图像、噪声/模糊设置、参数选取及PSNR/时间/迭代报告"
+    ],
+    "comparison_basis": [
+      "目标文直接前序：ZWN（Zhao–Wang–Ng）、AA（Aubert–Aujol）、RLO（Rudin–Lions–Osher）",
+      "A55_2017：A new approach to solving the prior image constrained compressed sensing (PICCS) with applications in CT image reconstruction",
+      "A68_2013：A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction"
+    ],
+    "evidence_boundary": "overview、理论、实验与局限均严格来自A21全文核对；创新分级相对本地可读的A55、A68及目标文内ZWN/AA/RLO叙述。A55/A68属CT少视角TV/PICCS凸重建谱系，与A21乘性噪声问题域不同，仅作方法谱系（约束凸优化、TV、一阶分裂算法）对照；A21未引用二者，亦未用Chambolle–Pock。ZWN原文不在本次前序全文清单内，对其细节以A21转述为界。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于乘性噪声凸变分复原支线：在ZWN解耦模型上做等式约束化与参数简化，求解采用ADMM而非A68的Chambolle–Pock。与A55的PICCS/CT约束重建同属“等式/集合约束+TV类正则”的凸成像优化大类，但噪声模型、先验结构与应用场景不同；整体为作者组TV成像优化工作向乘性噪声复原的问题延伸与模型精简。",
+  "keywords": [
+    "乘性噪声去除",
+    "全变差正则",
+    "凸变分模型",
+    "ADMM",
+    "等式约束",
+    "图像去噪",
+    "图像去模糊",
+    "ZWN模型",
+    "斑点噪声",
+    "参数简化"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.564Z",
+  "comparison_ids": [
+    "A55",
+    "A68"
+  ]
+}

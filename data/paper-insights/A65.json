@@ -1,0 +1,65 @@
+{
+  "id": "A65",
+  "title": "An improved strategy for solving Sudoku by sparse optimization methods",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在将数独编码为欠定线性系统的稀疏优化框架上，提出删除重复数字并再求解的warm restart策略，使L1类方法在大规模17线索数独上的正确恢复率由约84%提升至99%以上。",
+    "research_problem": "基于Babu等的稀疏优化数独求解在部分谜题上失败，尤其在17线索大规模数据上精确率仅约84%，如何在不显著增加问题复杂度的前提下提高正确求解率。",
+    "core_method": "将9×9数独编码为729维0-1变量与行/列/宫/格/线索线性等式Ax=b；用L1最小化(P1)与加权L1最小化(WP1)（化为LP1/LP2）求最稀疏解，再经按格取argmax离散化为0-1；若解含行/列/3×3重复数字，则依次执行：Step1删除重复后重解、Step2再次删除重复重解、Step3去掉原线索后从候选中逐个回加一个数字到原谜题再解；并据此定义Easy/Middle/Hard/Devil难度。",
+    "main_findings": [
+      "在49151个17线索唯一解数独上，单次(P1)首解约84.8%；叠加warm restart后(LP1)/(LP2)总成功率约99.02%–99.08%。",
+      "加权L1(WP1)首解已达约92.9%–93.7%，叠加策略后最高约99.60%（Weighted LP2、有界约束、ε=30）。",
+      "WP1整体优于P1；ε与非负/有界约束会影响首解与总成功率，但warm restart是把约84%/93%推至99%+的关键。",
+      "副产品给出按求解步骤定义的四级难度，与传统线索数难度不同。"
+    ],
+    "theoretical_guarantee": "未给出warm restart自身的收敛或完备性定理；继承Babu等结果：若数独唯一解，则Ax=b的最稀疏解即为数独解。文中将(P0)松弛为凸(P1)/(WP1)并化为线性规划，但未对新策略作最优性或100%可解性证明。",
+    "experiments_or_examples": "MATLAB 2013a、i7-4712MQ/4GB；数据为Royle的49151个17线索唯一解数独。比较LP1/LP2与Weighted LP1/LP2，约束C={x≥0}与{0≤x≤1}，WP1中ε∈{0.5,1,30}；报告首解数、Step1–3挽救数、总成功率与总耗时。附图给出错误解删除重复与逐步回加线索的算例流程。",
+    "limitations": "总成功率仍未达100%，Devil级仍不可解；Step3仅允许每次加一个数字（双数字组合复杂度上升故未做）；作者承认需结合逻辑规则才可能冲刺100%，超出本文范围；warm restart依赖“重复数字可识别”的启发式，无理论完备保证。"
+  },
+  "innovation": {
+    "classification": "应用迁移",
+    "score": 2,
+    "verdict": "相对A66矩阵方程迭代理论与A69动态视觉注意模型，本文议题完全转向组合谜题；方法主体继承Babu等稀疏数独建模与Candes加权L1，真正增量是错误解上的删除重复/回加线索warm restart与四级难度定义，属稀疏优化向数独的应用迁移加工程性改进，非核心理论创新。",
+    "inherited_foundations": [
+      "Babu等：数独→欠定线性系统，唯一解时最稀疏解即数独解；L1/加权L1近似",
+      "Candes等：重加权L1增强稀疏性",
+      "Bartlett等：整数/二进制线性规划数独建模思想",
+      "标准L1→线性规划转化与非负/有界约束求解"
+    ],
+    "incremental_advances": [
+      "三步warm restart：删重复再解、再删再解、去掉原线索后逐个回加数字再解",
+      "按能否被P1/WP1及Step1–3求解定义Easy/Middle/Hard/Devil难度",
+      "在17线索全量数据上系统对比LP1/LP2、约束集与ε，量化从84%+/93%+到99%+"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "MATLAB线性规划实现、argmax离散化0-1",
+      "大规模Royle 17线索基准与分步成功率/耗时统计"
+    ],
+    "comparison_basis": [
+      "A66_2014《Cyclic and simultaneous iterative methods to matrix equations of the form A_i X B_i = F_i》",
+      "A69_2013《A motion attention model based on rarity weighting and motion cues in dynamic scenes》",
+      "目标文相关工作：Babu et al. (sparse Sudoku)、Bartlett et al. (ILP)、Candes et al. (reweighted L1)"
+    ],
+    "evidence_boundary": "overview与理论/实验/局限均来自A65全文Abstract、§1–5及表2–3；创新性比较仅相对本地A66、A69及文内引用，未检索Babu之后其他稀疏数独或warm start文献，故“领域内是否首创restart”不作断言。A66/A69与A65无直接方法继承链，不得将其定理或实验记为目标贡献。",
+    "confidence": 0.9
+  },
+  "lineage_position": "A66属矩阵方程循环/并行次梯度型迭代与收敛分析，A69属动态场景稀有度加权运动注意；A65与二者问题域断裂，转向组合约束下的稀疏优化求解数独，可视为作者由矩阵迭代/视觉建模向稀疏优化应用题的横向迁移，并在Babu稀疏数独线上做重启式精度增强。",
+  "keywords": [
+    "稀疏优化",
+    "数独",
+    "L1范数",
+    "加权L1最小化",
+    "线性规划",
+    "warm restart",
+    "欠定线性系统",
+    "压缩感知",
+    "难度分级"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.678Z",
+  "comparison_ids": [
+    "A66",
+    "A69"
+  ]
+}

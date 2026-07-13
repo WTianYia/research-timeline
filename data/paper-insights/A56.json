@@ -1,0 +1,65 @@
+{
+  "id": "A56",
+  "title": "A Preconditioning Technique for First-Order Primal-Dual Splitting Method in Convex Optimization",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "将 Pock–Chambolle 式对角预条件引入 Condat 三函数一阶原始对偶分裂，给出 PPDS 的弱收敛条件与可实用对角预条件子选取，并在约束 TV 去噪上验证优于常步长 PDS。",
+    "research_problem": "对含 Lipschitz 光滑项、可邻近非光滑项与线性复合项的三函数和凸优化，Condat 原始对偶分裂依赖常值步长与算子范数，参数调取不便且效率受限。",
+    "core_method": "以对称正定矩阵 T、Σ 替换常值步长 τ、σ，得到预条件原始对偶分裂（PPDS）；按矩阵 B 的绝对值幂次与光滑常数 β 构造对角 T、Σ，并配合松弛参数 ρ_n 迭代。",
+    "main_findings": [
+      "在矩阵度量条件下，PPDS 生成序列弱收敛到原/对偶最优解",
+      "对角预条件子可在保持邻近算子易算的同时满足收敛条件，且几乎只需调节一个参数 s",
+      "约束 TV 去噪中，PPDS 在迭代次数与 CPU 时间上整体快于常步长 PDS，最终 SNR 相当"
+    ],
+    "theoretical_guarantee": "Theorem 5：在 ||T^{-1}||−||Σ||||B||²>||E||/2（||E||≥β）、ρ_n 属于 (0,δ)、Σ ρ_n(δ−ρ_n)=∞ 及误差项可和时，{x_n}、{y_n} 分别弱收敛到原问题与对偶问题最优解；Lemma 7 给出保证上述步长条件的对角 T、Σ 构造。",
+    "experiments_or_examples": "约束 TV 去噪 min_{x∈C} ½||x−u||₂²+λ||x||_TV（非负/箱约束），测试图 Barbara/Boat/Lena，高斯噪声 σ∈{0.01,0.05,0.1}；对比常步长 PDS（Algorithm 1）与 PPDS（Algorithm 4），以相对误差停机与 SNR 评价；Table 3 显示严格容差下 PPDS 迭代与耗时更少。",
+    "limitations": "仅给弱收敛、无收敛速率；数值仅限三类自然图像的约束 TV 去噪与常步长基线对比；预条件子取对角以保证邻近算子闭式，适用范围受此约束；未系统比较 Combettes 等可变度量方法的数值表现。"
+  },
+  "innovation": {
+    "classification": "显著扩展",
+    "score": 3,
+    "verdict": "相对 Condat 常步长 PDS 与 Pock–Chambolle 对角预条件传统，本文将预条件实质扩展到含光滑梯度项的三函数一阶分裂并给出可证收敛的对角选取；相对 A57 属并行而非其增量改版，问题类与算法骨架不同。",
+    "inherited_foundations": [
+      "Condat 三函数和问题 f+g+h∘B 及原始对偶分裂（PDS）框架与弱收敛思路",
+      "Pock–Chambolle 将常值步长换为对称正定矩阵并用对角预条件保证邻近易算的思想",
+      "Moreau 恒等式与邻近算子/鞍点—变分包含表述"
+    ],
+    "incremental_advances": [
+      "把预条件从两函数 Chambolle–Pock 型设置迁移到含 ∇f 的 Condat 迭代格式",
+      "对角步长公式中显式并入光滑常数 β/2，以匹配含 Lipschitz 梯度项的收敛条件",
+      "在引言中与 Combettes 等可变度量原始对偶方法划界（原/对偶分设度量、对偶光滑项为零时条件更弱，并说明如何选度量）"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "Algorithm 4（PPDS）实现与松弛更新",
+      "约束 TV 去噪算例及相对常步长 PDS 的 SNR/迭代/时间对比表",
+      "实验中对参数 s 的经验选取（文中取 s=1）"
+    ],
+    "comparison_basis": [
+      "A57（2017）《A splitting primal-dual proximity algorithm for solving composite optimization problems》",
+      "Condat (2013) 一阶原始对偶分裂（目标文 Algorithm 1 / Theorem 2）",
+      "Pock & Chambolle (2011) 对角预条件（目标文 [11]、Lemma 6）",
+      "Combettes et al. (2014) 可变度量原始对偶方法（目标文 [17]，作者自述差异点）"
+    ],
+    "evidence_boundary": "overview 与理论/实验/局限均来自 A56 全文 Abstract、§1–§5、Algorithm 4、Theorem 5、Lemma 7 与 §4 表格；innovation 相对比较仅对照本地 A57 全文与 A56 自引相关工作。未覆盖更广文献（如同期其他预条件/可变度量分裂），故“是否首次”不能超出本地证据断言；A56 与 A57 同为 2017、作者群重叠，时间先后无法由本地材料严格判定。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于 Condat 三函数一阶原始对偶分裂与 Pock–Chambolle 对角预条件交汇处：在保留 ∇f 前向步与 g、h* 邻近步的同时引入矩阵步长；与 A57 同属作者群对预条件原始对偶的并行推进——A57 面向多复合项 Σ F_i(K_i x)+G 的分裂邻近与 CT 重建，A56 面向含光滑项的单线性复合三函数模型与 TV 去噪加速。",
+  "keywords": [
+    "原始对偶",
+    "预条件",
+    "一阶分裂算法",
+    "邻近算子",
+    "对角预条件子",
+    "凸优化",
+    "全变分去噪",
+    "Condat算法",
+    "Lipschitz光滑项",
+    "弱收敛"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.654Z",
+  "comparison_ids": [
+    "A57"
+  ]
+}

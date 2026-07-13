@@ -1,0 +1,64 @@
+{
+  "id": "A45",
+  "title": "An inertial three-operator splitting algorithm with applications to image inpainting",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "针对三极大单调算子之和（其一余强制）的零点问题，提出惯性三算子分裂算法，在Hilbert空间给出弱/强收敛分析，并用于约束核范数图像修复。",
+    "research_problem": "如何在Davis–Yin型三算子单调包含0∈Ax+Bx+Cx（A、B极大单调，C余强制）上系统嵌入惯性外推，在合适参数条件下证明收敛，并用于三项凸函数极小化与约束图像修复。",
+    "core_method": "将三算子分裂算子T的Krasnosel’skiĭ–Mann松弛迭代与惯性外推结合（iTOS）：先作y^k=z^k+α_k(z^k−z^{k−1})，再算J_{γB}、J_{γA}与余强制前向步，最后以λ_k松弛更新；收敛分别依托Mainge型与Boţ–Csetnek–Hendrich型惯性KM引理。",
+    "main_findings": [
+      "定理3.1：α_k非减且有界、松弛参数受惯性上界约束时，{z^k}弱收敛到Fix(T)，{x_A^k}、{x_B^k}弱收敛到解；A/B一致单调或C demiregular时强收敛。",
+      "定理3.2：在∑α_k‖z^k−z^{k−1}‖²<∞且松弛参数有正下界等条件下得到同类弱/强收敛，且松弛与惯性可解耦。",
+      "定理3.3–3.4：将算法特化为min(f+g+h)的惯性邻近–梯度型三算子格式，其中∇h Lipschitz、f与g可邻近。",
+      "约束核范数图像修复中，与原TOS对比：参数情形2下常步惯性iTOS-1可明显减少迭代；情形1接近，情形3中iTOS-1更慢，加速依赖参数选择。"
+    ],
+    "theoretical_guarantee": "在实Hilbert空间、zer(A+B+C)非空、γ∈(0,2βε̄)且惯性/松弛满足定理3.1或3.2条件时，迭代弱收敛到T的不动点及原问题解；附加一致单调或demiregular条件时{x_A^k}、{x_B^k}强收敛。全文未给出收敛速率。",
+    "experiments_or_examples": "约束图像修复min_{x∈C}½‖P_Ω(u)−P_Ω(x)‖_F²+μ‖x‖_*（C为非负集），以TOS、iTOS-1（常值惯性）、iTOS-2（可和型自适应惯性）比较SNR、SSIM与迭代次数，覆盖缺失率40%/60%/80%与噪声水平0.01/0.05及三组(γ,λ,α)设置。",
+    "limitations": "主结果为弱收敛，无迭代复杂度/速率；数值优势高度依赖惯性与松弛搭配，非常数自适应惯性未必更快；实验限于单一建筑灰度图与核范数修复；结论亦指出其他iKM条件与收敛率、更广应用仍待研究。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "在Davis–Yin三算子分裂与已有惯性KM/惯性邻近框架上，将惯性系统写入三算子迭代并给出两套参数条件下的收敛与修复实验，属于理论加实验支撑的增量改进，而非新问题范式或相对A50的直接大幅扩展。",
+    "inherited_foundations": [
+      "Davis–Yin三算子分裂及T的平均非扩张/不动点刻画（文中引理2.1、命题2.1）",
+      "惯性Krasnosel’skiĭ–Mann迭代及其收敛条件（Mainge；Boţ–Csetnek–Hendrich）",
+      "惯性PPA、惯性FBS、惯性DRS等惯性分裂思想与参数讨论",
+      "三项凸和极小化与核范数图像修复的标准建模"
+    ],
+    "incremental_advances": [
+      "给出显式iTOS格式，并分别在两类惯性–松弛条件下证明{z^k}与解序列弱/条件强收敛",
+      "将框架落到三项凸优化的惯性邻近迭代（定理3.3–3.4）",
+      "对可和型惯性参数给出推荐选取并做数值检验",
+      "在约束核范数修复上与原TOS对比，展示惯性在特定参数下可减少迭代"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "iTOS-1/iTOS-2与TOS在三组步长–松弛–惯性设置下的SNR/SSIM/迭代对比及复原图展示",
+      "停止准则为相邻迭代相对变化，评价用SNR与SSIM"
+    ],
+    "comparison_basis": [
+      "A50（2018）《Convergence Analysis of an Inexact Three-Operator Splitting Algorithm》",
+      "目标全文引言与参考文献中的Davis–Yin TOS、惯性KM/惯性FBS/惯性DRS及相关工作（含A45所引Zong–Tang–Cho不精确三算子分裂）"
+    ],
+    "evidence_boundary": "overview、理论保证、实验与局限均来自A45_2019/full.md全文（摘要、§3定理3.1–3.4、§4实验、§5结论），并与摘要锚点一致。创新性比较仅相对A50_2018/full.md及目标文相关工作叙述：A50走不精确预解/误差分析，A45走惯性加速与应用，二者为TOS的平行扩展而非后者包含前者。本地未覆盖全部惯性分裂与三算子文献，故不断言领域“首次”；未把A50定理或实验记为目标论文内容。",
+    "confidence": 0.88
+  },
+  "lineage_position": "处于Davis–Yin三算子分裂主线上：A50（2018）沿不精确计算方向扩展TOS并回收不精确FBS/DRS；A45（2019）沿惯性方向扩展精确TOS，补两套参数收敛与图像修复验证，与A50互补并列，而非在A50结果上的直接递进。",
+  "keywords": [
+    "三算子分裂",
+    "惯性方法",
+    "单调包含",
+    "余强制算子",
+    "惯性Krasnosel’skiĭ–Mann迭代",
+    "弱收敛",
+    "三项凸极小化",
+    "图像修复",
+    "核范数正则"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.626Z",
+  "comparison_ids": [
+    "A50"
+  ]
+}

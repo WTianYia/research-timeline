@@ -1,0 +1,65 @@
+{
+  "id": "A24",
+  "title": "Low-Rank and Total Variation Regularization with l0 Data Fidelity Constraint for Image Deblurring under Impulse Noise",
+  "source_mode": "fulltext",
+  "overview": {
+    "one_sentence_contribution": "在检测型ℓ0TV上叠加核范数低秩先验，建立脉冲噪声下去噪/去模糊模型，并以MPEC+PADMM求解并给出条件性KKT收敛。",
+    "research_problem": "在盐胡椒等脉冲噪声及模糊退化下，如何在保边、保低秩结构的同时稳健复原图像。",
+    "core_method": "模型为min‖ω⊙(Ku−f)‖0+λ‖∇u‖p,1+μ‖u‖∗（盒约束）；用MPEC改写ℓ0项后以近端ADMM（PADMM）交替更新u,v,z,x,y及乘子。",
+    "main_findings": [
+      "对自然图像，多数情形优于带检测的ℓ1TV与ℓ0TV；Building等低秩结构更明显时亦常优于ℓ0OGSTV",
+      "对SVD降秩后的低秩去模糊，多数噪声水平下PSNR/SSIM最高且高噪声时优势更明显",
+      "House/Mountain等自然图上ℓ0OGSTV有时更优，说明核范数增益与图像低秩性相关",
+      "真实脉冲噪声图上视觉效果优于三种对比方法"
+    ],
+    "theoretical_guarantee": "定理1：若乘子序列有界且∑‖Y^{k+1}−Y^k‖²<∞，则算法生成序列的任一聚点为MPEC等价问题的KKT点；证明思路沿用Yuan-Ghanem检测ℓ0TV中定理1的主线。",
+    "experiments_or_examples": "House/Mountain/Peppers/Building；SP噪声10%–90%纯去噪；半径7圆盘模糊+SP去模糊；秩约至10的低秩去模糊；USGS真实脉冲噪声图；指标PSNR/SSIM，对比检测ℓ1TV、ℓ0TV、ℓ0OGSTV。",
+    "limitations": "核范数近端需整图SVD，大尺寸时计算变慢；增益依赖低秩性，自然纹理图未必全面优于ℓ0OGSTV；结论自述未来将考虑加权核范数等。"
+  },
+  "innovation": {
+    "classification": "增量改进",
+    "score": 3,
+    "verdict": "相对A55/A68的TV–近端优化图像重建谱系，A24转向脉冲噪声去模糊场景，并在检测型ℓ0TV上叠加核范数；算法与收敛框架基本沿用既有MPEC+PADMM路线，属模型组合式增量，而非新范式或对PICCS/Chambolle–Pock的直接显著扩展。",
+    "inherited_foundations": [
+      "检测型ℓ0TV与MPEC改写（Yuan-Ghanem等）及PADMM求解套路",
+      "TV各向同/异性正则与盒约束图像复原设定",
+      "核范数作为秩的凸松弛及其奇异值软阈值近端",
+      "团队前期TV正则+一阶/近端算法的图像重建方法论背景（相对A55/A68）"
+    ],
+    "incremental_advances": [
+      "将核范数低秩先验与检测ℓ0数据保真、TV正则统一为单一变分模型",
+      "在PADMM中增加核范数变量分裂与近端更新，并给出对应条件性KKT收敛表述",
+      "针对低秩与脉冲噪声去模糊场景系统验证核范数项的作用"
+    ],
+    "core_innovations": [],
+    "implementation_or_experimental_changes": [
+      "自然图去噪、模糊+脉冲噪声去模糊、SVD构造低秩图及真实脉冲噪声图的对比实验",
+      "参数扫描与相对残差型停机准则的工程实现"
+    ],
+    "comparison_basis": [
+      "A55（2017）A new approach to solving the prior image constrained compressed sensing (PICCS) with applications in CT image reconstruction",
+      "A68（2013）A primal dual proximal point method of Chambolle-Pock algorithm for total variation image reconstruction",
+      "目标文相关工作：Ma等检测ℓ1TV、Yuan-Ghanem检测ℓ0TV、Yin等ℓ0OGSTV及核范数/WNNM低秩去噪文献"
+    ],
+    "evidence_boundary": "overview与理论/实验/局限均定位于A24全文（摘要、贡献、模型(7)、定理1、§4表1–3与§5结论）。创新性比较仅相对本地A55、A68及目标文自引相关工作；未覆盖更广ℓ0/低秩/脉冲噪声去模糊文献，故“领域首创”无法判定；不得将A55/A68的PICCS或CT实验写入A24事实。",
+    "confidence": 0.88
+  },
+  "lineage_position": "位于TV正则与近端算法图像重建谱系中：A68为ℓ2+TV的Chambolle–Pock CT重建，A55为一般PICCS的原对偶邻近CT重建；A24不沿其CT/PICCS主线，而转向脉冲噪声自然图像去噪/去模糊，以检测ℓ0TV为直接母体并叠加核范数低秩正则，形成“稀疏梯度+低秩+鲁棒保真”的并行分支增量。",
+  "keywords": [
+    "脉冲噪声",
+    "噪声处理",
+    "全变分",
+    "核范数",
+    "低秩先验",
+    "ℓ0数据保真",
+    "图像去模糊",
+    "PADMM",
+    "MPEC"
+  ],
+  "generated_by": "grok-4.5",
+  "generated_at": "2026-07-13T09:25:36.571Z",
+  "comparison_ids": [
+    "A55",
+    "A68"
+  ]
+}
