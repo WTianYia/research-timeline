@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>唐玉超教授研究工作时间轴</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="side-nav">
+      <div class="brand-mark"><span>YT</span><div><strong>研究图谱系统</strong><small>v1.0</small></div></div>
+      <nav aria-label="页面导航">
+        <a class="active" href="#timeline-section"><i></i>研究时间轴</a>
+        <a href="#summary-section"><i></i>阶段总结</a>
+        <a href="data/papers.csv"><i></i>论文数据</a>
+        <a href="README.md"><i></i>使用说明</a>
+      </nav>
+      <div class="side-note"><span>数据状态</span><strong><i></i>本地核验清单</strong><small>更新于 2026-07-13</small></div>
+    </aside>
+    <div class="app-content">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">ACADEMIC RESEARCH MAP</p>
+          <h1>唐玉超教授研究图谱</h1>
+          <p class="subtitle">论文 · 方法 · 研究方向演化</p>
+        </div>
+        <div class="header-meta"><span><b id="paper-count">加载中</b>当前成果</span><span><b id="year-range">--</b>成果跨度</span></div>
+      </header>
+
+  <main>
+    <section class="controls" aria-label="时间轴控制">
+      <div class="control-group direction-filter">
+        <span class="control-label">研究方向</span>
+        <div id="direction-buttons" class="chip-row"></div>
+      </div>
+      <label class="search-box">
+        <span class="control-label">关键词搜索</span>
+        <input id="search-input" type="search" placeholder="题名、作者、关键词、期刊" autocomplete="off">
+      </label>
+      <label class="switch-row">
+        <input id="featured-only" type="checkbox">
+        <span class="switch" aria-hidden="true"></span>
+        <span>仅显示代表作</span>
+      </label>
+      <div class="button-row">
+        <button id="reset-view" type="button" title="重置缩放">重置视图</button>
+        <button id="export-svg" type="button">导出 SVG</button>
+        <button id="export-png" type="button">导出 PNG</button>
+      </div>
+    </section>
+
+    <section id="timeline-section" class="timeline-panel">
+      <div class="timeline-head">
+        <div>
+          <h2>研究脉络</h2>
+          <p>滚轮缩放，按住空白区域拖动；箭头表示论文之间的继承、扩展或方法迁移。</p>
+        </div>
+        <div id="legend" class="legend" aria-label="节点类型图例"></div>
+      </div>
+      <div id="timeline-wrap" class="timeline-wrap">
+        <svg id="timeline" role="img" aria-label="多泳道研究论文时间轴"></svg>
+        <div id="empty-state" class="empty-state" hidden>当前筛选条件下没有论文</div>
+      </div>
+      <div class="overview-bar" aria-hidden="true"><span>全局概览</span><div id="density-strip" class="density-strip"></div><b id="viewport-window"></b></div>
+      <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+    </section>
+
+    <section id="summary-section" class="summary-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">AUTO SUMMARY</p><h2>研究阶段总结</h2></div>
+        <p id="summary-note">基于当前筛选结果自动计算</p>
+      </div>
+      <div id="stage-overview" class="stage-overview"></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>研究方向</th><th>首次出现</th><th>活跃区间</th><th>论文数</th><th>代表性论文</th><th>跨方向连接</th></tr></thead>
+          <tbody id="summary-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>数据来源：本地核验文献清单 · 界面系统由 Stitch 设计参考驱动</footer>
+    </div>
+  </div>
+  <script src="js/timeline.js"></script>
+</body>
+</html>
